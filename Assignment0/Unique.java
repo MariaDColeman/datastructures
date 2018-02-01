@@ -13,15 +13,21 @@ public final class Unique{
 	// then at the end print out the unique ones and
 	// warn about the invalid ones.
 
+	if (args.length == 0) {
+		System.err.println("Warning: No input was provided on command line");
+	}
+	else {
+
 	int[] codes = new int[args.length];
 	int isUnique;
-	int printedWarning = 0;
+	//int printedWarning = 0;
 
 	for (int i=0; i < args.length; i++) 
 	{
 		// check if the args[i] is an integer
-		if (!isInteger(args[i]) 
+		if (!isInteger(args[i])) 
 		{
+					
 			//set value in codes array at i equal to -1
 			//since args[i] is not an integer
 			codes[i] = -1;
@@ -31,7 +37,7 @@ public final class Unique{
 			//need to check if args[i] is unique
 			isUnique = 1;
 			for (int j = 0; j < i; j++) {
-				if (args[j] == args[i]) {
+				if (args[j].equals(args[i])) {
 					//we have already encountered this num	
 					isUnique = 0;
 				}
@@ -42,26 +48,31 @@ public final class Unique{
 			codes[i] = isUnique;
 
 		}
-
+	}
 		//print all the unique values, one per line
 		//System.out.println("The unique values are:");	
 		for (int l = 0; l < codes.length; l++) {
 			if (codes[l] == 1) {
 				System.out.println(args[l]);
 			}
+			//else if (codes[l] == -1) {
+			//	System.err.println("Ignored non-integer argument " + args[l]);
+			//}
 		}
 
 		//warn the user of the invalid arguments to standard error
 		for (int k = 0; k < codes.length; k++) {
 			if (codes[k] == -1) {
-				if (!printedWarning) {	
-				System.err.println("Warning: The Following Values are not valid integers:");
-				printedWarning = 1;
-				}
-				System.err.println(args[l]);	
-	}
+		//		if (printedWarning == 0) {	
+		//		System.err.println("Warning: The following arguments are not valid integers and are excluded:");
+		//		printedWarning = 1;
+		//		}
+		//		System.err.println(args[k]);	
+				System.err.println("Ignored non-integer argument: " + args[k]);
+			}
+		}
 
-
+		}
 
 	}
 
