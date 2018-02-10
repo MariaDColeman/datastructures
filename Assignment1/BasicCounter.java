@@ -9,4 +9,14 @@ public class BasicCounter implements Counter {
     public int value() {
         return this.value;
     }
+    public static void main(String[] args) {
+        Counter c = new BasicCounter();
+        assert c.value() == 0;
+        c.up();
+        assert c.value() == 1;
+        c.down();
+        assert c.value() == 0;
+        c.down();
+        assert c.value() == -1;
+    }
 }
