@@ -1,3 +1,6 @@
+/**
+ * Implementation of a BasicCounter.
+ */
 public class BasicCounter implements Counter {
     private int value;
     public void up() {
