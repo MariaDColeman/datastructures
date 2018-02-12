@@ -3,6 +3,4 @@
  * This interface extends both and Counter and Resetable interfaces.
  *
  */
-public interface ResetableCounter extends Resetable, Counter{
-    
-}
+public interface ResetableCounter extends Resetable, Counter { }
