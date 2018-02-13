@@ -1,0 +1,21 @@
+Maria Coleman
+mcolem31@jhu.edu
+
+I liked this assignment and thought it was a good review.
+I decided to use exceptions to deal with FlexibleCounter
+instead of the assertions, because that requires that it
+is run with -ea. I made an exception called InitializeException
+that is thrown if the starting value is < 0 or the delta value
+is <= 0.
+
+A hint on piazza says it might be worse for my grade to do this.
+I would like to explain the "safer option" in case that was 
+desired. I would have:
+
+public FlexibleCounter(int start, int delta) {
+    assert start >= 0;
+    assert delta > 0;
+    this.value = start;
+    this.delta = delta;
+    this.initial = start;
+}

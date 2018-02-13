@@ -12,13 +12,16 @@ public class FlexibleCounter implements ResetableCounter {
      * Constructor for FlexibleCounter.
      * @param start the starting value.
      * @param delta the amount to change by.
+     * @throws InitializeException if start &lt; 0 or delta &le; 0.
      */
-    public FlexibleCounter(int start, int delta) {
-        assert start >= 0;
-        assert delta > 0;
-        this.value = start;
-        this.delta = delta;
-        this.initial = start;
+    public FlexibleCounter(int start, int delta) throws InitializeException {
+        if (start >= 0 && delta > 0) {
+            this.value = start;
+            this.delta = delta;
+            this.initial = start;
+        } else {
+            throw new InitializeException();
+        }
     }
 
     /**
@@ -77,5 +80,18 @@ public class FlexibleCounter implements ResetableCounter {
         assert c.value() == 2;
         c.down();
         assert c.value() == -3;
+        //exceptions
+        try {
+            ResetableCounter c1 = new FlexibleCounter(-1, 5);
+            assert false;
+        } catch (InitializeException e) {
+            //the exception was correctly caught
+        }
+        try {
+            ResetableCounter c2 = new FlexibleCounter(2, 0);
+            assert false;
+        } catch (InitializeException e) {
+            //the exception was correctly caught
+        }
     }
 }
