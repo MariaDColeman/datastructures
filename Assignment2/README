@@ -1,0 +1,86 @@
+Maria Coleman
+mcolem31@jhu.edu
+
+Problem 1: Uninitialized Arrays
+
+adt UglyArray
+    uses Any, Integer
+    defines UglyArray<T: Any>
+    operations
+        new: Integer -/-> Array<T>
+        get: Array<T> x Integer -/-> T
+        put: Array<T> x Integer x T -/-> Array<T>
+        length: Array<T> ---> Integer
+    preconditions
+        new(n): 0 < n
+        get(a, i): 0 <= i < length(a)
+        put(a, i, t): 0 <= i < length(a)
+    axioms
+        get(new(n), i) = null
+        get(put(a, i, t), j) = (if i = j then t else get(a, j))
+        length(new(n)) = n
+        length(put(a, i, t)) = length(a)
+
+
+The major difference between Array and UglyArray is that UglyArray
+does not have an "initial value" that gets put into every slot of
+the array, but Array does. 
+
+I would rather have Array in a programming language.
+
+
+
+SEE IF HAVE TO INCLUDE ANY ADT
+
+
+
+
+
+Problem 2: Flexible Arrays
+
+adt FlexibleArray
+    uses Any, Integer
+    defines FlexibleArray<T: Any>
+    operations
+        new: Integer x Integer x T -/-> Array<T>
+        get: Array<T> x Integer -/-> T
+        put: Array<T> x Integer x T -/-> Array<T>
+        lowerBound: Array<T> ---> Integer
+        upperBound: Array<T> ---> Integer
+    preconditions
+        new(b, f, t): b <= f
+        get(a, i): lowerBound(a) <= i <= upperBound(a)
+        put(a, i, t): lowerBound(a) <= i <= upperBound(a)
+    axioms
+        get(new(b, f, t), i) = t
+        get(put(a, i, t), j) = (if i = j then t else get(a, j))
+        lowerBound(new(b, f, t)) = b
+        upperBound(new(b, f, t)) = f
+        lowerBound(put(a, i, t)) = lowerBound(a)
+        upperBound(put(a, i, t)) = upperBound(a)
+
+
+FlexibleArray is like Array in that it is bounded and initialized, but
+both its lower and its upper index bounds are set when an array instance
+is created. The lower and upper bounds can be any integer, as long as
+the lower bound is less than or equal to the upper bound, and both bounds
+are inclusive.
+
+I did not keep the length operation from the Array ADT because that is used
+primarily for iterating through the array, since is it zero-based. For
+FlexibleArray, we already know the lower and upper bounds so for iterating
+through the array, one can start at the lower bound and increase the index
+until the upper bound (plus 1) is reached, as one would start at zero and 
+increase the index until the value of length is reached. Furthermore, if
+determining the length is ever necessary, it can be calculated by 
+subtracting the lower bound from the upper bound and adding 1. 
+
+I therefore added the lowerBound and upperBound operations, which return
+the values for the lower bound and upper bound, respectively, for an array.
+
+Because I was first taught and only have experience with zero-based arrays,
+I would prefer Array over FlexibleArray in my programming language just
+because it is what I am familiar with. However, it would not be too large
+of an inconvinience to have to work with FlexibleArrays instead. Another
+argument for Array over FlexibleArray is that Array only has 3 operations
+while FlexibleArray has 4, which makes Array more simple.
