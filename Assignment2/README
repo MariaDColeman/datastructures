@@ -57,7 +57,8 @@ at a certain index i, then that slot at index i is not empty.
 I would rather have Array in a programming language over UglyArray
 mainly for simplicity. I had to add a new operation for UglyArray.
 I can always initialize the array to something depending on my
-specific program.
+specific program. However, if you cannot choose what the initial
+value should be, I suppose the UglyArray would be better.
 
 
 
