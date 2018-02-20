@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
  *
  * The sole purpose of this (otherwise useless) implementation is
  * to show that we <b>can</b> implement a given interface in many
- * different ways. 
+ * different ways.
  * A sparse array is an array where relatively few positions have
  * values that differ from the initial value set upon creation.
  * Values are stored only for the positions that have actually been
@@ -41,6 +41,7 @@ public class SparseArray<T> implements Array<T> {
     private int length;
     private T initial;
     private int listLength;
+
     /**
      * Create a new SparseArray.
      *
@@ -74,9 +75,7 @@ public class SparseArray<T> implements Array<T> {
         this.listLength += 1;
     }
 
-    //private void remove(int index) {
-        
-    //}
+    //private void remove(int index) { }
 
     private boolean modified(int index) throws IndexException {
         if (index < 0 || index >= this.length) {
@@ -86,11 +85,10 @@ public class SparseArray<T> implements Array<T> {
         boolean modified = false;
         Node<T> n = this.first;
 
-        for (int i = 0;(n != null) && (i < this.length) && !modified; i++) {
+        for (int i = 0; (n != null) && (i < this.length) && !modified; i++) {
             if (n.position == index) {
                 modified = true;
-            }
-            else {
+            } else {
                 n = n.next;
             }
         }
@@ -113,13 +111,13 @@ public class SparseArray<T> implements Array<T> {
         //for (int i = 0; i < index; i++) {
         //for (int i = 0; n.position != index; i++) {
         while (n.position != index) {
-        //int i = 0;
-        //while ((i < this.length) && (n.position != index))
+            //int i = 0;
+            //while ((i < this.length) && (n.position != index))
             // assert n != null; // We trust that we've created enough nodes.
-        //    if (n.position == index) {
-	//	modified = true;
+            // if (n.position == index) {
+            // modified = true;
             n = n.next;
-        //    i++;
+            // i++;
         }
         return n;
     }
@@ -129,8 +127,7 @@ public class SparseArray<T> implements Array<T> {
         if (this.modified(i)) {
             Node<T> n = this.find(i);
             return n.data;
-        }
-        else {
+        } else {
             return this.initial;
         }
     }
@@ -143,8 +140,7 @@ public class SparseArray<T> implements Array<T> {
             //if (n.data == this.initial) {
             //    this.remove(i);
             //}
-        }
-        else {
+        } else {
             this.prepend(t, i);
         }
     }
@@ -168,11 +164,10 @@ public class SparseArray<T> implements Array<T> {
         // Current position in the Sparse Array
         int currentIndex;
         // Current position in the linked list.
-        //Node<T> current;
-        
-        //ArrayIterator() {
-        //    this.current = SparseArray.this.first;
-            //this.currentIndex = 0;
+        // Node<T> current;
+        // ArrayIterator() {
+        // this.current = SparseArray.this.first;
+        // this.currentIndex = 0;
         //}
 
         @Override
@@ -182,11 +177,11 @@ public class SparseArray<T> implements Array<T> {
             }
             //T t = this.current.data;
             T t = SparseArray.this.initial;
-            if (SparseArray.this.modified(currentIndex)) {
-                t = SparseArray.this.find(currentIndex).data;
+            if (SparseArray.this.modified(this.currentIndex)) {
+                t = SparseArray.this.find(this.currentIndex).data;
             }
             //this.current = this.current.next;
-            currentIndex += 1;
+            this.currentIndex += 1;
             return t;
         }
 
@@ -203,11 +198,9 @@ public class SparseArray<T> implements Array<T> {
         sb.append("[");
 
         for (int i = 0; i < this.length; i++) {
-       
             if (this.modified(i)) {
                 sb.append(this.find(i).data).append(", ");
-            }
-            else {
+            } else {
                 sb.append(this.initial).append(", ");
             }
         }

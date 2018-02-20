@@ -16,6 +16,7 @@ public final class PolyArray {
     // don't change these values!
     private static final int LENGTH = 113;
     private static final int INITIAL = 7;
+    // values I added
     private static final int TEST_PUT_LENGTH = 1;
     private static final int TEST_PUT_GET = 2;
 
@@ -32,7 +33,7 @@ public final class PolyArray {
     private static void testNewGet(Array<Integer> a) {
         for (int i = 0; i < LENGTH; i++) {
             assert a.get(i).equals(INITIAL);
-        }        
+        }
     }
 
     //Axiom 3
@@ -56,16 +57,14 @@ public final class PolyArray {
         }
     }
 
-
-    // specialized, smaller test case to avoid typing too much.
     private static void testToString(Array<Integer> a) {
-
+        // use helper method to make the expected string
         String expected = makeExpected(INITIAL, LENGTH);
-        //System.out.println(a.toString());
         assert a.toString().equals(expected);
     }
 
     private static void testIterator(Array<Integer> a) {
+        // use helper method to make the expected string
         String expected = makeExpectedIterator(INITIAL, LENGTH);
         String result = "";
         for (int i: a) {
@@ -79,7 +78,7 @@ public final class PolyArray {
         for (int i = 0; i < length; i++) {
             expected += initial + ", ";
         }
-        expected = expected.substring(0, expected.length()-2);
+        expected = expected.substring(0, expected.length() - 2);
         expected += "]";
         return expected;
     }
@@ -90,7 +89,7 @@ public final class PolyArray {
             expected += initial;
         }
         return expected;
-    }    
+    }
 
     // have to test makeExpected!
     private static void testMakeExpected() {
@@ -106,10 +105,6 @@ public final class PolyArray {
         assert test.equals(expected);
     }
 
-    // methods for testing additional Java methods go here
-
-    // methods for testing preconditions go here; note that you'll have to
-    // make your own instances for testing the "new" preconditions
 
     private static void testExceptionGet(Array<Integer> a) {
         try {
@@ -199,21 +194,17 @@ public final class PolyArray {
         // methods, keep in mind that you are handed the same object over and
         // over again!
         for (Array<Integer> a: arrays) {
+            // do these first so they take the original array
             testToString(a);
             testIterator(a);
-            // call your axiom and Java test cases here (hint: order matters)
-            
 
-            //test cases derived from axioms
+            // test cases derived from axioms
             testNewLength(a);
             testNewGet(a);
             testPutLength(a);
             testPutGet(a);
 
-            // test cases for additional java methods
-            //testToString(a);
-            //testIterator();
-
+            // test exceptions for get and put
             testExceptionGet(a);
             testExceptionPut(a);
         }
