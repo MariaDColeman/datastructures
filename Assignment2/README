@@ -1,37 +1,63 @@
 Maria Coleman
 mcolem31@jhu.edu
 
+
+I will include the Any adt since that will be used in the below
+specifications:
+
+adt Any
+    uses Boolean
+    defines Any
+    operations
+        equals: Any x Any ---> Boolean
+    axioms
+        equals(a, a)
+        equals(a, b) = equals(b, a)
+        equals(a, b) and equals(b, c) = equals(a, c)
+
+
+
 Problem 1: Uninitialized Arrays
 
 adt UglyArray
-    uses Any, Integer
+    uses Any, Integer, Boolean
     defines UglyArray<T: Any>
     operations
         new: Integer -/-> Array<T>
         get: Array<T> x Integer -/-> T
         put: Array<T> x Integer x T -/-> Array<T>
         length: Array<T> ---> Integer
+        empty: Array<T> x Integer -/-> Boolean
     preconditions
         new(n): 0 < n
-        get(a, i): 0 <= i < length(a)
+        get(a, i): (0 <= i < length(a)) and (not empty(a, i))
         put(a, i, t): 0 <= i < length(a)
+        empty(a, i): 0 <= i < length(a)
     axioms
-        get(new(n), i) = null
+        empty(new(n), i)
         get(put(a, i, t), j) = (if i = j then t else get(a, j))
         length(new(n)) = n
         length(put(a, i, t)) = length(a)
+        not empty(put(a, i, t), i)
 
 
 The major difference between Array and UglyArray is that UglyArray
 does not have an "initial value" that gets put into every slot of
 the array, but Array does. 
+I added an operation called empty that returns whether a slot in a
+particular array in empty or not, and initially, all slots are 
+considered empty since it is an uninitialized array.
+I adjusted the precondition for get so that get can only be called
+if the slot of the array at the provided index is not empty.
 
-I would rather have Array in a programming language.
+The first axiom I added requires that all slots in a new array are
+empty. The last axiom I added says that if you do a put operation
+at a certain index i, then that slot at index i is not empty.
 
-
-
-SEE IF HAVE TO INCLUDE ANY ADT
-
+I would rather have Array in a programming language over UglyArray
+mainly for simplicity. I had to add a new operation for UglyArray.
+I can always initialize the array to something depending on my
+specific program.
 
 
 
