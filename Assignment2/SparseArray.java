@@ -74,6 +74,10 @@ public class SparseArray<T> implements Array<T> {
         this.listLength += 1;
     }
 
+    //private void remove(int index) {
+        
+    //}
+
     private boolean modified(int index) throws IndexException {
         if (index < 0 || index >= this.length) {
             throw new IndexException();
@@ -136,6 +140,9 @@ public class SparseArray<T> implements Array<T> {
         if (this.modified(i)) {
             Node<T> n = this.find(i);
             n.data = t;
+            //if (n.data == this.initial) {
+            //    this.remove(i);
+            //}
         }
         else {
             this.prepend(t, i);
@@ -160,9 +167,10 @@ public class SparseArray<T> implements Array<T> {
     private final class ArrayIterator implements Iterator<T> {
         // Current position in the linked list.
         Node<T> current;
-
+        int currentIndex;
         ArrayIterator() {
-            this.current = SparseArray.this.first;
+            //this.current = SparseArray.this.first;
+            this.currentIndex = 0;
         }
 
         @Override
