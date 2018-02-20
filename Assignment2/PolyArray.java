@@ -58,15 +58,120 @@ public final class PolyArray {
 
 
     // specialized, smaller test case to avoid typing too much.
-    private static void testToString() {
-    
+    private static void testToString(Array<Integer> a) {
+
+        String expected = makeExpected(INITIAL, LENGTH);
+        //System.out.println(a.toString());
+        assert a.toString().equals(expected);
     }
 
+    private static void testIterator(Array<Integer> a) {
+        String expected = makeExpectedIterator(INITIAL, LENGTH);
+        String result = "";
+        for (int i: a) {
+            result += i;
+        }
+        assert result.equals(expected);
+    }
+
+    private static String makeExpected(int initial, int length) {
+        String expected = "[";
+        for (int i = 0; i < length; i++) {
+            expected += initial + ", ";
+        }
+        expected = expected.substring(0, expected.length()-2);
+        expected += "]";
+        return expected;
+    }
+
+    private static String makeExpectedIterator(int initial, int length) {
+        String expected = "";
+        for (int i = 0; i < length; i++) {
+            expected += initial;
+        }
+        return expected;
+    }    
+
+    // have to test makeExpected!
+    private static void testMakeExpected() {
+        String test = makeExpected(INITIAL, 2);
+        String expected = "[" + INITIAL + ", " + INITIAL + "]";
+        assert test.equals(expected);
+    }
+
+    // have to test makeExpectedIterator!
+    private static void testMakeExpectedIterator() {
+        String test = makeExpectedIterator(INITIAL, 3);
+        String expected = Integer.toString(INITIAL) + INITIAL + INITIAL;
+        assert test.equals(expected);
+    }
 
     // methods for testing additional Java methods go here
 
     // methods for testing preconditions go here; note that you'll have to
     // make your own instances for testing the "new" preconditions
+
+    private static void testExceptionGet(Array<Integer> a) {
+        try {
+            a.get(-1);
+            assert false;
+        } catch (IndexException e) {
+            // test passed
+        }
+
+        try {
+            a.get(LENGTH);
+            assert false;
+        } catch (IndexException e) {
+            // test passed
+        }
+    }
+
+    private static void testExceptionPut(Array<Integer> a) {
+        try {
+            a.put(-1, INITIAL);
+            assert false;
+        } catch (IndexException e) {
+            // test passed
+        }
+
+        try {
+            a.put(LENGTH, INITIAL);
+            assert false;
+        } catch (IndexException e) {
+            // test passed
+        }
+    }
+
+    private static void testExceptionNewSimple() {
+        try {
+            Array<Integer> a = new SimpleArray<>(-1, INITIAL);
+            assert false;
+        } catch (LengthException e) {
+            // test passed
+        }
+    }
+
+    private static void testExceptionNewList() {
+        try {
+            Array<Integer> a = new ListArray<>(-1, INITIAL);
+            assert false;
+        } catch (LengthException e) {
+            // test passed
+        }
+    }
+
+
+    private static void testExceptionNewSparse() {
+        try {
+            Array<Integer> a = new SparseArray<>(-1, INITIAL);
+            assert false;
+        } catch (LengthException e) {
+            // test passed
+        }
+    }
+
+
 
     /**
      * Run (mostly polymorphic) tests on various array implementations.
@@ -76,17 +181,26 @@ public final class PolyArray {
      * @param args Command line arguments (ignored).
      */
     public static void main(String[] args) {
+
+        //test makeExpected
+        testMakeExpected();
+
+        //test makeExpectedIterator
+        testMakeExpectedIterator();
+
         // For various technical reasons, we cannot use a plain Java array
         // here like we did in PolyCount. Sorry.
         ArrayList<Array<Integer>> arrays = new ArrayList<>();
         arrays.add(new SimpleArray<Integer>(LENGTH, INITIAL));
-        //arrays.add(new ListArray<Integer>(LENGTH, INITIAL));
-        //arrays.add(new SparseArray<Integer>(LENGTH, INITIAL));
+        arrays.add(new ListArray<Integer>(LENGTH, INITIAL));
+        arrays.add(new SparseArray<Integer>(LENGTH, INITIAL));
 
         // Test all the axioms. We can do that nicely in a loop. In the test
         // methods, keep in mind that you are handed the same object over and
         // over again!
         for (Array<Integer> a: arrays) {
+            testToString(a);
+            testIterator(a);
             // call your axiom and Java test cases here (hint: order matters)
             
 
@@ -97,12 +211,18 @@ public final class PolyArray {
             testPutGet(a);
 
             // test cases for additional java methods
-            testToString();
-            testIterator();
+            //testToString(a);
+            //testIterator();
 
+            testExceptionGet(a);
+            testExceptionPut(a);
         }
 
         // Test all the preconditions. Sadly we have to code each one of these
         // out manually, not even Java's reflection API would help...
+        testExceptionNewSimple();
+        testExceptionNewList();
+        testExceptionNewSparse();
+
     }
 }

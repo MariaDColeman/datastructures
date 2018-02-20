@@ -86,7 +86,7 @@ public class SparseArray<T> implements Array<T> {
         boolean modified = false;
         Node<T> n = this.first;
 
-        for (int i = 0; (i < this.length) && !modified; i++) {
+        for (int i = 0;(n != null) && (i < this.length) && !modified; i++) {
             if (n.position == index) {
                 modified = true;
             }
