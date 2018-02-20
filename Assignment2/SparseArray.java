@@ -87,7 +87,7 @@ public class SparseArray<T> implements Array<T> {
         Node<T> n = this.first;
 
         for (int i = 0; (i < this.length) && !modified; i++) {
-            if (n.position = index) {
+            if (n.position == index) {
                 modified = true;
             }
             else {
@@ -165,27 +165,35 @@ public class SparseArray<T> implements Array<T> {
     // do that, we'd have to pass the outer object (or at least the
     // first node) to the iterator's constructor.
     private final class ArrayIterator implements Iterator<T> {
-        // Current position in the linked list.
-        Node<T> current;
+        // Current position in the Sparse Array
         int currentIndex;
-        ArrayIterator() {
-            //this.current = SparseArray.this.first;
-            this.currentIndex = 0;
-        }
+        // Current position in the linked list.
+        //Node<T> current;
+        
+        //ArrayIterator() {
+        //    this.current = SparseArray.this.first;
+            //this.currentIndex = 0;
+        //}
 
         @Override
         public T next() throws NoSuchElementException {
             if (!this.hasNext()) {
                 throw new NoSuchElementException();
             }
-            T t = this.current.data;
-            this.current = this.current.next;
+            //T t = this.current.data;
+            T t = SparseArray.this.initial;
+            if (SparseArray.this.modified(currentIndex)) {
+                t = SparseArray.this.find(currentIndex).data;
+            }
+            //this.current = this.current.next;
+            currentIndex += 1;
             return t;
         }
 
         @Override
         public boolean hasNext() {
-            return this.current != null;
+            //return this.current != null;
+            return this.currentIndex < SparseArray.this.length;
         }
     }
 
@@ -193,12 +201,19 @@ public class SparseArray<T> implements Array<T> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
-        for (Node<T> n = this.first; n != null; n = n.next) {
-            sb.append(n.data);
-            if (n.next != null) {
-                sb.append(", ");
+
+        for (int i = 0; i < this.length; i++) {
+       
+            if (this.modified(i)) {
+                sb.append(this.find(i).data).append(", ");
+            }
+            else {
+                sb.append(this.initial).append(", ");
             }
         }
+
+        sb.setLength(sb.length() - 2); //remove the last ", " put in
+
         sb.append("]");
         return sb.toString();
     }

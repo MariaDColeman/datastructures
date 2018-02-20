@@ -16,10 +16,52 @@ public final class PolyArray {
     // don't change these values!
     private static final int LENGTH = 113;
     private static final int INITIAL = 7;
+    private static final int TEST_PUT_LENGTH = 1;
+    private static final int TEST_PUT_GET = 2;
 
     private PolyArray() {}
 
     // methods for testing ADT axioms go here
+
+    // Axiom 1
+    private static void testNewLength(Array<Integer> a) {
+        assert a.length() == LENGTH;
+    }
+
+    // Axiom 2
+    private static void testNewGet(Array<Integer> a) {
+        for (int i = 0; i < LENGTH; i++) {
+            assert a.get(i).equals(INITIAL);
+        }        
+    }
+
+    //Axiom 3
+    private static void testPutLength(Array<Integer> a) {
+        // axiom 3
+        for (int i = 0; i < LENGTH; i++) {
+            a.put(i, TEST_PUT_LENGTH);
+            assert a.length() == LENGTH;
+        }
+    }
+
+    // Axiom 4
+    private static void testPutGet(Array<Integer> a) {
+        for (int j = 0; j < LENGTH; j++) {
+            a.put(j, TEST_PUT_GET);
+            assert a.get(j).equals(TEST_PUT_GET);
+
+            for (int i = j + 1; i < LENGTH; i++) {
+                assert a.get(i).equals(TEST_PUT_LENGTH);
+            }
+        }
+    }
+
+
+    // specialized, smaller test case to avoid typing too much.
+    private static void testToString() {
+    
+    }
+
 
     // methods for testing additional Java methods go here
 
@@ -46,7 +88,18 @@ public final class PolyArray {
         // over again!
         for (Array<Integer> a: arrays) {
             // call your axiom and Java test cases here (hint: order matters)
-            a.length(); // shut up checkstyle, remove this line later
+            
+
+            //test cases derived from axioms
+            testNewLength(a);
+            testNewGet(a);
+            testPutLength(a);
+            testPutGet(a);
+
+            // test cases for additional java methods
+            testToString();
+            testIterator();
+
         }
 
         // Test all the preconditions. Sadly we have to code each one of these
