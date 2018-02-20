@@ -4,6 +4,9 @@ import java.util.NoSuchElementException;
 /**
  * Array implementation using a linked list for SparseArray.
  *
+ * Maria Coleman
+ * mcolem31
+ *
  * The sole purpose of this (otherwise useless) implementation is
  * to show that we <b>can</b> implement a given interface in many
  * different ways.
@@ -11,6 +14,9 @@ import java.util.NoSuchElementException;
  * values that differ from the initial value set upon creation.
  * Values are stored only for the positions that have actually been
  * changed.
+ * Therefore, you should choose SparseArray if relaticely few values
+ * differ from the initial value, and SimpleArray if many values do
+ * change.
  *
  * @param <T> Element type.
  */
@@ -33,10 +39,9 @@ public class SparseArray<T> implements Array<T> {
         }
     }
 
-    // The not-so-obvious representation of our abstract Array: A
-    // linked list with "length" nodes instead of a basic array of
-    // "length" slots. We also keep an explicit length so we don't
+    // We keep an explicit length so we don't
     // have to re-compute it every time.
+    // We also keep track of how many nodes there are
     private Node<T> first;
     private int length;
     private T initial;
@@ -57,21 +62,15 @@ public class SparseArray<T> implements Array<T> {
         this.initial = t;
         this.length = n;
         this.listLength = 0;
-        // Initialize all positions as we promise in the specification.
-        // Unlike in SimpleArray we cannot avoid the initialization even
-        // if t == null since the nodes still have to be created. On the
-        // upside we don't need a cast anywhere.
-        //for (int i = 0; i < n; i++) {
-        //    this.prepend(t);
-        //}
+        // There is initially an empty list because no values are
+        // different than the initial value
     }
 
     // Insert a node at the beginning of the linked list and adjust
-    // length accordingly.
+    // listLength accordingly.
     private void prepend(T t, int p) {
         Node<T> n = new Node<>(t, this.first, p);
         this.first = n;
-        //this.length += 1;
         this.listLength += 1;
     }
 
@@ -79,20 +78,7 @@ public class SparseArray<T> implements Array<T> {
         // dont have to throw any exceptions since at this point the
         // index has already been checked in modified and find
 
-        //if (this.first == null) {
-        //    return;
-        //}
-
         Node<T> n = this.first;
-        // if removing the first node
-        //if (index == 0) {
-        //    this.first = current.next;
-        //    return;
-        //}
-
-        //for (int i = 0; (current != null) && (i < index - 1); i++) {
-        //    current = current.next;
-        //}
 
         Node<T> prev = null;
 
@@ -112,6 +98,15 @@ public class SparseArray<T> implements Array<T> {
         this.listLength -= 1;
         prev.next = n.next;
 
+    }
+
+    private int listLen() {
+        int len = 0;
+        for (Node<T> n = this.first; (n != null); n = n.next) {
+            len++;
+        }
+        //System.out.println(len);
+        return len;
     }
 
     private boolean modified(int index) throws IndexException {
@@ -143,18 +138,9 @@ public class SparseArray<T> implements Array<T> {
             throw new IndexException();
         }
 
-        //boolean modified = false;
         Node<T> n = this.first;
-        //for (int i = 0; i < index; i++) {
-        //for (int i = 0; n.position != index; i++) {
         while (n.position != index) {
-            //int i = 0;
-            //while ((i < this.length) && (n.position != index))
-            // assert n != null; // We trust that we've created enough nodes.
-            // if (n.position == index) {
-            // modified = true;
             n = n.next;
-            // i++;
         }
         return n;
     }
@@ -176,12 +162,27 @@ public class SparseArray<T> implements Array<T> {
             n.data = t;
             if (n.data == this.initial) {
                 //System.out.println(this.toString());
+                int initialListLength = this.listLength;
+                //System.out.println("len says");
+                //System.out.println(this.listLen());
+                //System.out.println("var says");
+                //System.out.println(initialListLength);
                 this.remove(i);
+                // assert the value we store for listLength is correct
+                assert this.listLength == initialListLength - 1;
+                // assert the value we say is listLength is the correct
+                // length of list of nodes
+                //System.out.println("var says");
+                //System.out.println(this.listLength);
+                //System.out.println("fn says");
+                //System.out.println(this.listLen());
+                assert this.listLength == this.listLen();
             }
         } else {
             this.prepend(t, i);
         }
     }
+
 
     @Override
     public int length() {
@@ -201,31 +202,23 @@ public class SparseArray<T> implements Array<T> {
     private final class ArrayIterator implements Iterator<T> {
         // Current position in the Sparse Array
         int currentIndex;
-        // Current position in the linked list.
-        // Node<T> current;
-        // ArrayIterator() {
-        // this.current = SparseArray.this.first;
-        // this.currentIndex = 0;
-        //}
 
         @Override
         public T next() throws NoSuchElementException {
             if (!this.hasNext()) {
                 throw new NoSuchElementException();
             }
-            //T t = this.current.data;
             T t = SparseArray.this.initial;
             if (SparseArray.this.modified(this.currentIndex)) {
                 t = SparseArray.this.find(this.currentIndex).data;
             }
-            //this.current = this.current.next;
+
             this.currentIndex += 1;
             return t;
         }
 
         @Override
         public boolean hasNext() {
-            //return this.current != null;
             return this.currentIndex < SparseArray.this.length;
         }
     }

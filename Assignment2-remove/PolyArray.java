@@ -3,14 +3,9 @@ import java.util.ArrayList; // see note in main() below
 /**
  * Simple polymorphic test framework for arrays.
  *
- * See last week's PolyCount. You need to add the actual test cases but we
- * already gave you a fairly complete set in SimpleArray's main method. So it's
- * really mostly about putting existing pieces together and adapting them
- * slightly. Instead of String array we're using Integer arrays here, and
- * instead of a relatively small array we use a long-ish one. Enjoy!
+ * Maria Coleman
+ * mcolem31
  *
- * This code is incomplete and needs some serious work. Don't wait until the
- * last minute to attack this part of the assignment, it'll take you a while.
  */
 public final class PolyArray {
     // don't change these values!
@@ -56,6 +51,8 @@ public final class PolyArray {
             }
         }
     }
+
+    //testing other Java methods
 
     private static void testToString(Array<Integer> a) {
         // use helper method to make the expected string
@@ -105,6 +102,7 @@ public final class PolyArray {
         assert test.equals(expected);
     }
 
+    // testing exceptions
 
     private static void testExceptionGet(Array<Integer> a) {
         try {
@@ -166,13 +164,19 @@ public final class PolyArray {
         }
     }
 
+    // I call this because I want to test if remove works and
+    // there is an assert in SparseArray.java that would fail if not.
     private static void testRemove() {
-        Array<Integer> a = new SparseArray<>(6, 1);
-        System.out.println(a.toString());
+        Array<Integer> a = new SparseArray<>(LENGTH, INITIAL);
+        //System.out.println(a.toString());
         a.put(4, 18);
-        System.out.println(a.toString());
-        a.put(4, 1);
-        System.out.println(a.toString());
+        //System.out.println(a.toString());
+        //a.put(4, INITIAL);
+        //System.out.println(a.toString());
+        a.put(0, 18);
+        a.put(0, INITIAL);
+        a.put(LENGTH - 1, 18);
+        a.put(LENGTH - 1, INITIAL);
     }
 
     /**
@@ -222,6 +226,6 @@ public final class PolyArray {
         testExceptionNewList();
         testExceptionNewSparse();
 
-        //testRemove();
+        testRemove();
     }
 }

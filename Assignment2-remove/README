@@ -111,3 +111,20 @@ because it is what I am familiar with. However, it would not be too large
 of an inconvinience to have to work with FlexibleArrays instead. Another
 argument for Array over FlexibleArray is that Array only has 3 operations
 while FlexibleArray has 4, which makes Array more simple.
+
+
+Problem 3
+
+The warning that comes up when compiling is the only warning that is allowed.
+
+I am choosing to answer the "hint" about what to do if a slot is changed
+and then changed back to the initial value by removing the node if it is
+changed back to the initial value so that there are only nodes for values
+that are truly different than the initial value. If this is incorrect, then
+the really simple fix is to please comment out the portion of the put
+operation in SparseArray where I call remove. The if statement saying
+if t.data == this.initial and everything inside it should be commented out
+if I should not be removing them.
+
+One way to improve the program would be to make the list sorted, rather
+than simply prepending nodes.
