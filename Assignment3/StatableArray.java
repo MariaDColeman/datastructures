@@ -58,7 +58,7 @@ public class StatableArray<T> extends SimpleArray<T> implements Statable {
     public static void main(String[] args) {
         //create the "unit under test"
         //SimpleArray<String> a = new StatableArray<>(TEST_LENGTH, TEST_INITIAL);
-        Statable a = new StatableArray<String>(TEST_LENGTH, TEST_INITIAL);
+        StatableArray<String> a = new StatableArray<>(TEST_LENGTH, TEST_INITIAL);
 
 
         assert a.numberOfReads() == 0;
