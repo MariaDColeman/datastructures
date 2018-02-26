@@ -6,6 +6,61 @@ email: mcolem31@jhu.edu
 
 
 
+Problem 2: All Sorts of Sorts
+
+Here are some of the experiments I ran:
+
+$ java PolySort 10000 <random.data
+     which resulted in the following:
+ BubbleSort:    Reads=150,520,931  Writes=50,530,930  Seconds=0.758422
+ SelectionSort: Reads=150,113,550  Writes=19,998      Seconds=0.314443
+ InsertionSort: Reads=101,091,836  Writes=50,530,930  Seconds=0.224035
+
+
+$ java PolySort 10000 <descending.data
+     which resulting in the following:
+ BubbleSort:    Reads=199,980,001  Writes=99,990,000  Seconds=0.339633
+ SelectionSort: Reads=175,034,996  Writes=19,998      Seconds=0.433502
+ InsertionSort: Reads=199,990,000  Writes=99,990,000  Seconds=0.376977
+
+
+$ java PolySort 10000 <ascending.data
+     which resulted in the following:
+ BubbleSort:    Reads=109,027,087  Writes=9,037,086  Seconds=0.577201
+ SelectionSort: Reads=150,090,502  Writes=19,998     Seconds=0.213801
+ InsertionSort: Reads=18,104,164   Writes=9,037,086  Seconds=0.047157
+
+
+I then ran the same experiments but only with the first 100 strings
+
+
+
+$ java PolySort 100 <random.data
+     which resulted in the following:
+ BubbleSort:    Reads=14,905  Writes=5,004  Seconds=0.004359
+ SelectionSort: Reads=15,677  Writes=198    Seconds=0.000902
+ InsertionSort: Reads=10,298  Writes=5,004  Seconds=0.000498
+
+
+$ java PolySort 100 <descending.data
+     which resulting in the following:
+ BubbleSort:    Reads=19,801  Writes=9,900  Seconds=0.000716
+ SelectionSort: Reads=17,846  Writes=198    Seconds=0.000600
+ InsertionSort: Reads=19,900  Writes=9,900  Seconds=0.000649
+
+
+$ java PolySort 100 <ascending.data
+     which resulted in the following:
+ BubbleSort:    Reads=10,841  Writes=940    Seconds=0.003493
+ SelectionSort: Reads=15,483  Writes=198    Seconds=0.000767
+ InsertionSort: Reads=2,174   Writes=940    Seconds=0.000221
+
+
+
+Bubble sort tends to make many more assignments than selection sort.
+If you have partially presorted data, then insertion sort is much
+better than selection sort is.
+
 
 
 
