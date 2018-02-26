@@ -1,0 +1,98 @@
+Maria Coleman
+JHED: mcolem31
+email: mcolem31@jhu.edu
+
+
+
+
+
+
+
+
+
+
+
+Problem 3: Analysis of Bubble Sort
+
+The length of the array to be sorted is the size of the problem
+in the worst case and is referred to as n.
+
+For this analysis, we can ignore lines 1,6,7,8,9 since no assignment
+or comparison happens in these lines.
+
+Notation:
+    Ai(n) = number of assignments in line i
+    Ci(n) = number of comparisons in line i
+    Ti(n) = the number of times a loop starting in line i will run
+
+Starting with line 2...
+There is initially 1 assignment (int i = A.length-1) and then i is
+assignment a new value (i--) the number of times that the loop runs.
+This amount is dictated by the comparison i > 0. In the worst case,
+the comparison happens n times and the loop runs (n-1) times, so
+(i--) happens (n-1) times. Therefore, for line 2:
+        T2(n) = n-1
+    A2(n) = 1 + (n-1)
+        A2(n) = n
+        C2(n) = n
+
+Now for line 3...
+There is initially 1 assignment (j=0) for T2(n) times and then j is
+assigned a new value (j++) the number of times that the inner loop runs,
+which is equal to T3(n)
+This amount is dictated by the comparison j < i. Since j starts at 0
+and goes till i, and since i goes from n-1 to 0, the loop in line 3
+will run (n-1) times for i=n-1, all the way down to 2 times for i=2
+and 1 time for i=1. In total:
+    T3(n) = (n-1) + (n-2) + ... + 2 + 1
+which is equal to (1/2)(n)(n-1) or
+    T3(n) = (1/2)n^2 - (1/2)n
+
+The comparison happens the number of times the loop runs (T3(n)) plus 1
+(because the last comparison says the loop can't run)
+
+Therefore, for line 3:
+        T3(n) = (1/2)n^2 - (1/2)n
+    A3(n) = T2(n) + T3(n)
+          = (n-1) + (1/2)n^2 - (1/2)n
+        A3(n) = (1/2)n^2 + (1/2)n - 1
+    C3(n) = T3(n) + 1
+        C3(n) = (1/2)n^2 + (1/2)n
+
+Now for line 4...
+Line 4 only has a comparison in it. This comparison happens the number
+of times the for loop in line 3 happens, T3(n) which was determined
+to be (1/2)n^2 - (1/2)n.
+Therefore, for line 4:
+        A4(n) = 0
+        C4(n) = (1/2)n^2 - (1/2)n
+
+Now for line 5...
+Line 5 consists of 3 separate assignments, and no comparisons. The number
+of times the assignments in line 5 happens is equal to the number of times
+the comparison in line 4 results in true. In the worst case, like if the
+array was already sorted in descending order, line 4 would result in true
+every time. Therefore, the 3 assignments in line 5 each happen the same
+number of times as the comparison in line 4 happens, C4(n).
+Therefore, for line 5:
+    A5(n) = 3 * ((1/2)n^2 - (1/2)n)
+        A5(n) = (3/2)n^2 - (3/2)n
+        C5(n) = 0
+
+I can now total up the assignments and comparisons per line to get the
+overall values for the given implementation of bubble sort in the worst
+case.
+    A(n) = A2(n) +        A3(n)         + A4(n) +       A5(n)
+    A(n) =   n   + (1/2)n^2 + (1/2)n -1 +   0   + (3/2)n^2 - (3/2)n
+
+    A(n) =  2n^2 - 1 
+
+    C(n) = C2(n) +        C3(n)      +        C4(n)      + C5(n)
+    C(n) =   n   + (1/2)n^2 + (1/2)n + (1/2)n^2 - (1/2)n +  0
+
+    C(n) = n^2 + n
+
+************************
+    A(n) = 2n^2 - 1
+    C(n) = n^2 + n
+************************

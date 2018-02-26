@@ -20,6 +20,11 @@ public final class SelectionSort<T extends Comparable<T>>
         return a.compareTo(b) < 0;
     }
 
+    // Helper to make code more readable.
+    private boolean greater(T a, T b) {
+        return a.compareTo(b) > 0;
+    }
+
     // Helper to make code more readable
     private void swap(Array<T> a, int i, int j) {
         T t = a.get(i);
@@ -42,7 +47,7 @@ public final class SelectionSort<T extends Comparable<T>>
 
             //find next min
             for (index = pass + 1; index < a.length(); index++) {
-                if (!this.less(a.get(min_index), a.get(index))) {
+                if (this.greater(a.get(min_index), a.get(index))) {
                     min_index = index;
                     minvalue = a.get(min_index);
                 } //end if

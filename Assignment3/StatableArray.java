@@ -28,19 +28,20 @@ public class StatableArray<T> extends SimpleArray<T> implements Statable {
     }
 
     public T get(int i) throws IndexException {
-        try {
+       // try {
             this.numReads++;
             return super.get(i);
-        } catch (IndexException e) {
-            this.numReads--; //put it back if get failed
-            throw new IndexException();
-        }
+       // } catch (IndexException e) {
+        //    this.numReads--; //put it back if get failed
+         //   throw new IndexException();
+       // }
     }    
 
     public void put(int i, T t) throws IndexException {
-            //maybe put in try catch block    
+            //maybe put in try catch block
+            this.numWrites++;
             super.put(i, t);
-            this.numWrites++; //this line won't be called if an IndexException is thrown by super
+            //this.numWrites++; //this line won't be called if an IndexException is thrown by super
     }
 
     public int length() {
@@ -79,17 +80,22 @@ public class StatableArray<T> extends SimpleArray<T> implements Statable {
         try {
             a.get(-1);
         } catch (IndexException e) {
-            //IndexException successfully thrown, make sure counts didn't change
-            assert a.numberOfReads() == 2;
+            //IndexException successfully thrown, make sure read count did
+            //change and write count didnt because accoridng to Tim Kutcher's
+            //piazza note, it doesnt matter if the operation worked or not
+            //(a get still causes the num of reads count to increase even if
+            //the index is out of bounds
+            assert a.numberOfReads() == 3;
             assert a.numberOfWrites() == 1;
         }
 
         try {
             a.put(-1, "Wrong");
         } catch (IndexException e) {
-            //IndexException successfully thrown, make sure counts didn't change
-            assert a.numberOfReads() == 2;
-            assert a.numberOfWrites() == 1;
+            //IndexException successfully thrown, make sure write count did
+            //change but read count didnt. see comment above
+            assert a.numberOfReads() == 3;
+            assert a.numberOfWrites() == 2;
         }
 
         a.resetStatistics();
