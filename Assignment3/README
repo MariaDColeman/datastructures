@@ -8,22 +8,24 @@ email: mcolem31@jhu.edu
 
 Problem 2: All Sorts of Sorts
 
-Here are some of the experiments I ran:
+Here are some of the experiments I ran, with numbers so I can refer
+to them in my discussion:
 
+Experiment 1:
 $ java PolySort 10000 <random.data
      which resulted in the following:
  BubbleSort:    Reads=150,520,931  Writes=50,530,930  Seconds=0.758422
  SelectionSort: Reads=150,113,550  Writes=19,998      Seconds=0.314443
  InsertionSort: Reads=101,091,836  Writes=50,530,930  Seconds=0.224035
 
-
+Experiment 2:
 $ java PolySort 10000 <descending.data
      which resulting in the following:
  BubbleSort:    Reads=199,980,001  Writes=99,990,000  Seconds=0.339633
  SelectionSort: Reads=175,034,996  Writes=19,998      Seconds=0.433502
  InsertionSort: Reads=199,990,000  Writes=99,990,000  Seconds=0.376977
 
-
+Experiment 3:
 $ java PolySort 10000 <ascending.data
      which resulted in the following:
  BubbleSort:    Reads=109,027,087  Writes=9,037,086  Seconds=0.577201
@@ -31,24 +33,23 @@ $ java PolySort 10000 <ascending.data
  InsertionSort: Reads=18,104,164   Writes=9,037,086  Seconds=0.047157
 
 
-I then ran the same experiments but only with the first 100 strings
+I then ran the same experiments but only with the first 100 values
 
-
-
+Experiment 4:
 $ java PolySort 100 <random.data
      which resulted in the following:
  BubbleSort:    Reads=14,905  Writes=5,004  Seconds=0.004359
  SelectionSort: Reads=15,677  Writes=198    Seconds=0.000902
  InsertionSort: Reads=10,298  Writes=5,004  Seconds=0.000498
 
-
+Experiment 5:
 $ java PolySort 100 <descending.data
      which resulting in the following:
  BubbleSort:    Reads=19,801  Writes=9,900  Seconds=0.000716
  SelectionSort: Reads=17,846  Writes=198    Seconds=0.000600
  InsertionSort: Reads=19,900  Writes=9,900  Seconds=0.000649
 
-
+Experiment 6:
 $ java PolySort 100 <ascending.data
      which resulted in the following:
  BubbleSort:    Reads=10,841  Writes=940    Seconds=0.003493
@@ -57,11 +58,49 @@ $ java PolySort 100 <ascending.data
 
 
 
-Bubble sort tends to make many more assignments than selection sort.
+Given that the 3 algorithms are all quadratic in terms of their
+asymptotic performance, the actual running time does not correspond
+to the asymptotic complexity as I would expect. The difference in
+time (seconds) varies a lot. For example, there is a difference in
+seconds of around a factor of 10 in Experiments 3, 4,a dn 6 between
+bubble sort and insertion sort. 
+
+Between Experiments 1 and 4, both using random.data, the size of the
+array increased by 100 times (from 100 in Experiment 3 to 10000 in
+Experiment 1), and the time increased by 174 times (0.758422/0.004359)
+for BubbleSort, by 348 times for SelectionSort, and by 450 for
+InsertionSort.
+
+SAY SOMETHING LIKE YOUD EXPECT IT TO BE 100x100 AS MUCH SINCE N^2
+
+As shown in Experiments 3 and 6, when the data is in ascending order,
+InsertionSort is significantly faster than BubbleSort (which takes
+around 13 times longer) and SelectionSort (which takes around 4 times
+longer). In this ascending order case/Experiments 3 and 6, the key,
+most noticable, difference is that the number of reads for
+InsertionSort is significantly less than for Bubble and Selection.
+
+
+When the data is sorted in descending order (Experiments 2 and 5),
+BubbleSort and InsertionSort write around 5000 times as
+much as SelectionSort does, yet the overall reads and time are all
+very similar.
+
+In fact, among all Experiments, BubbleSort and InsertionSort make
+the exact same number of assignments, which is consistently much
+higher than the number of assignments selection sort does.
+
+
+
+
 If you have partially presorted data, then insertion sort is much
 better than selection sort is.
 
-
+As shown, practically, there are differences between the 3 quadratic
+algorithms. Alhough they are grouped as O(n^2), each algorithm
+varies based on its implementation and often has resulting n terms
+and constants which are not seen when you group based on the highest
+power (n^2).
 
 
 
