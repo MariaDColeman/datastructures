@@ -69,6 +69,7 @@ public final class PolySort {
         algorithms.add(new GnomeSort<String>());
         algorithms.add(new BubbleSort<String>());
         algorithms.add(new SelectionSort<String>());
+        algorithms.add(new InsertionSort<String>());
     }
 
     // Read input into buffer array.
