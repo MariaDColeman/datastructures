@@ -8,29 +8,39 @@ email: mcolem31@jhu.edu
 
 Problem 2: All Sorts of Sorts
 
+There is an issue!! PolySort uses Strings instead of integers. So
+this was causing very unexpected results because for example,
+"109, 1154, 131" is considered sorted as a string, but that's not
+what is intended. Therefore, I modified PolySort.java so that
+each line of the data file was read in and parsed to an Integer,
+and every array was an array of type <Integer> rather than
+<String>.
+
+
+
 Here are some of the experiments I ran, with numbers so I can refer
 to them in my discussion:
 
 Experiment 1:
 $ java PolySort 10000 <random.data
      which resulted in the following:
- BubbleSort:    Reads=150,520,931  Writes=50,530,930  Seconds=0.758422
- SelectionSort: Reads=150,113,550  Writes=19,998      Seconds=0.314443
- InsertionSort: Reads=101,091,836  Writes=50,530,930  Seconds=0.224035
+ BubbleSort:    Reads=150,439,515  Writes=50,449,514  Seconds=0.316132
+ SelectionSort: Reads=150,114,103  Writes=19,998      Seconds=0.152967
+ InsertionSort: Reads=100,929,002  Writes=50,449,514  Seconds=0.144193
 
 Experiment 2:
 $ java PolySort 10000 <descending.data
      which resulting in the following:
- BubbleSort:    Reads=199,980,001  Writes=99,990,000  Seconds=0.339633
- SelectionSort: Reads=175,034,996  Writes=19,998      Seconds=0.433502
- InsertionSort: Reads=199,990,000  Writes=99,990,000  Seconds=0.376977
+ BubbleSort:    Reads=199,980,001  Writes=99,990,000  Seconds=0.224568
+ SelectionSort: Reads=175,034,996  Writes=19,998      Seconds=0.169546
+ InsertionSort: Reads=199,990,000  Writes=99,990,000  Seconds=0.260632
 
 Experiment 3:
 $ java PolySort 10000 <ascending.data
      which resulted in the following:
- BubbleSort:    Reads=109,027,087  Writes=9,037,086  Seconds=0.577201
- SelectionSort: Reads=150,090,502  Writes=19,998     Seconds=0.213801
- InsertionSort: Reads=18,104,164   Writes=9,037,086  Seconds=0.047157
+ BubbleSort:    Reads=99,990,001   Writes=0       Seconds=0.116575
+ SelectionSort: Reads=150,034,996  Writes=19,998  Seconds=0.083173
+ InsertionSort: Reads=29,998       Writes=0       Seconds=0.001441
 
 
 I then ran the same experiments but only with the first 100 values
@@ -38,63 +48,83 @@ I then ran the same experiments but only with the first 100 values
 Experiment 4:
 $ java PolySort 100 <random.data
      which resulted in the following:
- BubbleSort:    Reads=14,905  Writes=5,004  Seconds=0.004359
- SelectionSort: Reads=15,677  Writes=198    Seconds=0.000902
- InsertionSort: Reads=10,298  Writes=5,004  Seconds=0.000498
+ BubbleSort:    Reads=15,007  Writes=5,106  Seconds=0.002043
+ SelectionSort: Reads=15,679  Writes=198    Seconds=0.000824
+ InsertionSort: Reads=10,498  Writes=5,106  Seconds=0.000503
 
 Experiment 5:
 $ java PolySort 100 <descending.data
      which resulting in the following:
- BubbleSort:    Reads=19,801  Writes=9,900  Seconds=0.000716
- SelectionSort: Reads=17,846  Writes=198    Seconds=0.000600
- InsertionSort: Reads=19,900  Writes=9,900  Seconds=0.000649
+ BubbleSort:    Reads=19,801  Writes=9,900  Seconds=0.000725
+ SelectionSort: Reads=17,846  Writes=198    Seconds=0.000578
+ InsertionSort: Reads=19,900  Writes=9,900  Seconds=0.000789
 
 Experiment 6:
 $ java PolySort 100 <ascending.data
      which resulted in the following:
- BubbleSort:    Reads=10,841  Writes=940    Seconds=0.003493
- SelectionSort: Reads=15,483  Writes=198    Seconds=0.000767
- InsertionSort: Reads=2,174   Writes=940    Seconds=0.000221
+ BubbleSort:    Reads=9,901   Writes=0    Seconds=0.001102
+ SelectionSort: Reads=15,346  Writes=198  Seconds=0.001261
+ InsertionSort: Reads=298     Writes=0    Seconds=0.000029
+
+This is on descending.data but with length of 200.
+
+Experiment 7:
+$ java PolySort 200 <descending.data
+     which resulted in the following:
+ BubbleSort:    Reads=79,601  Writes=39,800    Seconds=0.004376
+ SelectionSort: Reads=70,696  Writes=398       Seconds=0.002041
+ InsertionSort: Reads=79,800  Writes=39,800    Seconds=0.002691
 
 
 
 Given that the 3 algorithms are all quadratic in terms of their
-asymptotic performance, the actual running time does not correspond
+asymptotic performance, the actual running time "sort of" corresponds
 to the asymptotic complexity as I would expect. The difference in
-time (seconds) varies a lot. For example, there is a difference in
-seconds of around a factor of 10 in Experiments 3, 4,a dn 6 between
-bubble sort and insertion sort. 
+time (seconds) varies a lot depending on the length of the array.
+For example, for descending.data for bubble sort, from a length of
+100 to 200 (experiments 5 and 7), the length doubled and the time
+increased by 6.04 times (0.004376/0.000725), while expected was
+4 times. Whereas for the same descending.data and for bubble sort
+again, from a length of 100 to 10000 (experiments 5 and 2), 
+the length increased 100 times but the time only increased by 308 times
+(0.224568/0.000725), while expected was 100^2 times. I believe this
+has something to do with the JVM making it more efficient
+since the length is so large so the time it takes on my machine
+is not that reliable.
+
 
 Between Experiments 1 and 4, both using random.data, the size of the
-array increased by 100 times (from 100 in Experiment 3 to 10000 in
-Experiment 1), and the time increased by 174 times (0.758422/0.004359)
-for BubbleSort, by 348 times for SelectionSort, and by 450 for
-InsertionSort.
+array increased by 100 times (from 100 in Experiment 4 to 10000 in
+Experiment 1), and the time increased by 154 times
+for BubbleSort, by 186 times for SelectionSort, and by 287 times for
+InsertionSort. Again, for all of these, the expected is 100^2 times
+since they are all O(N^2) but the JVM probably affects this.
 
-SAY SOMETHING LIKE YOUD EXPECT IT TO BE 100x100 AS MUCH SINCE N^2
+
+It is interesting to note that for all 7 experiments, the number of
+writes for bubblesort and insertionsort is the same. This means the
+number of assignments are the same, and this is consistently
+higher than the number of writes that selection sort does.
+
 
 As shown in Experiments 3 and 6, when the data is in ascending order,
-InsertionSort is significantly faster than BubbleSort (which takes
-around 13 times longer) and SelectionSort (which takes around 4 times
-longer). In this ascending order case/Experiments 3 and 6, the key,
+InsertionSort is significantly faster than BubbleSort and 
+SelectionSort. In this ascending order case/Experiments 3 and 6, the key,
 most noticable, difference is that the number of reads for
 InsertionSort is significantly less than for Bubble and Selection.
 
 
 When the data is sorted in descending order (Experiments 2 and 5),
-BubbleSort and InsertionSort write around 5000 times as
-much as SelectionSort does, yet the overall reads and time are all
-very similar.
-
-In fact, among all Experiments, BubbleSort and InsertionSort make
-the exact same number of assignments, which is consistently much
-higher than the number of assignments selection sort does.
+BubbleSort and InsertionSort write many many more times than
+SelectionSort does, yet the overall reads and time are all similar but
+slightly less for SelectionSort.
 
 
+If you have presorted data (like ascending.data),
+and even partially presorted data,
+then insertion sort is much better than selectionsort and bubblesort.
 
-
-If you have partially presorted data, then insertion sort is much
-better than selection sort is.
+Bubble sort tends to make a lot more assignments than selection sort.
 
 As shown, practically, there are differences between the 3 quadratic
 algorithms. Alhough they are grouped as O(n^2), each algorithm
@@ -143,15 +173,15 @@ which is equal to (1/2)(n)(n-1) or
     T3(n) = (1/2)n^2 - (1/2)n
 
 The comparison happens the number of times the loop runs (T3(n)) plus 1
-(because the last comparison says the loop can't run)
+times T2(n) (because the last comparison says the loop can't run)
 
 Therefore, for line 3:
         T3(n) = (1/2)n^2 - (1/2)n
     A3(n) = T2(n) + T3(n)
           = (n-1) + (1/2)n^2 - (1/2)n
         A3(n) = (1/2)n^2 + (1/2)n - 1
-    C3(n) = T3(n) + 1
-        C3(n) = (1/2)n^2 + (1/2)n
+    C3(n) = T3(n) + T2(n)
+        C3(n) = (1/2)n^2 - (1/2)n + n - 1
 
 Now for line 4...
 Line 4 only has a comparison in it. This comparison happens the number
@@ -181,12 +211,12 @@ case.
 
     A(n) =  2n^2 - 1 
 
-    C(n) = C2(n) +        C3(n)      +        C4(n)      + C5(n)
-    C(n) =   n   + (1/2)n^2 + (1/2)n + (1/2)n^2 - (1/2)n +  0
+    C(n) = C2(n) +        C3(n)               +        C4(n)      + C5(n)
+    C(n) =   n   + (1/2)n^2 - (1/2)n + n - 1  + (1/2)n^2 - (1/2)n +  0
 
-    C(n) = n^2 + n
+    C(n) = n^2 + n - 1
 
 ************************
     A(n) = 2n^2 - 1
-    C(n) = n^2 + n
+    C(n) = n^2 + n - 1
 ************************

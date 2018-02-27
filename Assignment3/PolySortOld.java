@@ -15,7 +15,7 @@ import java.util.Scanner;
  * programs active as possible. That said, only the wallclock time will be
  * affected by these concerns, and that's a bad critereon to begin with...
  */
-public final class PolySort {
+public final class PolySortOld {
     // Default capacity if none on the command line.
     private static final int DEFAULT_CAPACITY = 1024;
 
@@ -26,15 +26,15 @@ public final class PolySort {
     // 0 to size-1 are actually used.
     private static int capacity = DEFAULT_CAPACITY;
     private static int size;
-    private static Array<Integer> buffer;
+    private static Array<String> buffer;
 
     // The list of sorting algorithms we wish to compare. See setup() below
     // for how this list is initialized.
-    private static ArrayList<SortingAlgorithm<Integer>> algorithms =
+    private static ArrayList<SortingAlgorithm<String>> algorithms =
         new ArrayList<>();
 
     // Make checkstyle happy.
-    private PolySort() {}
+    private PolySortOld() {}
 
     // Print an error message to standard error.
     private static void errorln(String message) {
@@ -62,29 +62,28 @@ public final class PolySort {
     // Set up buffer and algorithms.
     private static void setup() {
         // Create a buffer of appropriate size.
-        buffer = new SimpleArray<Integer>(capacity, null);
+        buffer = new SimpleArray<String>(capacity, null);
         // Add the algorithms we want to compare. This is where you should add
         // your algorithms once you have implemented them.
-        algorithms.add(new NullSort<Integer>());
-        algorithms.add(new GnomeSort<Integer>());
-        algorithms.add(new BubbleSort<Integer>());
-        algorithms.add(new SelectionSort<Integer>());
-        algorithms.add(new InsertionSort<Integer>());
+        algorithms.add(new NullSort<String>());
+        algorithms.add(new GnomeSort<String>());
+        algorithms.add(new BubbleSort<String>());
+        algorithms.add(new SelectionSort<String>());
+        algorithms.add(new InsertionSort<String>());
     }
 
     // Read input into buffer array.
     private static void input() {
         Scanner in = new Scanner(System.in);
         while (size < capacity && in.hasNextLine()) {
-           // String str = in.nextLine();
-            Integer inte = Integer.parseInt(in.nextLine());
-            buffer.put(size, inte);
+            String str = in.nextLine();
+            buffer.put(size, str);
             size += 1;
         }
     }
 
     // Check whether the given array is sorted in ascending order.
-    private static boolean sorted(Array<Integer> a) {
+    private static boolean sorted(Array<String> a) {
         for (int i = 0; i < a.length() - 1; i++) {
             if (a.get(i).compareTo(a.get(i + 1)) > 0) {
                 return false;
@@ -105,9 +104,9 @@ public final class PolySort {
             "Algorithm", "Sorted?", "Size", "Reads", "Writes", "Seconds"
         );
 
-        StatableArray<Integer> temp = new StatableArray<Integer>(size, null);
+        StatableArray<String> temp = new StatableArray<String>(size, null);
 
-        for (SortingAlgorithm<Integer> algo: algorithms) {
+        for (SortingAlgorithm<String> algo: algorithms) {
             // copy value into statable array and reset it
             for (int j = 0; j < size; j++) {
                 temp.put(j, buffer.get(j));
