@@ -1,49 +1,62 @@
+// Maria Coleman
+// mcolem31
 
+/**
+ * Implementation Statable that extends SimpleArray.
+ *
+ * @param <T> Element type.
+ */
 
 public class StatableArray<T> extends SimpleArray<T> implements Statable {
     //these are up here just for checkstyle
     //they're for testing
     private static final int TEST_LENGTH = 4;
-    private static final String TEST_INITIAL = "Maria";
+    private static final String TEST_INIT = "Maria";
 
     private int numReads;
     private int numWrites;
 
+    /**
+     * Create a new StatableArray.
+     *
+     * @param n length of array, must be &gt; 0.
+     * @param t Initial value to store in each slot.
+     * @throws LengthException if n &le; 0.
+     */
     public StatableArray(int n, T t) throws LengthException {
         super(n, t);
     }
 
+    @Override
     public void resetStatistics() {
         this.numReads = 0;
         this.numWrites = 0;
         return;
     }
 
+    @Override
     public int numberOfReads() {
         return this.numReads;
     }
 
+    @Override
     public int numberOfWrites() {
         return this.numWrites;
     }
 
+    @Override
     public T get(int i) throws IndexException {
-       // try {
-            this.numReads++;
-            return super.get(i);
-       // } catch (IndexException e) {
-        //    this.numReads--; //put it back if get failed
-         //   throw new IndexException();
-       // }
-    }    
-
-    public void put(int i, T t) throws IndexException {
-            //maybe put in try catch block
-            this.numWrites++;
-            super.put(i, t);
-            //this.numWrites++; //this line won't be called if an IndexException is thrown by super
+        this.numReads++;
+        return super.get(i);
     }
 
+    @Override
+    public void put(int i, T t) throws IndexException {
+        this.numWrites++;
+        super.put(i, t);
+    }
+
+    @Override
     public int length() {
         this.numReads++;
         return super.length();
@@ -58,9 +71,7 @@ public class StatableArray<T> extends SimpleArray<T> implements Statable {
      */
     public static void main(String[] args) {
         //create the "unit under test"
-        //SimpleArray<String> a = new StatableArray<>(TEST_LENGTH, TEST_INITIAL);
-        StatableArray<String> a = new StatableArray<>(TEST_LENGTH, TEST_INITIAL);
-
+        StatableArray<String> a = new StatableArray<>(TEST_LENGTH, TEST_INIT);
 
         assert a.numberOfReads() == 0;
         assert a.numberOfWrites() == 0;
@@ -101,6 +112,5 @@ public class StatableArray<T> extends SimpleArray<T> implements Statable {
         a.resetStatistics();
         assert a.numberOfWrites() == 0;
         assert a.numberOfReads() == 0;
-    }    
-
+    }
 }

@@ -30,35 +30,32 @@ public final class SelectionSort<T extends Comparable<T>>
         T t = a.get(i);
         a.put(i, a.get(j));
         a.put(j, t);
-    }   
+    }
 
     @Override
     public void sort(Array<T> a) {
 
         int pass;
         int index;
-        int min_index;
+        int minIndex;
         T minvalue;
-        
+
         for (pass = 0; pass < a.length() - 1; pass++) {
             //initialize min
-            min_index = pass;
+            minIndex = pass;
             minvalue = a.get(pass);
 
             //find next min
             for (index = pass + 1; index < a.length(); index++) {
-                if (this.greater(a.get(min_index), a.get(index))) {
-                    min_index = index;
-                    minvalue = a.get(min_index);
-                } //end if
-            } //end find next min
+                if (this.greater(a.get(minIndex), a.get(index))) {
+                    minIndex = index;
+                    minvalue = a.get(minIndex);
+                }
+            }
 
-        // move min to front with swap
-        this.swap(a, min_index, pass);
-        
-
-        } //end for pass
-
+            // move min to front with swap
+            this.swap(a, minIndex, pass);
+        }
     }
 
     @Override

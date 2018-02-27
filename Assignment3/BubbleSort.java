@@ -40,15 +40,12 @@ public final class BubbleSort<T extends Comparable<T>>
 
             for (int i = 0; i < size; i++) {
 
-                if (this.greater(a.get(i), a.get(i+1))) {
+                if (this.greater(a.get(i), a.get(i + 1))) {
                     //need to swap
-                    this.swap(a, i, i+1);
+                    this.swap(a, i, i + 1);
                 }
-
             }
-
-        }        
-
+        }
     }
 
     @Override
