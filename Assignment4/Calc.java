@@ -3,7 +3,7 @@
  * mcolem31
  */
 
-import java.util.*;
+import java.util.Scanner;
 
 public class Calc {
 
@@ -18,42 +18,27 @@ public class Calc {
                 Integer valueInt = Integer.parseInt(value);
                 stack.push(valueInt);
             } else if (isValidOperator(value)) {
-
                 try {
-
                     Integer first = stack.top();
                     stack.pop();
                     try {
                         Integer second = stack.top();
                         stack.pop();
-                    if (value.equals("+")) {
-                        //stack.push(add(first, second));
-                        //stack.push(first + second);
-                        stack.push(second + first);
-                    } else if (value.equals("-")) {
-                        //stack.push(sub(first, second));
-                        //stack.push(first - second);
-                        stack.push(second - first);
-                    } else if (value.equals("*")) {
-                        //stack.push(mult(first, second));
-                        //stack.push(first * second);
-                        stack.push(second * first);
-                    } else if (value.equals("/")) {
-                        //stack.push(div(first, second));
-                        //stack.push(first / second);
-                        stack.push(second / first);
-                    } else {
-                        //stack.push(mod(first, second));
-                        //stack.push(first % second);
-                        stack.push(second % first);
-                    }
-
-
+                        if (value.equals("+")) {
+                            stack.push(second + first);
+                        } else if (value.equals("-")) {
+                            stack.push(second - first);
+                        } else if (value.equals("*")) {
+                            stack.push(second * first);
+                        } else if (value.equals("/")) {
+                            stack.push(second / first);
+                        } else {
+                            stack.push(second % first);
+                        }
                     } catch (EmptyException e2) {
                         System.err.println("#Not enough input arguments.");
                         stack.push(first);
                     }
-
                 } catch (EmptyException e) {
                     System.err.println("#Not enough input arguments.");
                 }
@@ -120,8 +105,11 @@ public class Calc {
             // leave isAnInt equal to false
             // only print error message for invalid input if it
             // is also not one of the operators allowed
-            if (!(str.equals("+") || str.equals("-") || str.equals("*") || str.equals("/") || str.equals("%") || str.equals("?") || str.equals("^") || str.equals("!"))) {
-            System.err.println("#Invalid input.");
+            if (!("+".equals(str) || "-".equals(str) || "*".equals(str)
+                || "/".equals(str) || "%".equals(str) || "?".equals(str)
+                || "^".equals(str) || "!".equals(str))) {
+
+                System.err.println("#Invalid input.");
             }
         }
         return isAnInt;
@@ -133,7 +121,9 @@ public class Calc {
      * @return boolean true if a valid operator, false otherwise
      */
     public static boolean isValidOperator(String str) {
-        return (str.equals("+") || str.equals("-") || str.equals("*") || str.equals("/") || str.equals("%"));
+        return ("+".equals(str) || "-".equals(str) || "*".equals(str)
+            || "/".equals(str) || "%".equals(str));
+
     }
 
 

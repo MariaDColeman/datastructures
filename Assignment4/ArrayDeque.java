@@ -7,7 +7,7 @@ public class ArrayDeque<T> implements Deque<T> {
 
 
     public ArrayDeque() {
-        this.array = new SimpleArray(1, null);        
+        this.array = new SimpleArray<>(1, null);        
     }    
 
 
@@ -22,15 +22,22 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     @Override
-    public T front() {
+    public T front() throws EmptyException {
         //return this.data[0];
+        if (this.empty()) {
+            throw new EmptyException();
+        }
         return this.array.get(this.f);
     }
 
     @Override
-    public T back() {
+    public T back() throws EmptyException {
         //return this.data[0];
-        return this.array.get(this.b);
+        if (this.empty()) {
+            throw new EmptyException();
+        }
+        //return this.array.get(this.b);
+        return this.array.get((this.b - 1 + this.array.length()) % this.array.length());
 
     }
 
@@ -38,6 +45,7 @@ public class ArrayDeque<T> implements Deque<T> {
     public void insertFront(T t) {
         if (this.counter == this.array.length()) {
             this.ifFull();
+            //System.out.println("after doubled:" + this.array.toString());
         }
         this.f = (this.f - 1 + this.array.length()) % this.array.length();
         this.array.put(this.f, t);
@@ -45,14 +53,21 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     private void ifFull() {
-            SimpleArray<T> temp = new SimpleArray(this.array.length() * 2, null);
-            int index = 0;
-            for (int i = this.f; i != this.b; i = (i + 1) % this.array.length()) {
-                temp.put(index, this.array.get(i));
-                index++;
-            }
+            SimpleArray<T> temp = new SimpleArray<>(this.array.length() * 2, null);
+        int index = 0;
+        for (int i = 0; i < this.counter; i++) {
+             temp.put(index, (this.array.get((this.f + i) % this.array.length())));
+             index++;
+        }
+
+
+           // int index = 0;
+           // for (int i = this.f; i != this.b; i = (i + 1) % this.array.length()) {
+             //   temp.put(index, this.array.get(i));
+               // index++;
+           // }
             this.f = 0;
-            this.b = this.array.length() - 1;
+            this.b = this.array.length();
             this.array = temp;
     }
 
@@ -62,19 +77,27 @@ public class ArrayDeque<T> implements Deque<T> {
             this.ifFull();
         }
 
-        this.b = (this.b + 1) % this.array.length();
+        //this.b = (this.b + 1) % this.array.length();
         this.array.put(this.b, t);
+        this.b = (this.b + 1) % this.array.length();
         this.counter++;
     }
 
     @Override
-    public void removeFront() {
+    public void removeFront() throws EmptyException {
+        if (this.empty()) {
+            throw new EmptyException();
+        }
         this.f = (this.f + 1) % this.array.length();
         this.counter--;
     }
 
     @Override
-    public void removeBack() {
+    public void removeBack() throws EmptyException {
+        if (this.empty()) {
+            throw new EmptyException();
+        }
+
         this.b = (this.b - 1 + this.array.length()) % this.array.length();
         this.counter--;
     }
@@ -82,12 +105,18 @@ public class ArrayDeque<T> implements Deque<T> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
-        for (int i = this.f; i != this.b; i = (i + 1) % this.array.length()) {
-
-            sb.append(this.array.get(i)).append(", ");
+        for (int i = 0; i < this.counter; i++) {
+             sb.append(this.array.get((this.f + i) % this.array.length())).append(", ");
         }
+        //for (int i = this.f; i != this.b; i = (i + 1) % this.array.length()) {
+
+          //  sb.append(this.array.get(i)).append(", ");
+       // }
+        if (sb.length() > 2) {
         sb.setLength(sb.length() - 2);
+        }
         sb.append("]");
+        //System.out.println(sb.toString());
         return sb.toString();
 
     }

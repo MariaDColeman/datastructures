@@ -12,3 +12,5 @@ suggested by Peter on Piazza that we shouldnt
 use the empty() method, so instead I call top()
 inside a try catch block which will check if it
 is empty or not.
+
+
