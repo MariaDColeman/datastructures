@@ -3,7 +3,14 @@ JHED: mcolem31
 email: mcolem31@jhu.edu
 
 
+The one warning is allowed.
 
+
+Problem 1: Arrays with Statistics
+
+I just want to point out that my testing isn't the extensive,
+looping testing like the last assignment because those are
+related to Array, for which other tests exist presumably.
 
 
 Problem 2: All Sorts of Sorts
@@ -16,7 +23,10 @@ each line of the data file was read in and parsed to an Integer,
 and every array was an array of type <Integer> rather than
 <String>.
 
-
+Each of the following 7 experiments were run 3 times to ignore
+outliers and variations in load, and the resulting averages(where
+applicable) are what is shown in the following presentation of the
+data.
 
 Here are some of the experiments I ran, with numbers so I can refer
 to them in my discussion:
@@ -79,7 +89,7 @@ $ java PolySort 200 <descending.data
 
 Given that the 3 algorithms are all quadratic in terms of their
 asymptotic performance, the actual running time "sort of" corresponds
-to the asymptotic complexity as I would expect. The difference in
+to the asymptotic complexity as I would expect. The change in
 time (seconds) varies a lot depending on the length of the array.
 For example, for descending.data for bubble sort, from a length of
 100 to 200 (experiments 5 and 7), the length doubled and the time

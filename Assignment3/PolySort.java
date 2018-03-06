@@ -2,6 +2,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
+ * Maria Coleman
+ * mcolem31
+ */
+
+
+/**
  * A simple framework for evaluating sorting algorithms.
  *
  * The program reads at most the given number of lines from standard input.
@@ -76,7 +82,6 @@ public final class PolySort {
     private static void input() {
         Scanner in = new Scanner(System.in);
         while (size < capacity && in.hasNextLine()) {
-           // String str = in.nextLine();
             Integer inte = Integer.parseInt(in.nextLine());
             buffer.put(size, inte);
             size += 1;

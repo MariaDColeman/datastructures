@@ -2,7 +2,7 @@
 // mcolem31
 
 /**
- * Implementation Statable that extends SimpleArray.
+ * Implementation of Statable that extends SimpleArray.
  *
  * @param <T> Element type.
  */
