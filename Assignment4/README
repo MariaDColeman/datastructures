@@ -3,3 +3,12 @@ JHED: mcolem31
 email: mcolem31@jhu.edu
 
 I liked this assignment.
+
+For problem 1, I know I could've caught
+EmptyException using empty()
+inside an if statement, and even though I think
+increases the readability of my code, it was
+suggested by Peter on Piazza that we shouldnt
+use the empty() method, so instead I call top()
+inside a try catch block which will check if it
+is empty or not.

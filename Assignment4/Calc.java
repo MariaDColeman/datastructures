@@ -18,35 +18,82 @@ public class Calc {
                 Integer valueInt = Integer.parseInt(value);
                 stack.push(valueInt);
             } else if (isValidOperator(value)) {
-                if (stack.empty()) {
-                    System.err.println("#Not enough arguments.");
-                } else {
-                Integer first = stack.top();
-                stack.pop();
-                if (stack.empty()) {
-                    System.err.println("#Not enough arguments.");
-                    stack.push(first);
-                } else {
-                Integer second = stack.top();
-                stack.pop();
-                if (value.equals("+")) {
-                    //stack.push(add(first, second));
-                    stack.push(first + second);
-                } else if (value.equals("-")) {
+
+                try {
+
+                    Integer first = stack.top();
+                    stack.pop();
+                    try {
+                        Integer second = stack.top();
+                        stack.pop();
+                    if (value.equals("+")) {
+                        //stack.push(add(first, second));
+                        //stack.push(first + second);
+                        stack.push(second + first);
+                    } else if (value.equals("-")) {
+                        //stack.push(sub(first, second));
+                        //stack.push(first - second);
+                        stack.push(second - first);
+                    } else if (value.equals("*")) {
+                        //stack.push(mult(first, second));
+                        //stack.push(first * second);
+                        stack.push(second * first);
+                    } else if (value.equals("/")) {
+                        //stack.push(div(first, second));
+                        //stack.push(first / second);
+                        stack.push(second / first);
+                    } else {
+                        //stack.push(mod(first, second));
+                        //stack.push(first % second);
+                        stack.push(second % first);
+                    }
+
+
+                    } catch (EmptyException e2) {
+                        System.err.println("#Not enough input arguments.");
+                        stack.push(first);
+                    }
+
+                } catch (EmptyException e) {
+                    System.err.println("#Not enough input arguments.");
+                }
+
+
+
+//                if (stack.empty()) {
+//                    System.err.println("#Not enough arguments.");
+//                } else {
+//                Integer first = stack.top();
+//                stack.pop();
+//                if (stack.empty()) {
+//                    System.err.println("#Not enough arguments.");
+//                    stack.push(first);
+//                } else {
+//                Integer second = stack.top();
+//                stack.pop();
+//                if (value.equals("+")) {
+//                    //stack.push(add(first, second));
+//                    //stack.push(first + second);
+//                    stack.push(second + first);
+//                } else if (value.equals("-")) {
                     //stack.push(sub(first, second));
-                    stack.push(first - second);
-                } else if (value.equals("*")) {
+                    //stack.push(first - second);
+//                    stack.push(second - first);
+//                } else if (value.equals("*")) {
                     //stack.push(mult(first, second));
-                    stack.push(first * second);
-                } else if (value.equals("/")) {
+                    //stack.push(first * second);
+//                    stack.push(second * first);
+//                } else if (value.equals("/")) {
                     //stack.push(div(first, second));
-                    stack.push(first / second);
-                } else {
+                    //stack.push(first / second);
+//                    stack.push(second / first);
+//                } else {
                     //stack.push(mod(first, second));
-                    stack.push(first % second);
-                }
-                }
-                }
+                    //stack.push(first % second);
+//                    stack.push(second % first);
+//                }
+//                }
+//                }
             }
             else if (value.equals("?")) {
                 System.out.println(stack.toString());
