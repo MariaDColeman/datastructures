@@ -5,15 +5,25 @@
 
 import java.util.Scanner;
 
-public class Calc {
+/**
+ * A basic RPN calculator program.
+ */
+public final class Calc {
 
-    public static void main (String[] args) {
+    private Calc() {
+        //for checkstyle
+    }
+
+    /**
+     * Main method for Calc program.
+     * @param args command line arguments ignored
+     */
+    public static void main(String[] args) {
         Stack<Integer> stack = new ArrayStack<>();
         Scanner sc = new Scanner(System.in);
         String value = "";
         value = sc.next();
-        while (!value.equals("!")) {
-            //System.out.println(value);
+        while (!("!".equals(value))) {
             if (isInteger(value)) {
                 Integer valueInt = Integer.parseInt(value);
                 stack.push(valueInt);
@@ -24,71 +34,39 @@ public class Calc {
                     try {
                         Integer second = stack.top();
                         stack.pop();
-                        if (value.equals("+")) {
-                            stack.push(second + first);
-                        } else if (value.equals("-")) {
-                            stack.push(second - first);
-                        } else if (value.equals("*")) {
-                            stack.push(second * first);
-                        } else if (value.equals("/")) {
-                            stack.push(second / first);
-                        } else {
-                            stack.push(second % first);
-                        }
-                    } catch (EmptyException e2) {
+                        stack.push(determineOp(first, second, value));
+                    } catch (EmptyException e) {
                         System.err.println("#Not enough input arguments.");
                         stack.push(first);
                     }
                 } catch (EmptyException e) {
                     System.err.println("#Not enough input arguments.");
                 }
-
-
-
-//                if (stack.empty()) {
-//                    System.err.println("#Not enough arguments.");
-//                } else {
-//                Integer first = stack.top();
-//                stack.pop();
-//                if (stack.empty()) {
-//                    System.err.println("#Not enough arguments.");
-//                    stack.push(first);
-//                } else {
-//                Integer second = stack.top();
-//                stack.pop();
-//                if (value.equals("+")) {
-//                    //stack.push(add(first, second));
-//                    //stack.push(first + second);
-//                    stack.push(second + first);
-//                } else if (value.equals("-")) {
-                    //stack.push(sub(first, second));
-                    //stack.push(first - second);
-//                    stack.push(second - first);
-//                } else if (value.equals("*")) {
-                    //stack.push(mult(first, second));
-                    //stack.push(first * second);
-//                    stack.push(second * first);
-//                } else if (value.equals("/")) {
-                    //stack.push(div(first, second));
-                    //stack.push(first / second);
-//                    stack.push(second / first);
-//                } else {
-                    //stack.push(mod(first, second));
-                    //stack.push(first % second);
-//                    stack.push(second % first);
-//                }
-//                }
-//                }
-            }
-            else if (value.equals("?")) {
+            } else if ("?".equals(value)) {
                 System.out.println(stack.toString());
-            }
-            else if (value.equals("^")) {
+            } else if ("^".equals(value)) {
                 System.out.println(Integer.toString(stack.top()));
                 stack.pop();
             }
             value = sc.next();
         }
+    }
+
+    private static Integer determineOp(Integer first, Integer second,
+        String value) {
+        if ("+".equals(value)) {
+            return (second + first);
+        }
+        if ("-".equals(value)) {
+            return (second - first);
+        }
+        if ("*".equals(value)) {
+            return (second * first);
+        }
+        if ("/".equals(value)) {
+            return (second / first);
+        }
+        return (second % first);
     }
 
     /**
@@ -125,6 +103,5 @@ public class Calc {
             || "/".equals(str) || "%".equals(str));
 
     }
-
 
 }
