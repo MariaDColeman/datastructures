@@ -1,14 +1,25 @@
+/*
+ * Maria Coleman
+ * mcolem31
+ */
+
+/**
+ * Implementation of a Deque using an array.
+ * @param <T> element type
+ */
 public class ArrayDeque<T> implements Deque<T> {
 
     private SimpleArray<T> array;
-    private int f = 0;
-    private int b = 0;
-    private int counter = 0;
+    private int f;
+    private int b;
+    private int counter;
 
-
+    /**
+     * Create a new ArrayDeque with array length of 1 and initial value null.
+     */
     public ArrayDeque() {
-        this.array = new SimpleArray<>(1, null);        
-    }    
+        this.array = new SimpleArray<>(1, null);
+    }
 
 
     @Override
@@ -37,7 +48,8 @@ public class ArrayDeque<T> implements Deque<T> {
             throw new EmptyException();
         }
         //return this.array.get(this.b);
-        return this.array.get((this.b - 1 + this.array.length()) % this.array.length());
+        return this.array.get((this.b - 1 + this.array.length())
+            % this.array.length());
 
     }
 
@@ -53,22 +65,16 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     private void ifFull() {
-            SimpleArray<T> temp = new SimpleArray<>(this.array.length() * 2, null);
+        SimpleArray<T> temp = new SimpleArray<>(this.array.length() * 2, null);
         int index = 0;
         for (int i = 0; i < this.counter; i++) {
-             temp.put(index, (this.array.get((this.f + i) % this.array.length())));
-             index++;
+            temp.put(index, (this.array.get((this.f + i)
+                % this.array.length())));
+            index++;
         }
-
-
-           // int index = 0;
-           // for (int i = this.f; i != this.b; i = (i + 1) % this.array.length()) {
-             //   temp.put(index, this.array.get(i));
-               // index++;
-           // }
-            this.f = 0;
-            this.b = this.array.length();
-            this.array = temp;
+        this.f = 0;
+        this.b = this.array.length();
+        this.array = temp;
     }
 
     @Override
@@ -76,8 +82,6 @@ public class ArrayDeque<T> implements Deque<T> {
         if (this.counter == this.array.length()) {
             this.ifFull();
         }
-
-        //this.b = (this.b + 1) % this.array.length();
         this.array.put(this.b, t);
         this.b = (this.b + 1) % this.array.length();
         this.counter++;
@@ -97,28 +101,23 @@ public class ArrayDeque<T> implements Deque<T> {
         if (this.empty()) {
             throw new EmptyException();
         }
-
         this.b = (this.b - 1 + this.array.length()) % this.array.length();
         this.counter--;
     }
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
         for (int i = 0; i < this.counter; i++) {
-             sb.append(this.array.get((this.f + i) % this.array.length())).append(", ");
+            sb.append(this.array.get((this.f + i)
+                % this.array.length())).append(", ");
         }
-        //for (int i = this.f; i != this.b; i = (i + 1) % this.array.length()) {
-
-          //  sb.append(this.array.get(i)).append(", ");
-       // }
         if (sb.length() > 2) {
-        sb.setLength(sb.length() - 2);
+            sb.setLength(sb.length() - 2);
         }
         sb.append("]");
         //System.out.println(sb.toString());
         return sb.toString();
-
     }
-
 }
