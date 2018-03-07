@@ -1,3 +1,8 @@
+/*
+ * Maria Coleman
+ * mcolem31
+ */
+
 /** Instantiate the class to test. */
 public class ArrayDequeTest extends DequeTestBase {
     @Override

@@ -13,4 +13,16 @@ use the empty() method, so instead I call top()
 inside a try catch block which will check if it
 is empty or not.
 
+For problem 2, I don't have any specific cases to
+test for ArrayDeque mainly because we don't have
+any other implementations (or haven't been provided
+any) so I don't know how ArrayDeque differs from
+another implementation. This way (starting out
+with no initial value and empty) makes the most
+sense for any Deque to follow but if there was
+a weird implementation (like how we had SquareCounter
+start at 2) then I'd need to make special test cases
+for each.
 
+Also, the Professor said that the junit test files do
+not have to be checkstyle compliant in class

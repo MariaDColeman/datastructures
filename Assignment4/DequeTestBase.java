@@ -1,3 +1,8 @@
+/*
+ * Maria Coleman
+ * mcolem31
+ */
+
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -20,6 +25,7 @@ public abstract class DequeTestBase {
     public void setupDeque() {
         unit = this.createUnit();
     }
+
 
     @Test
     public void newIsEmpty() {
@@ -96,28 +102,129 @@ public abstract class DequeTestBase {
         assertTrue(unit.empty());
     }
 
+    @Test
+    public void testInsertRemoveFront() {
+        unit.insertFront("A");
+        assertEquals("A", unit.front());
+        assertEquals("A", unit.back());
+        assertEquals(1, unit.length());
+        assertTrue(!unit.empty());
+        unit.removeFront();
+        assertTrue(unit.empty());
+        assertEquals(0, unit.length());
+    }
+
+    @Test
+    public void testInsertRemoveBack() {
+        unit.insertBack("A");
+        assertEquals("A", unit.front());
+        assertEquals("A", unit.back());
+        assertEquals(1, unit.length());
+        assertTrue(!unit.empty());
+        unit.removeBack();
+        assertTrue(unit.empty());
+        assertEquals(0, unit.length());
+    }
+
+    @Test
+    public void testInsertFrontRemoveBack() {
+        unit.insertFront("A");
+        assertEquals("A", unit.front());
+        assertEquals("A", unit.back());
+        assertEquals(1, unit.length());
+        assertTrue(!unit.empty());
+        unit.removeBack();
+        assertTrue(unit.empty());
+        assertEquals(0, unit.length());
+    }
+
+    @Test
+    public void testInsertBackRemoveFront() {
+        unit.insertBack("A");
+        assertEquals("A", unit.front());
+        assertEquals("A", unit.back());
+        assertEquals(1, unit.length());
+        assertTrue(!unit.empty());
+        unit.removeFront();
+        assertTrue(unit.empty());
+        assertEquals(0, unit.length());
+    }
+
+    @Test
+    public void testInsertFrontLots() {
+        for (int i = 0; i < 20; i++) {
+            unit.insertFront("F");
+            assertEquals((i+1), unit.length());
+        }
+        for (int i = 0; i < 20; i++) {
+            assertEquals("F", unit.front());
+            unit.removeFront();
+        }
+    }
+
+    @Test
+    public void testInsertBackLots() {
+        for (int i = 0; i < 20; i++) {
+            unit.insertFront("B");
+            assertEquals((i+1), unit.length());
+        }
+        for (int i = 0; i < 20; i++) {
+            assertEquals("B", unit.back());
+            unit.removeBack();
+        }
+
+    }
+
 
     // Test exception behavior
+
+    @Test(expected=EmptyException.class)
+    public void frontOnNewEmpty() {
+        unit.front();
+    }
+
+    @Test(expected=EmptyException.class)
+    public void backOnNewEmpty() {
+         unit.back();
+    }
+
+    @Test(expected=EmptyException.class)
+    public void removeFrontOnNewEmpty() {
+        unit.removeFront();
+    }
+
+    @Test(expected=EmptyException.class)
+    public void removeBackOnNewEmpty() {
+         unit.removeBack();
+    }
+
     @Test(expected=EmptyException.class)
     public void frontOnEmpty() {
+        unit.insertFront("t");
+        unit.removeFront();
         unit.front();
     }
 
     @Test(expected=EmptyException.class)
     public void backOnEmpty() {
-         unit.back();
+        unit.insertBack("t");
+        unit.removeBack();
+        unit.back();
     }
 
     @Test(expected=EmptyException.class)
     public void removeFrontOnEmpty() {
+        unit.insertFront("t");
+        unit.removeFront();
         unit.removeFront();
     }
 
     @Test(expected=EmptyException.class)
     public void removeBackOnEmpty() {
-         unit.removeBack();
+        unit.insertBack("t");
+        unit.removeBack();
+        unit.removeBack();
     }
-
 
 
     // Test Java-specific methods / behaviors.
