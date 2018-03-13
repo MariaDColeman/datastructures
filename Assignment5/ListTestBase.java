@@ -94,6 +94,61 @@ public abstract class ListTestBase {
         }
     }
 
+    @Test
+    public void emptyAfterInsertAndRemoveFront() {
+        assertTrue(unit.empty());
+        unit.insertFront(filler(0));
+        assertTrue(!unit.empty());
+        unit.removeFront();
+        assertTrue(unit.empty());
+    }
+
+
+    @Test
+    public void emptyAfterInsertAndRemoveBack() {
+        assertTrue(unit.empty());
+        unit.insertBack(filler(0));
+        assertTrue(!unit.empty());
+        unit.removeBack();
+        assertTrue(unit.empty());
+    }
+
+    @Test
+    public void insertBeforeMaintainsValues() {
+        assertEquals(0, unit.length());
+        for (int i = 0; i < LENGTH - 1; i++) {
+            unit.insertFront(filler(i));
+        }
+        Position<String> p = unit.insertFront(filler(LENGTH - 1));
+        assertEquals(LENGTH, unit.length());
+        Position<String> f = unit.insertBefore(p, INITIAL);
+        assertEquals(LENGTH + 1, unit.length());
+        assertEquals(INITIAL, f.get());
+        Position<String> t = unit.front();
+        t = unit.next(t);
+        for (int j = LENGTH - 1; j > 0; j--) {
+            assertEquals(filler(j), t.get());
+            t = unit.next(t);
+        } 
+    }
+
+    @Test
+    public void insertAfterMaintainsValues() {
+        assertEquals(0, unit.length());
+        for (int i = 0; i < LENGTH - 1; i++) {
+            unit.insertBack(filler(i));
+        }
+        Position<String> p = unit.insertBack(filler(LENGTH - 1));
+        assertEquals(LENGTH, unit.length());
+        Position<String> f = unit.insertAfter(p, INITIAL);
+        assertEquals(LENGTH + 1, unit.length());
+        assertEquals(INITIAL, f.get());
+        Position<String> t = unit.front();
+        for (int j = 0; j < LENGTH; j++) {
+            assertEquals(filler(j), t.get());
+            t = unit.next(t);
+        }
+    }
 
 
     // Test preconditions / exception behavior based on ADT Array.
@@ -131,6 +186,57 @@ public abstract class ListTestBase {
         unit.previous(p);
     }
 
+    @Test(expected=PositionException.class)
+    public void insertAfterOnInvalidPosition() {
+        Position<String> p = unit.insertFront(INITIAL);
+        unit.remove(p);
+        unit.insertAfter(p, INITIAL);
+    }
+
+    @Test(expected=PositionException.class)
+    public void insertBeforeOnInvalidPosition() {
+        Position<String> p = unit.insertFront(INITIAL);
+        unit.remove(p);
+        unit.insertBefore(p, INITIAL);
+    }
+
+    @Test(expected=PositionException.class)
+    public void removeOnInvalidPosition() {
+        Position<String> p = unit.insertFront(INITIAL);
+        unit.remove(p);
+        unit.insertFront(INITIAL);
+        unit.remove(p);
+    }
+
+    @Test(expected=PositionException.class)
+    public void firstOnInvalidPosition() {
+        Position<String> p = unit.insertFront(INITIAL);
+        unit.remove(p);
+        unit.first(p);
+    }
+
+    @Test(expected=PositionException.class)
+    public void lastOnInvalidPosition() {
+        Position<String> p = unit.insertFront(INITIAL);
+        unit.remove(p);
+        unit.last(p);
+    }
+
+    @Test(expected=PositionException.class)
+    public void nextOnInvalidPosition() {
+        Position<String> p = unit.insertFront(INITIAL);
+        unit.insertBack(INITIAL);
+        unit.remove(p);
+        unit.next(p);
+    }
+
+    @Test(expected=PositionException.class)
+    public void prevOnInvalidPosition() {
+        Position<String> p = unit.insertFront(INITIAL);
+        unit.remove(p);
+        unit.insertFront(INITIAL);
+        unit.previous(p);
+    }
 
     // Test Java-specific methods / behaviors.
 
