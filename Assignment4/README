@@ -26,3 +26,9 @@ for each.
 
 Also, the Professor said that the junit test files do
 not have to be checkstyle compliant in class
+
+PLEASE note: I did not include the last 4 files provided
+in the piazza post for Assignment 4 because they were
+just provided as an example and not used. Also, ListArray.java
+and SparseArray.java werent even provided so that was causing
+errors when compiling everything.
