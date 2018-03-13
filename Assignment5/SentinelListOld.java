@@ -1,8 +1,3 @@
-/*
- * Maria Coleman
- * mcolem31
- */
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -11,7 +6,7 @@ import java.util.NoSuchElementException;
  *
  * @param <T> Element type.
  */
-public class SentinelList<T> implements List<T> {
+public class SentinelListOld<T> implements List<T> {
 
     private static final class Node<T> implements Position<T> {
         // The usual doubly-linked list stuff.
@@ -62,12 +57,17 @@ public class SentinelList<T> implements List<T> {
 
         @Override
         public boolean hasNext() {
+            //return (this.current != null);
             if (this.forward) {
-                return (this.current != null)
-                && (this.current != SentinelList.this.tail);
+//                return (this.current != null) && (this.current.next != SentinelList.this.tail);
+         return (this.current != null) && (this.current != SentinelList.this.tail);
+ 
             } else {
-                return (this.current != null)
-                && (this.current != SentinelList.this.head);
+
+//                return (this.current != null) && (this.current.prev != SentinelList.this.head);
+
+                return (this.current != null) && (this.current != SentinelList.this.head);
+
             }
         }
     }
@@ -94,7 +94,7 @@ public class SentinelList<T> implements List<T> {
 
     // Convert a position back into a node. Guards against null positions,
     // positions from other data structures, and positions that belong to
-    // other SentinelList objects.
+    // other LinkedList objects. That about covers it?
     private Node<T> convert(Position<T> p) throws PositionException {
         try {
             Node<T> n = (Node<T>) p;
@@ -151,7 +151,13 @@ public class SentinelList<T> implements List<T> {
         n.data = t;
         n.owner = this;
         n.next = this.head.next;
+        //if (this.head.next != null) {
+        //    this.head.next.prev = n;
+        //}
         this.head.next = n;
+        //if (this.tail.prev == null) {
+        //    this.tail.prev = n;
+        //}
         n.prev = this.head;
         n.next.prev = n;
         this.length += 1;
@@ -164,8 +170,13 @@ public class SentinelList<T> implements List<T> {
         n.data = t;
         n.owner = this;
         n.prev = this.tail.prev;
-        this.tail.prev.next = n;
+       // if (this.tail.prev != null) {
+            this.tail.prev.next = n;
+        //}
         this.tail.prev = n;
+        //if (this.head.next == this.tail) {
+        //    this.head.next = n;
+        //}
         n.next = this.tail;
         this.length += 1;
         return n;
@@ -177,8 +188,17 @@ public class SentinelList<T> implements List<T> {
             throw new EmptyException();
         }
         Node<T> n = this.head.next;
+        //assert (n.prev == null);
+        //if (n.next != null) {
+         //   n.next.prev = null;
+        //}
         this.head.next = n.next;
-        this.head.next.prev = this.head;
+        //if (this.tail.prev == n) {
+            //this.tail.prev = null;
+          //  this.tail.prev = this.head;
+       // } else {
+            this.head.next.prev = this.head;
+       // }
         this.length -= 1;
         n.owner = null; // invalidate position
     }
@@ -189,8 +209,14 @@ public class SentinelList<T> implements List<T> {
             throw new EmptyException();
         }
         Node<T> n = this.tail.prev;
-        n.prev.next = this.tail;
+        //assert (n.next == null);
+        //if (n.prev != null) {
+            n.prev.next = this.tail;
+        //}
         this.tail.prev = n.prev;
+        //if (this.head.next == n) {
+          //  this.head.next = null;
+        //}
         this.length -= 1;
         n.owner = null; // invalidate position
     }
@@ -220,7 +246,11 @@ public class SentinelList<T> implements List<T> {
         n.owner = this;
         n.prev = current.prev;
         n.next = current;
-        current.prev.next = n;
+        //if (current.prev != null) {
+            current.prev.next = n;
+        //} else {
+          //  this.head.next = n;
+        //}
         current.prev = n;
         this.length += 1;
         return n;
@@ -235,7 +265,11 @@ public class SentinelList<T> implements List<T> {
         n.owner = this;
         n.prev = current;
         n.next = current.next;
-        current.next.prev = n;
+        //if (current.next != null) {
+            current.next.prev = n;
+        //} else {
+          //  this.tail.prev = n;
+        //}
         current.next = n;
         this.length += 1;
         return n;
@@ -244,8 +278,16 @@ public class SentinelList<T> implements List<T> {
     @Override
     public void remove(Position<T> p) throws PositionException {
         Node<T> n = this.convert(p);
-        n.prev.next = n.next;
-        n.next.prev = n.prev;
+        //if (n.prev != null) {
+            n.prev.next = n.next;
+        //} else {
+        //    this.head.next = n.next;
+        //}
+        //if (n.next != null) {
+            n.next.prev = n.prev;
+        //} else {
+          //  this.tail.prev = n.prev;
+        //}
         this.length -= 1;
         n.owner = null; // invalidate position
     }

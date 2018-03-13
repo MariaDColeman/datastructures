@@ -150,6 +150,69 @@ public abstract class ListTestBase {
         }
     }
 
+    @Test
+    public void removeChangesLength() {
+        assertEquals(0, unit.length());
+        Position<String> p = unit.insertFront(INITIAL);
+        assertEquals(1, unit.length());
+        Position<String> p2 = unit.insertFront(INITIAL);
+        assertEquals(2, unit.length());
+        unit.remove(p);
+        assertEquals(1, unit.length());
+        unit.remove(p2);
+        assertEquals(0, unit.length());
+    }
+
+    @Test
+    public void removeFrontChangesLength() {
+        assertEquals(0, unit.length());
+        Position<String> p = unit.insertFront(INITIAL);
+        assertEquals(1, unit.length());
+        Position<String> p2 = unit.insertFront(INITIAL);
+        assertEquals(2, unit.length());
+        unit.removeFront();
+        assertEquals(1, unit.length());
+        unit.removeFront();
+        assertEquals(0, unit.length());
+    }
+
+    @Test
+    public void removeBackChangesLength() {
+        assertEquals(0, unit.length());
+        Position<String> p = unit.insertFront(INITIAL);
+        assertEquals(1, unit.length());
+        Position<String> p2 = unit.insertFront(INITIAL);
+        assertEquals(2, unit.length());
+        unit.removeBack();
+        assertEquals(1, unit.length());
+        unit.removeBack();
+        assertEquals(0, unit.length());
+    }
+
+    @Test
+    public void removeMaintainsValues() {
+        for (int i = 0; i < LENGTH; i++) {
+            unit.insertBack(filler(i));
+        }
+        assertEquals(LENGTH, unit.length());
+        Position<String> p = unit.front();
+        for (int k = 0; k < LENGTH / 2; k++) {
+            p = unit.next(p);
+        }
+        unit.remove(p);
+        assertEquals(LENGTH - 1, unit.length());
+        Position<String> t = unit.front();
+        for (int j = 0; j < LENGTH / 2; j++) {
+            assertEquals(filler(j), t.get());
+            t = unit.next(t);
+        }
+        for (int j = (LENGTH / 2); j < LENGTH - 2; j++) {
+            assertEquals(filler(j + 1), t.get());
+            t = unit.next(t);
+        }
+    }
+
+
 
     // Test preconditions / exception behavior based on ADT Array.
 
