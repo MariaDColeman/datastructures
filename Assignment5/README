@@ -2,7 +2,88 @@ Maria Coleman
 JHED: mcolem31
 email: mcolem31@jhu.edu
 
+Problem 1:
+
+I simply commented out the "duplicated code" parts
+because it is easier to follow them/understand
+and study from.
+
 
 
 Problem 2: Reflecting Things!
 
+In lecture we claimed that we're trying to support
+entirely different implementations of List, for example
+implementations using arays of some sort instead of a
+bunch of Node objects. I think this can actually be done
+using the existing interfaces. However, it seems like
+it will be very expensive to have to keep shifting around
+and copying elements in the array as things are inserted
+and removed at any location in the array. For example,
+if the array is full and you try to insert, a new array
+has to be made (usually double the current size) and then
+all of the old array's contents need to be copied over to
+the new array and then the insert can take place. Furthermore,
+inserting at the front would require all the elements to
+shift down.
+
+The Java library also has a List interface, but it is rather
+different from ours. The most noticable difference is that
+the position is given by an integer index, whereas we left
+it open to be Position<T>. It is most likely (and easist to
+understand) that the list with be implemented with an array,
+which is integer indexed, so this makes sense to me. We do
+not use integer positions because we do not want to limit
+ourselves to that. If we used integers as positions in the list,
+we would have to figure out how to translate from integers to
+actual node objects in our implementation. Furthermore, if each
+node is labeled with a unique integer when it is created, we
+would have to search through all the nodes for the one with the
+proper label on it. In summary, referring to a position
+with an integer would be an O(n) operation which is not what
+we want.
+
+Out List interface is not minimal because there are
+operations we could leave out while still expressing
+what a list is, but they are there for convinience.
+For example, instead of checking empty(), one could
+simply have the expression that is inside the empty()
+method (this.length() == 0). If the length is zero,
+the list is empty, and having a separate method to check
+if it is empty isn't crucial but it convienient for
+implementing the other methods that require the list to
+be not empty. Wherever it is checked if the list is empty,
+a comparable check for if the length is zero could be done.
+
+Furthermore, there is a redundancy between insertBefore
+and insertAfter because one could simply pass the position
+modified to match the method. For example, if only insertAfter
+was used, but someone wanted to insert before a certain position,
+they could simply pass the position before that given position
+into the insertAfter method. Because inserting after position
+x-1 is the same thing as inserting before position x. Similarly,
+one could only use insertBefore and if they knew what position
+they wanted to insert after, they could pass the position after
+that position into the insertBefore method. This also goes for
+inserting at the front and back. The front and back each have
+positions associated with them, so those positions slightly modified
+(by taking the next or prev) could also produce the correct
+results using a general insertAfter or insertBefore.
+
+It is very similar for removing as well. I decided to make a
+general remove method that would take in the position of what
+should be removed. Since front and back have positions associated
+with them, those positions can be passed to do removeFront and
+removeBack, but it is nice to use clear method names and it is
+more difficult to make programming mistakes when the code is
+segmented and easy to read with clear method names.
+
+Removing certain methods would obviously change the interface,
+so the client would need to understand which methods to use
+and what to pass in in each situation. The overall result can
+be just as functional, and more concise, but it is less
+readable to the average client and more prone to errors, and
+it will probably require more "heavy thinking" to, for example,
+remove the front element when there is no removeFront method so
+the client has to think about pointers as opposed to simply
+calling removeFront() which is more "mindless". 

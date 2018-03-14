@@ -3,13 +3,6 @@
  * mcolem31
  */
 
-/*
- * Testing multiple List implementations.
- *
- * All our List implementations (LinkedList, SentinelList) are
- * supposed to behave in the same way: they all implement (explicitly) the
- * List interface and (implicitly) the List ADT after all which was not made.
- */
 import java.util.Iterator;
 import java.lang.Iterable;
 import org.junit.Before;
@@ -18,6 +11,14 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+
+/**
+ * Testing multiple List implementations.
+ *
+ * All our List implementations (LinkedList, SentinelList) are
+ * supposed to behave in the same way: they all implement (explicitly) the
+ * List interface and (implicitly) the List ADT after all which was not made.
+ */
 public abstract class ListTestBase {
     final static String INITIAL = "Peter";
     final static int LENGTH = 97;

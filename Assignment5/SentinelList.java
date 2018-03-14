@@ -64,10 +64,10 @@ public class SentinelList<T> implements List<T> {
         public boolean hasNext() {
             if (this.forward) {
                 return (this.current != null)
-                && (this.current != SentinelList.this.tail);
+                    && (this.current != SentinelList.this.tail);
             } else {
                 return (this.current != null)
-                && (this.current != SentinelList.this.head);
+                    && (this.current != SentinelList.this.head);
             }
         }
     }
@@ -107,6 +107,48 @@ public class SentinelList<T> implements List<T> {
         }
     }
 
+    /**
+     * Method to handle throwing exception if empty to minimize repeated code.
+     * @throws EmptyException if list is empty.
+     */
+    private void checkEmpty() throws EmptyException {
+        if (this.empty()) {
+            throw new EmptyException();
+        }
+    }
+
+    /**
+     * Method to remove a provided position in general to reduce repeated code.
+     * @param n node to remove.
+     */
+    private void removeGeneral(Node<T> n) {
+        n.prev.next = n.next;
+        n.next.prev = n.prev;
+        this.length -= 1;
+        n.owner = null; // invalidate position
+    }
+
+
+    /**
+     * Method to insert in general to reduce repeated code.
+     * This will use a method of inserting after the provided position.
+     * @param current node to insert after
+     * @param t data to insert.
+     * @return Position object of what was inserted
+     */
+    private Position<T> insertGeneral(Node<T> current, T t) {
+        Node<T> n = new Node<T>();
+        n.data = t;
+        n.owner = this;
+        n.prev = current;
+        n.next = current.next;
+        current.next.prev = n;
+        current.next = n;
+        this.length += 1;
+        return n;
+    }
+
+
     @Override
     public boolean empty() {
         return this.length == 0;
@@ -131,68 +173,66 @@ public class SentinelList<T> implements List<T> {
 
     @Override
     public Position<T> front() throws EmptyException {
-        if (this.empty()) {
-            throw new EmptyException();
-        }
+        this.checkEmpty();
         return this.head.next;
     }
 
     @Override
     public Position<T> back() throws EmptyException {
-        if (this.empty()) {
-            throw new EmptyException();
-        }
+        this.checkEmpty();
         return this.tail.prev;
     }
 
     @Override
     public Position<T> insertFront(T t) {
-        Node<T> n = new Node<T>();
-        n.data = t;
-        n.owner = this;
-        n.next = this.head.next;
-        this.head.next = n;
-        n.prev = this.head;
-        n.next.prev = n;
-        this.length += 1;
-        return n;
+        Node<T> current = this.head;
+        return this.insertGeneral(current, t);
+        //Node<T> n = new Node<T>();
+        //n.data = t;
+        //n.owner = this;
+        //n.next = this.head.next;
+        //this.head.next = n;
+        //n.prev = this.head;
+        //n.next.prev = n;
+        //this.length += 1;
+        //return n;
     }
 
     @Override
     public Position<T> insertBack(T t) {
-        Node<T> n = new Node<T>();
-        n.data = t;
-        n.owner = this;
-        n.prev = this.tail.prev;
-        this.tail.prev.next = n;
-        this.tail.prev = n;
-        n.next = this.tail;
-        this.length += 1;
-        return n;
+        Node<T> current = this.tail.prev;
+        return this.insertGeneral(current, t);
+        //Node<T> n = new Node<T>();
+        //n.data = t;
+        //n.owner = this;
+        //n.prev = this.tail.prev;
+        //this.tail.prev.next = n;
+        //this.tail.prev = n;
+        //n.next = this.tail;
+        //this.length += 1;
+        //return n;
     }
 
     @Override
     public void removeFront() throws EmptyException {
-        if (this.empty()) {
-            throw new EmptyException();
-        }
+        this.checkEmpty();
         Node<T> n = this.head.next;
-        this.head.next = n.next;
-        this.head.next.prev = this.head;
-        this.length -= 1;
-        n.owner = null; // invalidate position
+        this.removeGeneral(n);
+        // this.head.next = n.next;
+        // this.head.next.prev = this.head;
+        // this.length -= 1;
+        // n.owner = null; // invalidate position
     }
 
     @Override
     public void removeBack() throws EmptyException {
-        if (this.empty()) {
-            throw new EmptyException();
-        }
+        this.checkEmpty();
         Node<T> n = this.tail.prev;
-        n.prev.next = this.tail;
-        this.tail.prev = n.prev;
-        this.length -= 1;
-        n.owner = null; // invalidate position
+        this.removeGeneral(n);
+        //n.prev.next = this.tail;
+        //this.tail.prev = n.prev;
+        //this.length -= 1;
+        //n.owner = null; // invalidate position
     }
 
     @Override
@@ -215,39 +255,42 @@ public class SentinelList<T> implements List<T> {
     public Position<T> insertBefore(Position<T> p, T t)
     throws PositionException {
         Node<T> current = this.convert(p);
-        Node<T> n = new Node<T>();
-        n.data = t;
-        n.owner = this;
-        n.prev = current.prev;
-        n.next = current;
-        current.prev.next = n;
-        current.prev = n;
-        this.length += 1;
-        return n;
+        return this.insertGeneral(current.prev, t);
+        //Node<T> n = new Node<T>();
+        //n.data = t;
+        //n.owner = this;
+        //n.prev = current.prev;
+        //n.next = current;
+        //current.prev.next = n;
+        //current.prev = n;
+        //this.length += 1;
+        //return n;
     }
 
     @Override
     public Position<T> insertAfter(Position<T> p, T t)
     throws PositionException {
         Node<T> current = this.convert(p);
-        Node<T> n = new Node<T>();
-        n.data = t;
-        n.owner = this;
-        n.prev = current;
-        n.next = current.next;
-        current.next.prev = n;
-        current.next = n;
-        this.length += 1;
-        return n;
+        return this.insertGeneral(current, t);
+        //Node<T> n = new Node<T>();
+        //n.data = t;
+        //n.owner = this;
+        //n.prev = current;
+        //n.next = current.next;
+        //current.next.prev = n;
+        //current.next = n;
+        //this.length += 1;
+        //return n;
     }
 
     @Override
     public void remove(Position<T> p) throws PositionException {
         Node<T> n = this.convert(p);
-        n.prev.next = n.next;
-        n.next.prev = n.prev;
-        this.length -= 1;
-        n.owner = null; // invalidate position
+        this.removeGeneral(n);
+        // n.prev.next = n.next;
+        // n.next.prev = n.prev;
+        // this.length -= 1;
+        // n.owner = null; // invalidate position
     }
 
     @Override
