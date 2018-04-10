@@ -1,3 +1,8 @@
+/*
+ * Maria Coleman
+ * mcolem31
+ */
+
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Queue;
@@ -7,7 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.FileReader;
 import java.io.BufferedReader;
-
+import java.util.Iterator;
 /**
     Six Degrees of Angelina Jolie.
 
@@ -95,33 +100,60 @@ public final class Angelina {
     // sure that the resulting path is among the shortest ones.
     private static void solveJolie() {
         // put your code here, use System.exit(0) to stop after printing!
-        Queue<String> q = new LinkedList<String>();        
-        q.addLast(jolie);
+        Queue<Vertex<String>> q = new LinkedList<Vertex<String>>();
+
+        q.add(jolie);
         while (q.size() != 0) {
-            String v = q.peekFirst();
+            //           System.out.println(q.size());
+            Vertex<String> v = q.element();
+            //           System.out.println(v.get());
             q.remove();
-            if (graph.label(v) != null) {
-                continue;
-            }
-            graph.label(v, true);
-
-            //maybe change to check if from and to vectors are the same
-            if (v == actor) {
-
+            // System.out.println(graph.label(v));
+            //           if (graph.label(v) != null) {
+            //                System.out.println("here");
+            //              continue;
+            //        }
+            if (v.get().equals(actor.get())) {
                 // print out the path
 
+                System.out.println(v.get());
+                Edge<String> prevEdge = getPrevEdge(v);
+
+                Vertex<String> temp = graph.from(prevEdge);
+                while (!temp.get().equals(jolie.get())) {
+                    System.out.println(temp.get());
+                    prevEdge = getPrevEdge(temp);
+                    temp = graph.from(prevEdge);
+                }
+
+                System.out.println(jolie.get());
+                graph.clearLabels();
+
+                System.exit(0);
             }
 
-            out = q.outgoing(v);
-            for (Edge<E> e: out) {
+            Iterable<Edge<String>> out = graph.outgoing(v);
+            Iterator<Edge<String>> it = out.iterator();
+
+            //            for (Edge<String> e: out) {
+            while (it.hasNext()) {
+                Edge<String> e = it.next();
                 if (graph.label(graph.to(e)) == null) {
-                    q.addLast(graph.to(e));
+                    graph.label(graph.to(e), e);
+                    q.add(graph.to(e));
                 }
             }
         }
-
+        //if we get here then we've exhausted the graph
         graph.clearLabels();
+        System.err.println("The graph is exhausted.");
     }
+
+
+    private static Edge<String> getPrevEdge(Vertex<String> v) {
+        return (Edge<String>) graph.label(v);
+    }
+
 
     /**
         Main method.

@@ -1,0 +1,294 @@
+Maria Coleman
+JHED: mcolem31
+email: mcolem31@jhu.edu
+
+I will copy and paste the results from each test.
+I waited until I was done all of the rest of the homework and then ran
+all of the benchmarking for each problem consecutively instead of when
+I completed each problem so that the difference in paramters that could
+affect the results was minimized.
+
+***********************************************************************
+Problem 1: Warming Up
+***********************************************************************
+
+The ArraySet<T> and ListSet<T> implementations were benchmarked in two
+different ways:
+
+1) With jaybee benchmark drivers.
+
+I ran both ArraySetBench and ListSetBench 3 times each to avoid outliers,
+and the following are the results:
+
+ListSetBench run#1
+
+ListSetBench run#2
+
+ListSetBench run#3
+
+ArraySetBench run#1
+
+ArraySetBench run#2
+
+ArraySetBench run#3
+
+
+
+2) With the xtime script and SetUnique.java. 
+
+The data sets were generated using the provided makedata.py Python script.
+I created 9 data sets because we were asked to have 3 different sizes
+of files and three different levels of repeated elements so there are 9
+possible combinations. 
+I titled them data_<x>k_<p>.txt where x is the number of thousands of the
+size of the file in terms of the number of integers/lines 
+(either 1, 10, or 100) and p is the level of repeated elements in percent
+(either 0, 50, or 90)
+
+I redirect the output of the program to /dev/null.
+I run each benchmark three times to get confidence in the time and memory
+requirements. 
+
+The provided program SetUnique.java uses the ListSet<T> implementation. In
+order to also test the ArraySet<T> implementation, I comment out the line
+        data = new ListSet<Integer>();
+and replace it with
+        data = new ArraySet<Integer>();
+and recompile and then run the tests again. The following are the results
+along with each command line I used:
+
+While SetUnique uses ListSet<T>:
+
+./xtime java SetUnique <data_1k_0.txt >/dev/null
+./xtime java SetUnique <data_1k_0.txt >/dev/null
+./xtime java SetUnique <data_1k_0.txt >/dev/null
+
+./xtime java SetUnique <data_1k_50.txt >/dev/null
+./xtime java SetUnique <data_1k_50.txt >/dev/null
+./xtime java SetUnique <data_1k_50.txt >/dev/null
+
+./xtime java SetUnique <data_1k_90.txt >/dev/null
+./xtime java SetUnique <data_1k_90.txt >/dev/null
+./xtime java SetUnique <data_1k_90.txt >/dev/null
+
+./xtime java SetUnique <data_10k_0.txt >/dev/null
+./xtime java SetUnique <data_10k_0.txt >/dev/null
+./xtime java SetUnique <data_10k_0.txt >/dev/null
+
+./xtime java SetUnique <data_10k_50.txt >/dev/null
+./xtime java SetUnique <data_10k_50.txt >/dev/null
+./xtime java SetUnique <data_10k_50.txt >/dev/null
+
+./xtime java SetUnique <data_10k_90.txt >/dev/null
+./xtime java SetUnique <data_10k_90.txt >/dev/null
+./xtime java SetUnique <data_10k_90.txt >/dev/null
+
+./xtime java SetUnique <data_100k_0.txt >/dev/null
+./xtime java SetUnique <data_100k_0.txt >/dev/null
+./xtime java SetUnique <data_100k_0.txt >/dev/null
+
+./xtime java SetUnique <data_100k_50.txt >/dev/null
+./xtime java SetUnique <data_100k_50.txt >/dev/null
+./xtime java SetUnique <data_100k_50.txt >/dev/null
+
+./xtime java SetUnique <data_100k_90.txt >/dev/null
+./xtime java SetUnique <data_100k_90.txt >/dev/null
+./xtime java SetUnique <data_100k_90.txt >/dev/null
+
+
+While SetUnique uses ArraySet<T>:
+
+./xtime java SetUnique <data_1k_0.txt >/dev/null
+./xtime java SetUnique <data_1k_0.txt >/dev/null
+./xtime java SetUnique <data_1k_0.txt >/dev/null
+
+./xtime java SetUnique <data_1k_50.txt >/dev/null
+./xtime java SetUnique <data_1k_50.txt >/dev/null
+./xtime java SetUnique <data_1k_50.txt >/dev/null
+
+./xtime java SetUnique <data_1k_90.txt >/dev/null
+./xtime java SetUnique <data_1k_90.txt >/dev/null
+./xtime java SetUnique <data_1k_90.txt >/dev/null
+
+./xtime java SetUnique <data_10k_0.txt >/dev/null
+./xtime java SetUnique <data_10k_0.txt >/dev/null
+./xtime java SetUnique <data_10k_0.txt >/dev/null
+
+./xtime java SetUnique <data_10k_50.txt >/dev/null
+./xtime java SetUnique <data_10k_50.txt >/dev/null
+./xtime java SetUnique <data_10k_50.txt >/dev/null
+
+./xtime java SetUnique <data_10k_90.txt >/dev/null
+./xtime java SetUnique <data_10k_90.txt >/dev/null
+./xtime java SetUnique <data_10k_90.txt >/dev/null
+
+./xtime java SetUnique <data_100k_0.txt >/dev/null
+./xtime java SetUnique <data_100k_0.txt >/dev/null
+./xtime java SetUnique <data_100k_0.txt >/dev/null
+
+./xtime java SetUnique <data_100k_50.txt >/dev/null
+./xtime java SetUnique <data_100k_50.txt >/dev/null
+./xtime java SetUnique <data_100k_50.txt >/dev/null
+
+./xtime java SetUnique <data_100k_90.txt >/dev/null
+./xtime java SetUnique <data_100k_90.txt >/dev/null
+./xtime java SetUnique <data_100k_90.txt >/dev/null
+
+
+
+***********************************************************************
+Problem 2: Heuristics Ahead
+***********************************************************************
+
+Collecting all the information collected in Problem 1 again for the
+new implementations MoveToFrontListSet<T> and TransposeArray<T>.
+
+1) Jaybee benchmarks: I produced 2 new benchmark driver subclasses
+called MoveToFrontListSetBench.java and TransposeArraySetBench.java.
+I also added new benchmark methods to SetBenchBase.java that show
+under what conditions the new implementations perform better.
+
+******* HAVE TO DO THIS STILL
+
+
+I ran both TransposeArraySetBench and MoveToFrontListSetBench 3 times
+each to avoid outliers, and the following are the results:
+
+MoveToFrontListSetBench run#1
+
+MoveToFrontListSetBench run#2
+
+MoveToFrontListSetBench run#3
+
+MoveToFrontArraySetBench run#1
+
+MoveToFrontArraySetBench run#2
+
+MoveToFrontArraySetBench run#3
+
+2) With the xtime script and SetUnique.java.
+
+The data sets were generated using the provided makedata.py Python script.
+I created 9 data sets because we were asked to have 3 different sizes
+of files and three different levels of repeated elements so there are 9
+possible combinations.
+I titled them data_<x>k_<p>.txt where x is the number of thousands of the
+size of the file in terms of the number of integers/lines
+(either 1, 10, or 100) and p is the level of repeated elements in percent
+(either 0, 50, or 90). These are the same data files as used in Problem 1.
+
+I redirect the output of the program to /dev/null.
+I run each benchmark three times to get confidence in the time and memory
+requirements.
+
+
+The provided program SetUnique.java uses the ListSet<T> implementation
+automatically. In order to test the TransposeArraySet<T> implementation
+and the MoveToFrontListSet<T> implementation,
+I comment out the line
+        data = new ListSet<Integer>();
+and replace it with
+        data = new MoveToFrontListSet<Integer>();
+and recompile and then run the tests again. 
+and then again comment out that line and replace it with
+        data = new TransposeArraySet<Integer>();
+and recompile and run the tests again, recording the output each time.
+
+The following are the results
+along with each command line I used:
+
+While SetUnique uses MoveToFrontListSet<T>:
+
+./xtime java SetUnique <data_1k_0.txt >/dev/null
+./xtime java SetUnique <data_1k_0.txt >/dev/null
+./xtime java SetUnique <data_1k_0.txt >/dev/null
+
+./xtime java SetUnique <data_1k_50.txt >/dev/null
+./xtime java SetUnique <data_1k_50.txt >/dev/null
+./xtime java SetUnique <data_1k_50.txt >/dev/null
+
+./xtime java SetUnique <data_1k_90.txt >/dev/null
+./xtime java SetUnique <data_1k_90.txt >/dev/null
+./xtime java SetUnique <data_1k_90.txt >/dev/null
+
+./xtime java SetUnique <data_10k_0.txt >/dev/null
+./xtime java SetUnique <data_10k_0.txt >/dev/null
+./xtime java SetUnique <data_10k_0.txt >/dev/null
+
+./xtime java SetUnique <data_10k_50.txt >/dev/null
+./xtime java SetUnique <data_10k_50.txt >/dev/null
+./xtime java SetUnique <data_10k_50.txt >/dev/null
+
+./xtime java SetUnique <data_10k_90.txt >/dev/null
+./xtime java SetUnique <data_10k_90.txt >/dev/null
+./xtime java SetUnique <data_10k_90.txt >/dev/null
+
+./xtime java SetUnique <data_100k_0.txt >/dev/null
+./xtime java SetUnique <data_100k_0.txt >/dev/null
+./xtime java SetUnique <data_100k_0.txt >/dev/null
+
+./xtime java SetUnique <data_100k_50.txt >/dev/null
+./xtime java SetUnique <data_100k_50.txt >/dev/null
+./xtime java SetUnique <data_100k_50.txt >/dev/null
+
+./xtime java SetUnique <data_100k_90.txt >/dev/null
+./xtime java SetUnique <data_100k_90.txt >/dev/null
+./xtime java SetUnique <data_100k_90.txt >/dev/null
+
+
+While SetUnique uses TransposeArraySet<T>:
+
+./xtime java SetUnique <data_1k_0.txt >/dev/null
+./xtime java SetUnique <data_1k_0.txt >/dev/null
+./xtime java SetUnique <data_1k_0.txt >/dev/null
+
+./xtime java SetUnique <data_1k_50.txt >/dev/null
+./xtime java SetUnique <data_1k_50.txt >/dev/null
+./xtime java SetUnique <data_1k_50.txt >/dev/null
+
+./xtime java SetUnique <data_1k_90.txt >/dev/null
+./xtime java SetUnique <data_1k_90.txt >/dev/null
+./xtime java SetUnique <data_1k_90.txt >/dev/null
+
+./xtime java SetUnique <data_10k_0.txt >/dev/null
+./xtime java SetUnique <data_10k_0.txt >/dev/null
+./xtime java SetUnique <data_10k_0.txt >/dev/null
+
+./xtime java SetUnique <data_10k_50.txt >/dev/null
+./xtime java SetUnique <data_10k_50.txt >/dev/null
+./xtime java SetUnique <data_10k_50.txt >/dev/null
+
+./xtime java SetUnique <data_10k_90.txt >/dev/null
+./xtime java SetUnique <data_10k_90.txt >/dev/null
+./xtime java SetUnique <data_10k_90.txt >/dev/null
+
+./xtime java SetUnique <data_100k_0.txt >/dev/null
+./xtime java SetUnique <data_100k_0.txt >/dev/null
+./xtime java SetUnique <data_100k_0.txt >/dev/null
+
+./xtime java SetUnique <data_100k_50.txt >/dev/null
+./xtime java SetUnique <data_100k_50.txt >/dev/null
+./xtime java SetUnique <data_100k_50.txt >/dev/null
+
+./xtime java SetUnique <data_100k_90.txt >/dev/null
+./xtime java SetUnique <data_100k_90.txt >/dev/null
+./xtime java SetUnique <data_100k_90.txt >/dev/null
+
+
+
+
+Also compare to the jaybee benchmarks for ArraySet and ListSet on the
+common methods to see if there is an improvement for the adaptive set
+implementation.
+
+***********************************************************************
+Problem 3: Ordering Sets
+***********************************************************************
+
+
+
+***********************************************************************
+Problem 4: Queuing Priorities
+***********************************************************************
+
+
