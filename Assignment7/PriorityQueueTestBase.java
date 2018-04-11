@@ -98,6 +98,7 @@ public abstract class PriorityQueueTestBase {
         }
         while (!unit.empty()) {
             Integer t = unit.remove();
+           
             assertEquals(new Integer(i), t);
             i++;
         }

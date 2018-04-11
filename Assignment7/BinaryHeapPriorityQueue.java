@@ -138,6 +138,7 @@ public class BinaryHeapPriorityQueue<T extends Comparable<? super T>>
         if (this.empty()) {
             throw new EmptyException();
         }
+        T toRemove = this.data.get(1);
         T t = this.data.remove(this.data.size() - 1);
         if (this.empty()) {
             return t;
@@ -147,16 +148,32 @@ public class BinaryHeapPriorityQueue<T extends Comparable<? super T>>
         int j = 1;
         int l = this.leftChild(j);
         int r = this.rightChild(j);
-        int best = Math.min(l, r);
+        int best;
+        if (this.less(l,r)) {
+            best = l;
+        } else {
+            best = r;
+        }
+
+
+     //   int best = Math.min(l, r);
         while (this.greater(j, best)) {
             this.swap(j, best);
             j = best;
             l = this.leftChild(j);
             r = this.rightChild(j);
-            best = Math.min(l, r);
+//            best = Math.min(l, r);
+
+            if (this.less(l,r)) {
+                best = l;
+            } else {
+                best = r;
+            }
+
+
         }        
 
-        return t;
+        return toRemove;
     }
 
     @Override
