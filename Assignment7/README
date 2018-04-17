@@ -1,7 +1,11 @@
-
 Maria Coleman
 JHED: mcolem31
 email: mcolem31@jhu.edu
+
+* I included jaybee.jar because that is necessary to build all the jaybee
+tests.
+* I did NOT include makedata.py because it is not "necessary to build
+everything" as it states under "Deliverables."
 
 I will copy and paste the results from each test.
 I waited until I was done all of the rest of the homework and then ran
@@ -22,17 +26,65 @@ I ran both ArraySetBench and ListSetBench 3 times each to avoid outliers,
 and the following are the results:
 
 ListSetBench run#1
+java -jar jaybee.jar ListSetBench
+   hasBiased	         1,000	     1,054,186 ns/op	        -1,369 B/op
+   hasLinear	         2,000	       911,733 ns/op	           689 B/op
+   hasRandom	         1,000	     2,007,346 ns/op	        -1,941 B/op
+insertLinear	         2,000	       925,407 ns/op	         2,260 B/op
+insertRandom	         2,000	       953,196 ns/op	         2,019 B/op
+removeLinear	         2,000	       978,024 ns/op	           466 B/op
+removeRandom	         1,000	     2,093,535 ns/op	        -6,257 B/op
 
 ListSetBench run#2
+java -jar jaybee.jar ListSetBench
+   hasBiased	         2,000	     1,033,276 ns/op	          -684 B/op
+   hasLinear	         2,000	       914,788 ns/op	           505 B/op
+   hasRandom	         1,000	     2,054,149 ns/op	        -1,849 B/op
+insertLinear	         2,000	       933,094 ns/op	         2,214 B/op
+insertRandom	         2,000	       931,793 ns/op	         2,019 B/op
+removeLinear	         2,000	       991,038 ns/op	           466 B/op
+removeRandom	         1,000	     2,107,773 ns/op	        -1,665 B/op
 
 ListSetBench run#3
+java -jar jaybee.jar ListSetBench
+   hasBiased	         2,000	     1,022,563 ns/op	          -684 B/op
+   hasLinear	         2,000	       909,892 ns/op	           505 B/op
+   hasRandom	         1,000	     2,029,304 ns/op	        -6,166 B/op
+insertLinear	         2,000	       923,323 ns/op	         2,260 B/op
+insertRandom	         2,000	       940,666 ns/op	         2,019 B/op
+removeLinear	         2,000	       986,084 ns/op	           518 B/op
+removeRandom	           500	     2,056,008 ns/op	       -10,932 B/op
+
 
 ArraySetBench run#1
+java -jar jaybee.jar ArraySetBench
+   hasBiased	         5,000	       309,486 ns/op	           215 B/op
+   hasLinear	         5,000	       290,960 ns/op	         2,906 B/op
+   hasRandom	         2,000	       569,944 ns/op	        -1,132 B/op
+insertLinear	         5,000	       317,442 ns/op	           719 B/op
+insertRandom	         5,000	       327,457 ns/op	            41 B/op
+removeLinear	        10,000	       171,937 ns/op	          -232 B/op
+removeRandom	         3,000	       468,351 ns/op	        -1,413 B/op
 
 ArraySetBench run#2
+java -jar jaybee.jar ArraySetBench
+   hasBiased	         5,000	       309,555 ns/op	        -1,705 B/op
+   hasLinear	         5,000	       290,654 ns/op	         7,726 B/op
+   hasRandom	         2,000	       567,682 ns/op	          -848 B/op
+insertLinear	         5,000	       298,060 ns/op	           719 B/op
+insertRandom	         5,000	       328,049 ns/op	            37 B/op
+removeLinear	        10,000	       173,036 ns/op	         7,534 B/op
+removeRandom	         3,000	       472,730 ns/op	           109 B/op
 
 ArraySetBench run#3
-
+java -jar jaybee.jar ArraySetBench
+   hasBiased	         5,000	       310,941 ns/op	        -1,705 B/op
+   hasLinear	         5,000	       293,112 ns/op	         2,329 B/op
+   hasRandom	         2,000	       563,545 ns/op	        -1,031 B/op
+insertLinear	         5,000	       295,207 ns/op	           719 B/op
+insertRandom	         5,000	       332,170 ns/op	            39 B/op
+removeLinear	        10,000	       170,840 ns/op	         2,432 B/op
+removeRandom	         3,000	       465,361 ns/op	         1,395 B/op
 
 
 2) With the xtime script and SetUnique.java. 
@@ -61,85 +113,169 @@ along with each command line I used:
 While SetUnique uses ListSet<T>:
 
 ./xtime java SetUnique <data_1k_0.txt >/dev/null
+0.18 seconds 29992 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_0.txt >/dev/null
+0.16 seconds 30392 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_0.txt >/dev/null
-
+0.16 seconds 30120 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_50.txt >/dev/null
+0.17 seconds 29804 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_50.txt >/dev/null
+0.15 seconds 29188 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_50.txt >/dev/null
+0.15 seconds 29096 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_1k_90.txt >/dev/null
+0.13 seconds 27996 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_90.txt >/dev/null
+0.13 seconds 27600 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_90.txt >/dev/null
+0.12 seconds 27672 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_10k_0.txt >/dev/null
+0.79 seconds 35340 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_0.txt >/dev/null
+0.75 seconds 35476 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_0.txt >/dev/null
+0.76 seconds 35164 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_10k_50.txt >/dev/null
+0.55 seconds 36400 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_50.txt >/dev/null
+0.55 seconds 37136 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_50.txt >/dev/null
+0.54 seconds 37548 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_10k_90.txt >/dev/null
+0.26 seconds 35624 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_90.txt >/dev/null
+0.24 seconds 33804 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_90.txt >/dev/null
+0.26 seconds 35268 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_100k_0.txt >/dev/null
+21.15 seconds 40400 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_0.txt >/dev/null
+20.87 seconds 39836 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_0.txt >/dev/null
+20.98 seconds 40236 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_100k_50.txt >/dev/null
+8.10 seconds 37080 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_50.txt >/dev/null
+8.25 seconds 38484 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_50.txt >/dev/null
+8.29 seconds 39148 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_100k_90.txt >/dev/null
+1.71 seconds 36932 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_90.txt >/dev/null
+1.67 seconds 37152 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_90.txt >/dev/null
+1.68 seconds 36760 kilobytes java SetUnique
 
 
 While SetUnique uses ArraySet<T>:
 
 ./xtime java SetUnique <data_1k_0.txt >/dev/null
+0.17 seconds 29660 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_0.txt >/dev/null
+0.17 seconds 29932 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_0.txt >/dev/null
+0.16 seconds 29348 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_1k_50.txt >/dev/null
+0.14 seconds 29636 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_50.txt >/dev/null
+0.14 seconds 29392 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_50.txt >/dev/null
+0.15 seconds 29324 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_1k_90.txt >/dev/null
+0.13 seconds 27656 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_90.txt >/dev/null
+0.13 seconds 28592 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_90.txt >/dev/null
+0.13 seconds 27592 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_10k_0.txt >/dev/null
+0.46 seconds 36904 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_0.txt >/dev/null
+0.45 seconds 36480 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_0.txt >/dev/null
+0.49 seconds 36688 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_10k_50.txt >/dev/null
+0.29 seconds 36104 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_50.txt >/dev/null
+0.34 seconds 34656 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_50.txt >/dev/null
+0.41 seconds 36036 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_10k_90.txt >/dev/null
+0.23 seconds 33472 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_90.txt >/dev/null
+0.24 seconds 35364 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_90.txt >/dev/null
+0.24 seconds 33392 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_100k_0.txt >/dev/null
+4.47 seconds 38224 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_0.txt >/dev/null
+4.54 seconds 38184 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_0.txt >/dev/null
+4.56 seconds 40512 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_100k_50.txt >/dev/null
+1.96 seconds 38756 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_50.txt >/dev/null
+1.95 seconds 38228 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_50.txt >/dev/null
+2.04 seconds 37764 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_100k_90.txt >/dev/null
+0.71 seconds 35584 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_90.txt >/dev/null
+0.71 seconds 36664 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_90.txt >/dev/null
+0.66 seconds 35448 kilobytes java SetUnique
 
+Further Discussion:
 
+The most obvious observation is that, for the same set of test data
+ListSet usually does a lot worse than ArraySet. Perhaps most noticable
+is when the data set is very large. For example, for the 100k dataset,
+with 0% repeated elements, the Unique program using ListSet
+is approximately 5 times slower than the Unique program using ArraySet.
+For the 100k dataset with 50% repeated elements, using ListSet is still
+around 4 times slower than using ArraySet. And when using the 100k dataset
+with 90% repeated, using the ListSet is still around 2.5 times slower
+than using ArrayList. In fact, for all of the tested datasets, using
+ListSet was always equal to or slower than using ArraySet (was only
+near equal for 1k dataset which is small). 
+
+Looking at the jaybee tests I ran, every single test/method has a smaller
+time/op for ArraySet over ListSet. On average, the ListSet implementation
+was 3.3 times slower for hasBiased, 3.1 times slower for hasLinear, 6.4
+times slower for hasRandom, 2.8 times slower for insertLinear, 2.9 times
+slower for insertRandom, 5.7 times slower for removeLinear, and 4.4 times
+slower for removeRandom.
+
+In general, accessing elements in an array is always faster than
+accessing elements in a linked list because of it being continuous
+in memory and using integer indecies.  
+
+I repeated every single test I ran 3 times and displayed the results,
+and do not see any obvious outliers, strengthening the validity of
+the data.
 
 ***********************************************************************
 Problem 2: Heuristics Ahead
 ***********************************************************************
+
+I created SetTestBase.java accompanied by ListSetTest.java, ArraySetTest.java,
+MoveToFrontListSetTest.java, and TransposeArraySetTest.java to test
+the programs in this problem.
 
 Collecting all the information collected in Problem 1 again for the
 new implementations MoveToFrontListSet<T> and TransposeArray<T>.
@@ -149,23 +285,74 @@ called MoveToFrontListSetBench.java and TransposeArraySetBench.java.
 I also added new benchmark methods to SetBenchBase.java that show
 under what conditions the new implementations perform better.
 
-******* HAVE TO DO THIS STILL
-
+****I was having issues with jaybee taking an extreemly long time for
+removeRandom for MoveToFrontListSetBench so I wasnt able to get those.
+People were having issues on Piazza as well and all the other ones work
+so it is likely a jaybee issue.
 
 I ran both TransposeArraySetBench and MoveToFrontListSetBench 3 times
 each to avoid outliers, and the following are the results:
 
 MoveToFrontListSetBench run#1
+java -jar jaybee.jar MoveToFrontListSetBench
+   hasBiased	         5,000	       313,658 ns/op	          -273 B/op
+   hasLinear	           500	     2,142,345 ns/op	        14,312 B/op
+   hasRandom	         1,000	     2,103,735 ns/op	        -1,779 B/op
+insertLinear	         2,000	     1,026,609 ns/op	         2,260 B/op
+insertRandom	         1,000	     1,009,525 ns/op	         4,243 B/op
+removeLinear	           500	     2,203,260 ns/op	        14,492 B/op
+
 
 MoveToFrontListSetBench run#2
+java -jar jaybee.jar MoveToFrontListSetBench
+   hasBiased	         5,000	       305,304 ns/op	          -273 B/op
+   hasLinear	         1,000	     2,173,720 ns/op	           646 B/op
+   hasRandom	         1,000	     2,098,168 ns/op	        -2,061 B/op
+insertLinear	         2,000	     1,024,895 ns/op	         2,214 B/op
+insertRandom	         2,000	       998,980 ns/op	         2,019 B/op
+removeLinear	           500	     2,179,525 ns/op	        14,491 B/op
 
 MoveToFrontListSetBench run#3
+java -jar jaybee.jar MoveToFrontListSetBench
+   hasBiased	         3,000	       334,035 ns/op	          -456 B/op
+   hasLinear	         1,000	     2,277,844 ns/op	           737 B/op
+   hasRandom	         1,000	     2,209,156 ns/op	        -1,694 B/op
+insertLinear	         2,000	     1,060,050 ns/op	         2,214 B/op
+insertRandom	         1,000	     1,043,481 ns/op	         4,334 B/op
+removeLinear	           500	     2,261,304 ns/op	        14,492 B/op
 
-MoveToFrontArraySetBench run#1
 
-MoveToFrontArraySetBench run#2
+TransposeArraySetBench run#1
+java -jar jaybee.jar TransposeArraySetBench
+   hasBiased	         5,000	       290,412 ns/op	          -806 B/op
+   hasLinear	         3,000	       334,017 ns/op	         8,810 B/op
+   hasRandom	         2,000	       643,970 ns/op	         1,664 B/op
+insertLinear	         5,000	       299,199 ns/op	           719 B/op
+insertRandom	         5,000	       308,556 ns/op	            38 B/op
+removeLinear	        10,000	       157,966 ns/op	         2,432 B/op
+removeRandom	         2,000	       657,069 ns/op	         3,148 B/op
 
-MoveToFrontArraySetBench run#3
+TransposeArraySetBench run#2
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment7$ java -jar jaybee.jar TransposeArraySetBench
+   hasBiased	         5,000	       305,924 ns/op	          -806 B/op
+   hasLinear	         3,000	       338,621 ns/op	         5,354 B/op
+   hasRandom	         2,000	       653,609 ns/op	         1,386 B/op
+insertLinear	         5,000	       301,258 ns/op	           701 B/op
+insertRandom	         5,000	       302,076 ns/op	           955 B/op
+removeLinear	        10,000	       173,784 ns/op	         2,432 B/op
+removeRandom	         2,000	       654,427 ns/op	         5,164 B/op
+
+TransposeArraySetBench run#3
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment7$ java -jar jaybee.jar TransposeArraySetBench
+   hasBiased	         5,000	       285,237 ns/op	          -806 B/op
+   hasLinear	         5,000	       332,911 ns/op	         2,950 B/op
+   hasRandom	         2,000	       636,845 ns/op	          -898 B/op
+insertLinear	         5,000	       300,644 ns/op	           719 B/op
+insertRandom	         5,000	       301,695 ns/op	            37 B/op
+removeLinear	        10,000	       174,742 ns/op	         2,432 B/op
+removeRandom	         2,000	       645,369 ns/op	         3,234 B/op
+
+
 
 2) With the xtime script and SetUnique.java.
 
@@ -201,86 +388,184 @@ along with each command line I used:
 While SetUnique uses MoveToFrontListSet<T>:
 
 ./xtime java SetUnique <data_1k_0.txt >/dev/null
+0.16 seconds 30024 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_0.txt >/dev/null
+0.16 seconds 29356 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_0.txt >/dev/null
+0.17 seconds 29700 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_1k_50.txt >/dev/null
+0.15 seconds 29840 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_50.txt >/dev/null
+0.15 seconds 28708 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_50.txt >/dev/null
+0.15 seconds 29040 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_1k_90.txt >/dev/null
+0.13 seconds 28092 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_90.txt >/dev/null
+0.13 seconds 28008 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_90.txt >/dev/null
+0.13 seconds 28364 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_10k_0.txt >/dev/null
+0.70 seconds 35380 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_0.txt >/dev/null
+0.73 seconds 35496 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_0.txt >/dev/null
+0.71 seconds 34476 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_10k_50.txt >/dev/null
+0.56 seconds 37312 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_50.txt >/dev/null
+0.48 seconds 33924 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_50.txt >/dev/null
+0.54 seconds 34740 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_10k_90.txt >/dev/null
+0.27 seconds 34716 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_90.txt >/dev/null
+0.25 seconds 33824 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_90.txt >/dev/null
+0.26 seconds 35684 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_100k_0.txt >/dev/null
+20.73 seconds 39724 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_0.txt >/dev/null
+19.73 seconds 39560 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_0.txt >/dev/null
+19.92 seconds 39560 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_100k_50.txt >/dev/null
+19.24 seconds 38296 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_50.txt >/dev/null
+19.50 seconds 36404 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_50.txt >/dev/null
+19.42 seconds 39484 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_100k_90.txt >/dev/null
+2.24 seconds 36532 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_90.txt >/dev/null
+2.27 seconds 35832 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_90.txt >/dev/null
+2.21 seconds 36644 kilobytes java SetUnique
+
 
 
 While SetUnique uses TransposeArraySet<T>:
 
 ./xtime java SetUnique <data_1k_0.txt >/dev/null
+0.17 seconds 29984 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_0.txt >/dev/null
+0.17 seconds 29104 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_0.txt >/dev/null
+0.16 seconds 29276 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_1k_50.txt >/dev/null
+0.15 seconds 28816 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_50.txt >/dev/null
+0.17 seconds 29228 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_50.txt >/dev/null
+0.15 seconds 28812 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_1k_90.txt >/dev/null
+0.13 seconds 28124 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_90.txt >/dev/null
+0.13 seconds 28480 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_90.txt >/dev/null
+0.12 seconds 28108 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_10k_0.txt >/dev/null
+0.43 seconds 34132 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_0.txt >/dev/null
+0.43 seconds 34172 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_0.txt >/dev/null
+0.47 seconds 36676 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_10k_50.txt >/dev/null
+0.28 seconds 35540 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_50.txt >/dev/null
+0.36 seconds 34700 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_50.txt >/dev/null
+0.41 seconds 34628 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_10k_90.txt >/dev/null
+0.25 seconds 35496 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_90.txt >/dev/null
+0.25 seconds 35612 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_90.txt >/dev/null
+0.24 seconds 35608 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_100k_0.txt >/dev/null
+4.48 seconds 38096 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_0.txt >/dev/null
+4.56 seconds 40372 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_0.txt >/dev/null
+4.57 seconds 40380 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_100k_50.txt >/dev/null
+1.93 seconds 37436 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_50.txt >/dev/null
+1.85 seconds 37836 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_50.txt >/dev/null
+1.87 seconds 37160 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_100k_90.txt >/dev/null
+0.72 seconds 36320 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_90.txt >/dev/null
+0.69 seconds 35644 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_90.txt >/dev/null
+0.72 seconds 36664 kilobytes java SetUnique
 
 
+Further Discussion:
 
-
-Also compare to the jaybee benchmarks for ArraySet and ListSet on the
+I also compare to the jaybee benchmarks for ArraySet and ListSet on the
 common methods to see if there is an improvement for the adaptive set
 implementation.
+
+Looking at the Unique benchmarks, for all of the different sized
+datasets (all 9 combinations), there
+was a noticable difference between MoveToFrontListSet and
+TransposeArraySet. Again, similar to how ListSet performed worse than
+ArraySet in Problem 1, here, MoveToFrontListSet performed worse than
+TranposeArraySet, and again especially in the 100k datasets.
+
+Looking at the jaybee benchmarks between MoveToFrontListSet and
+TransposeArraySet, on average, hasBiased is 1.2 times slower, hasLinear
+is 6.8 times slower, hasRandom is 3.4 times slower, insertLinear is 3.5
+times slower, insertRandom is 3.4 times slower, and removeLinear is 14
+times slower for MoveToFrontListSet compared to TransposeArraySet.
+
+Furthermore, MoveToFrontSet actually doesnt seem to offer an improvement
+over ListSet from Problem1. In fact, for 100k_50.txt, the time
+actually doubled using xtime. For jaybee, comparing ListSetBench from
+Problem 1 with MoveToFrontListSetBench from this problem, for hasBiased,
+the plain ListSet in 3.3 times slower than MoveToFrontListSet, which
+completely makes sense because by definition, this move to front
+heuristic is made for when there is repetition (bias). 
+
+The time/op for TransposeArray very closely matched the time/op for
+ArraySet from Problem 1. This may be because the transpose heuristic
+reacts slowly to repetitions in input data so since on each repitition,
+the element is only moved one closer to the front, it will take a long
+time to get to the front to see the benefits. Looking at the jaybee
+data for ArraySet and TransposeArraySet, there is a slight decrease
+in time/op for hasBiased for TransposeArraySet over ArraySet, which
+makes sense because by definition, this transpose heuristic is made
+for when there is repetition (bias).
+
+The move to front heuristic is not good if something is acted on once
+or a small number of times (meaning it is not "popular"), because then
+it will be sent top the front (and there is added overhead of doing the
+swaps) even though it isn't very popular. This is why having move to front
+list didn't help over plain ListSet.
+
+I repeated every single test I ran 3 times and displayed the results,
+and do not see any obvious outliers, strengthening the validity of
+the data.
+
+
 
 ***********************************************************************
 Problem 3: Ordering Sets
@@ -297,9 +582,36 @@ and the following are the results:
 
 SortedArraySetBench run#1
 
+java -jar jaybee.jar SortedArraySetBench
+   hasBiased	        50,000	        28,479 ns/op	             1 B/op
+   hasLinear	        30,000	        45,386 ns/op	         3,268 B/op
+   hasRandom	        50,000	        28,322 ns/op	         1,349 B/op
+insertLinear	        50,000	        27,922 ns/op	            63 B/op
+insertRandom	        10,000	       127,180 ns/op	           213 B/op
+removeLinear	        20,000	       109,753 ns/op	         3,369 B/op
+removeRandom	        50,000	        27,239 ns/op	         1,916 B/op
+
 SortedArraySetBench run#2
 
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment7$ java -jar jaybee.jar SortedArraySetBench
+   hasBiased	        50,000	        29,549 ns/op	             1 B/op
+   hasLinear	        30,000	        42,458 ns/op	         3,593 B/op
+   hasRandom	        50,000	        27,877 ns/op	         1,546 B/op
+insertLinear	        50,000	        30,324 ns/op	            63 B/op
+insertRandom	        10,000	       128,841 ns/op	           195 B/op
+removeLinear	        20,000	       108,412 ns/op	         3,548 B/op
+removeRandom	        50,000	        27,185 ns/op	         1,945 B/op
+
 SortedArraySetBench run#3
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment7$ java -jar jaybee.jar SortedArraySetBench
+   hasBiased	        50,000	        28,043 ns/op	             1 B/op
+   hasLinear	        30,000	        52,071 ns/op	         3,268 B/op
+   hasRandom	        50,000	        27,823 ns/op	         1,819 B/op
+insertLinear	        50,000	        28,684 ns/op	            63 B/op
+insertRandom	        10,000	       129,370 ns/op	           259 B/op
+removeLinear	        20,000	       108,634 ns/op	         3,548 B/op
+removeRandom	        50,000	        26,404 ns/op	         1,528 B/op
 
 
 
@@ -331,48 +643,382 @@ and recompile and run the tests again, recording the output each time.
 The following are the results
 along with each command line I used:
 
-While SetUnique uses SortedArraySetInteger<T>:
+While SetUnique uses SortedArraySet<T>:
 
 ./xtime java SetUnique <data_1k_0.txt >/dev/null
+0.17 seconds 30384 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_0.txt >/dev/null
+0.16 seconds 29964 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_0.txt >/dev/null
+0.17 seconds 30268 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_1k_50.txt >/dev/null
+0.15 seconds 29196 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_50.txt >/dev/null
+0.15 seconds 29848 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_50.txt >/dev/null
+0.16 seconds 30124 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_1k_90.txt >/dev/null
+0.14 seconds 28488 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_90.txt >/dev/null
+0.13 seconds 28192 kilobytes java SetUnique
 ./xtime java SetUnique <data_1k_90.txt >/dev/null
+0.13 seconds 28196 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_10k_0.txt >/dev/null
+0.27 seconds 35544 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_0.txt >/dev/null
+0.28 seconds 35480 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_0.txt >/dev/null
+0.30 seconds 35088 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_10k_50.txt >/dev/null
+0.27 seconds 34628 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_50.txt >/dev/null
+0.24 seconds 34940 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_50.txt >/dev/null
+0.26 seconds 35636 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_10k_90.txt >/dev/null
+0.21 seconds 34828 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_90.txt >/dev/null
+0.21 seconds 34768 kilobytes java SetUnique
 ./xtime java SetUnique <data_10k_90.txt >/dev/null
+0.22 seconds 33468 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_100k_0.txt >/dev/null
+1.21 seconds 39260 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_0.txt >/dev/null
+1.39 seconds 44720 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_0.txt >/dev/null
+1.23 seconds 39348 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_100k_50.txt >/dev/null
+0.79 seconds 38632 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_50.txt >/dev/null
+0.74 seconds 38252 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_50.txt >/dev/null
+0.81 seconds 37956 kilobytes java SetUnique
 
 ./xtime java SetUnique <data_100k_90.txt >/dev/null
+0.57 seconds 35932 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_90.txt >/dev/null
+0.49 seconds 35924 kilobytes java SetUnique
 ./xtime java SetUnique <data_100k_90.txt >/dev/null
+0.47 seconds 36368 kilobytes java SetUnique
 
 
+Further Discussion:
+
+I repeated every single test I ran 3 times and displayed the results,
+and do not see any obvious outliers, strengthening the validity of
+the data.
+
+There is a very significant improvement between this SortedArraySet
+over the ArraySet from Problem 1 and the TransposeArraySet from
+Problem 2. For the dataset that consistently takes the longest
+time (100k_0.txt), the time for this SortedArraySet is around
+one-fourth of that for the ArraySet and TransposeArraySet.
+
+Looking at the jaybee tests for SortedArraySet compared to 
+TransposeArraySet, every single time/op has been reduced. hasBiased
+time/op is 10 times smaller and hasRandom's time/op is almost
+20 times smaller!! The time/op for insertRandom has been cut in half.
+
+More specifically, comparing ArraySet to SortedArraySet, on average,
+hasBiased is 11 times slower, hasLinear is 5.6 times slower, hasRandom
+is 20 times slower, insertLinear is 10 times slower, insertRandom is
+2.6 times slower, removeLinear is 1.6 times slower, and removeRandom
+is 17 times slower.
+
+According to the lecture notes, it is usually the case that an
+asymptotically more efficient data structure (SortedArrayList) will
+yeild the biggest benefits if it's sutable for the task (which it
+clearly is) and that tweaking a "bad" data structure (ArrayList in
+this case) with heuristics (to make TransposeArraySet in Problem2 in
+this case) will usually only yeild marginal improvements. This is
+completely corroborated with the data I collected.
+
+Given that ArraySet was superior to ListSet as described in Problem1,
+and SortedArraySet is superior to ArraySet, SortedArraySet is therefore
+also superior to ListSet.
+
+Obviously, this is the best implementation of all the problems so far.
+
+It is using an array (which is already an advantage over a list), and
+we are doing a binary search in the find method to determine where
+an element is, which saves a lot of time because a linear search (like
+what we do in Problems 1 and 2) is O(n) whereas a binary search
+is O(log(n)) all worst case.
 
 ***********************************************************************
 Problem 4: Queuing Priorities
 ***********************************************************************
 
+In order to test this problem, I created PriorityQueueTestBase.java
+and the accompanying BinaryHeapPriorityQueueTest.java and
+SortedArrayPriorityQueueTest.java in order to test both of the 
+implementations. 
+
+I collected all the information I collected in Problems 1, 2, and 3
+again for the 2 new implementations. 
+
+1) using jaybee benchmarks
+I had to produce new drivers, which cannot exactly match the previous
+drivers. I made a new base driver called PriorityQueueBenchBase.java
+and the accompanying SortedArrayPriorityQueueBench.java and
+BinaryHeapPriorityQueueBench.java
+
+I ran both SortedArrayPriorityQueueBench.java and 
+BinaryHeapPriorityQueueBench.java three times to avoid outliers and
+the following are the results:
+
+SortedArrayPriorityQueueBench run#1:
+java -jar jaybee.jar SortedArrayPriorityQueueBench
+insertLinear	        50,000	        28,775 ns/op	            -8 B/op
+insertRandom	        10,000	       125,411 ns/op	           -38 B/op
+removeLinear	        20,000	        94,316 ns/op	             4 B/op
+removeRandom	         5,000	       232,915 ns/op	          -241 B/op
+
+SortedArrayPriorityQueueBench run#2:
+java -jar jaybee.jar SortedArrayPriorityQueueBench
+insertLinear	        50,000	        29,682 ns/op	             6 B/op
+insertRandom	        10,000	       123,696 ns/op	            -8 B/op
+removeLinear	        20,000	        93,757 ns/op	             4 B/op
+removeRandom	         5,000	       236,324 ns/op	          -233 B/op
+
+SortedArrayPriorityQueueBench run#3:
+java -jar jaybee.jar SortedArrayPriorityQueueBench
+insertLinear	        50,000	        29,774 ns/op	            -8 B/op
+insertRandom	        10,000	       118,537 ns/op	            88 B/op
+removeLinear	        20,000	        91,693 ns/op	             4 B/op
+removeRandom	         5,000	       231,683 ns/op	          -118 B/op
+
+BinaryHeapPriorityQueueBench run#1:
+java -jar jaybee.jar BinaryHeapPriorityQueueBench
+insertLinear	       200,000	         7,889 ns/op	           -28 B/op
+insertRandom	        50,000	        26,316 ns/op	          -297 B/op
+removeLinear	        20,000	        83,059 ns/op	             4 B/op
+removeRandom	        10,000	       116,329 ns/op	           130 B/op
+
+BinaryHeapPriorityQueueBench run#2:
+java -jar jaybee.jar BinaryHeapPriorityQueueBench
+insertLinear	       200,000	         7,542 ns/op	             0 B/op
+insertRandom	        50,000	        26,251 ns/op	          -263 B/op
+removeLinear	        20,000	        83,042 ns/op	             4 B/op
+removeRandom	        10,000	       120,652 ns/op	           431 B/op
+
+BinaryHeapPriorityQueueBench run#3:
+java -jar jaybee.jar BinaryHeapPriorityQueueBench
+insertLinear	       200,000	         8,033 ns/op	           -28 B/op
+insertRandom	        50,000	        26,279 ns/op	          -285 B/op
+removeLinear	        20,000	        82,832 ns/op	             4 B/op
+removeRandom	        10,000	       118,928 ns/op	           465 B/op
+
+
+2) With the xtime script and UniqueQueue.java.
+
+The data sets were generated using the provided makedata.py Python script.
+I created 9 data sets because we were asked to have 3 different sizes
+of files and three different levels of repeated elements so there are 9
+possible combinations.
+I titled them data_<x>k_<p>.txt where x is the number of thousands of the
+size of the file in terms of the number of integers/lines
+(either 1, 10, or 100) and p is the level of repeated elements in percent
+(either 0, 50, or 90). These are the same data files as used in Problems
+1 and 2 and 3.
+
+I redirect the output of the program to /dev/null.
+I run each benchmark three times to get confidence in the time and memory
+requirements.
+
+
+I had to modify the provided program SetUnique.java into UniqueQueue.java,
+In order to test both implementations, after running the test with the line
+	data = new SortedArrayPriorityQueue<Integer>();
+I comment it out and replace it with
+	data = new BinaryHeapPriorityQueue<Integer>();
+and recompile and run the tests again, recording the output each time.
+
+The following are the results
+along with each command line I used:
+
+While UniqueQueue uses SortedArrayPriorityQueue<T>:
+
+./xtime java UniqueQueue <data_1k_0.txt >/dev/null
+0.18 seconds 29764 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_1k_0.txt >/dev/null
+0.16 seconds 30124 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_1k_0.txt >/dev/null
+0.17 seconds 29688 kilobytes java UniqueQueue
+
+./xtime java UniqueQueue <data_1k_50.txt >/dev/null
+0.16 seconds 29060 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_1k_50.txt >/dev/null
+0.15 seconds 29572 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_1k_50.txt >/dev/null
+0.15 seconds 29368 kilobytes java UniqueQueue
+
+./xtime java UniqueQueue <data_1k_90.txt >/dev/null
+0.14 seconds 28420 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_1k_90.txt >/dev/null
+0.13 seconds 28440 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_1k_90.txt >/dev/null
+0.13 seconds 28056 kilobytes java UniqueQueue
+
+./xtime java UniqueQueue <data_10k_0.txt >/dev/null
+0.31 seconds 35264 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_10k_0.txt >/dev/null
+0.31 seconds 35688 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_10k_0.txt >/dev/null
+0.31 seconds 35528 kilobytes java UniqueQueue
+
+./xtime java UniqueQueue <data_10k_50.txt >/dev/null
+0.26 seconds 34332 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_10k_50.txt >/dev/null
+0.28 seconds 35328 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_10k_50.txt >/dev/null
+0.27 seconds 35188 kilobytes java UniqueQueue
+
+./xtime java UniqueQueue <data_10k_90.txt >/dev/null
+0.23 seconds 35252 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_10k_90.txt >/dev/null
+0.23 seconds 35148 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_10k_90.txt >/dev/null
+0.23 seconds 33640 kilobytes java UniqueQueue
+
+./xtime java UniqueQueue <data_100k_0.txt >/dev/null
+2.35 seconds 38220 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_100k_0.txt >/dev/null
+2.26 seconds 44548 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_100k_0.txt >/dev/null
+2.32 seconds 44760 kilobytes java UniqueQueue
+
+./xtime java UniqueQueue <data_100k_50.txt >/dev/null
+2.01 seconds 38780 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_100k_50.txt >/dev/null
+1.98 seconds 38424 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_100k_50.txt >/dev/null
+2.03 seconds 39000 kilobytes java UniqueQueue
+
+./xtime java UniqueQueue <data_100k_90.txt >/dev/null
+1.94 seconds 39020 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_100k_90.txt >/dev/null
+1.88 seconds 39624 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_100k_90.txt >/dev/null
+1.91 seconds 38248 kilobytes java UniqueQueue
+
+
+While UniqueQueue uses BianryHeapPriorityQueue<T>:
+
+
+./xtime java UniqueQueue <data_1k_0.txt >/dev/null
+0.17 seconds 29560 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_1k_0.txt >/dev/null
+0.17 seconds 29816 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_1k_0.txt >/dev/null
+0.17 seconds 30016 kilobytes java UniqueQueue
+
+./xtime java UniqueQueue <data_1k_50.txt >/dev/null
+0.15 seconds 29496 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_1k_50.txt >/dev/null
+0.14 seconds 29112 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_1k_50.txt >/dev/null
+0.15 seconds 29076 kilobytes java UniqueQueue
+
+./xtime java UniqueQueue <data_1k_90.txt >/dev/null
+0.15 seconds 29280 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_1k_90.txt >/dev/null
+0.14 seconds 28452 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_1k_90.txt >/dev/null
+0.15 seconds 29136 kilobytes java UniqueQueue
+
+./xtime java UniqueQueue <data_10k_0.txt >/dev/null
+0.31 seconds 35684 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_10k_0.txt >/dev/null
+0.31 seconds 35388 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_10k_0.txt >/dev/null
+0.31 seconds 35012 kilobytes java UniqueQueue
+
+./xtime java UniqueQueue <data_10k_50.txt >/dev/null
+0.27 seconds 35500 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_10k_50.txt >/dev/null
+0.28 seconds 34444 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_10k_50.txt >/dev/null
+0.27 seconds 35380 kilobytes java UniqueQueue
+
+./xtime java UniqueQueue <data_10k_90.txt >/dev/null
+0.22 seconds 34608 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_10k_90.txt >/dev/null
+0.24 seconds 35360 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_10k_90.txt >/dev/null
+0.24 seconds 35096 kilobytes java UniqueQueue
+
+./xtime java UniqueQueue <data_100k_0.txt >/dev/null
+0.86 seconds 38184 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_100k_0.txt >/dev/null
+0.87 seconds 38784 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_100k_0.txt >/dev/null
+0.92 seconds 38288 kilobytes java UniqueQueue
+
+./xtime java UniqueQueue <data_100k_50.txt >/dev/null
+0.68 seconds 38648 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_100k_50.txt >/dev/null
+0.77 seconds 38000 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_100k_50.txt >/dev/null
+0.91 seconds 45420 kilobytes java UniqueQueue
+
+./xtime java UniqueQueue <data_100k_90.txt >/dev/null
+0.59 seconds 38292 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_100k_90.txt >/dev/null
+0.55 seconds 39044 kilobytes java UniqueQueue
+./xtime java UniqueQueue <data_100k_90.txt >/dev/null
+0.58 seconds 39148 kilobytes java UniqueQueue
+
+Further Discussion:
+
+The BinaryHeapPriorityQueue clearly did much better than the
+SortedArrayPriorityQueue for the same data. For example, looking
+at the most difficult dataset (100k_0.txt), the sorted array version
+took 2.6 times longer.
+
+A big reason for the benefit is because of the structure: this is
+an efficient sorting algorithm (heap sort) where we run over the
+array to sort and insert each element into a heap and then run over
+the array to sort and fill in elements in the order they come back
+out of the heap. N elements are to be sorted, each is inserted and removed
+once which each takes o(logn) time so the whole sorting algorithm takes
+O(nlogn) time.
+
+This implementation is the most efficient out of all of them yet it 
+doesnt fit into the category of a set so its not comparing apples to apples.
+For example, with a set, you can remove a specific entry, but you cannot
+with a queue by simply passing that in. In this implementation, you would
+need to repeatedly remove the "best" and save them somehow like inserting
+them into another priority queue and when you remove the value that you want,
+you dont insert it into the new priority queue. This is what i did with the
+removeRandom function.
+
+Looking at the jaybee tests for SortedArrayPriorityQueue vs 
+BinaryHeapPriorityQueue, insertLinear is around 3.5 times slower and
+insertRandom is around 4.5 times slower for SortedArrayPriorityQueue
+compared to BinaryHeapPriorityQueue. Furthermore, removeLinear is around
+1.1 times slower and removeRandom is around 2 times slower for 
+SortedArrayPriorityQueue than for BinaryHeapPriorityQueue.
+
+It is possible to compare the inserts for PriorityQueue to the inserts
+for Set from the previous problems. I will compare the insertLinear
+for all the implementations in this homework assignment. The jaybee tests
+show that:
+BinaryHeapPriorityQueue's insertLinear is 3.8 times faster than for
+SortedArrayPriorityQueue, 3.9 times faster than for SortedArraySet,
+38 times faster than for TransposeArraySet, 134 times faster than
+for MoveToFrontListSet, 40 times faster than for ArraySet, and
+117 times faster than for ListSet.
+
+
+I repeated every single test I ran 3 times and displayed the results,
+and do not see any obvious outliers, strengthening the validity of
+the data.
 

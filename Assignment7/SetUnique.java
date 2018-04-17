@@ -21,7 +21,11 @@ public final class SetUnique {
      *  @param args Command line arguments (ignored).
      */
     public static void main(String[] args) {
-        data = new ListSet<Integer>();
+        //data = new ListSet<Integer>();
+        //data = new ArraySet<Integer>();
+        //data = new MoveToFrontListSet<Integer>();
+        data = new TransposeArraySet<Integer>();
+        //data = new SortedArraySet<Integer>();
         Scanner scanner = new Scanner(System.in);
 
         while (scanner.hasNext()) {

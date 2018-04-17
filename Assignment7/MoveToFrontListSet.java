@@ -43,30 +43,26 @@ public class MoveToFrontListSet<T> implements Set<T> {
     private int version;
 
     private Node<T> find(T t) {
+        Node<T> prev = this.head;
         for (Node<T> n = this.head; n != null; n = n.next) {
             if (n.data.equals(t)) {
 
                 // need to move the element in question  to the
                 // front (head) of the list
                 // but need to check if its the head!
+
                 if (n != this.head) {
-                    Node<T> tempNext = n.next;
-                    Node<T> tempPrev = n.prev;
+                    prev.next = n.next;
                     n.next = this.head;
-                    n.prev = null;
-                    this.head.prev = n;
-                    tempPrev.next = tempNext;
-                    tempNext.prev = tempPrev;
                     this.head = n;
-
-                    // need to increase version if ordering actually changed
                     this.version++;
-
+                    return n;
                 }
-
-
                 return n;
+
             }
+            prev = n;
+
         }
         return null;
     }

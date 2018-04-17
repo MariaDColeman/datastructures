@@ -73,17 +73,8 @@ public class BinaryHeapPriorityQueue<T extends Comparable<? super T>>
         return l;
     }
 
-//    private T parent(int i) {
-//        int p = i/2;
-//        if (p != 0) {
-//            return this.data.get(p);
-//        } else {
-//            return this.data.get(1); // it is the root
-//        }
-//    }
-
     private int parent(int i) {
-        int p = i/2;
+        int p = i / 2;
         if (p != 0) {
             return p;
         } else {
@@ -92,7 +83,7 @@ public class BinaryHeapPriorityQueue<T extends Comparable<? super T>>
     }
 
     private int leftChild(int i) {
-        int l = 2*i;
+        int l = 2 * i;
         if (l < this.data.size()) {
             return l;
         } else {
@@ -101,14 +92,13 @@ public class BinaryHeapPriorityQueue<T extends Comparable<? super T>>
     }
 
     private int rightChild(int i) {
-        int r = 2*i + 1;
+        int r = 2 * i + 1;
         if (r < this.data.size()) {
             return r;
         } else {
             return i; // node at i doesnt have right child
         }
     }
-
 
 
     // swap values in i and j positions in this.data
@@ -120,14 +110,11 @@ public class BinaryHeapPriorityQueue<T extends Comparable<? super T>>
 
     @Override
     public void insert(T t) {
-//        int p = this.find(t);
-//        this.data.add(p, t);
         this.data.add(t);
-        // if parent > t, call swap()
         int j = this.data.size() - 1;
         int p = this.parent(j);
-        while (this.greater(p,j)) {
-            this.swap(p,j);
+        while (this.greater(p, j)) {
+            this.swap(p, j);
             j = p;
             p = this.parent(j);
         }
@@ -149,29 +136,24 @@ public class BinaryHeapPriorityQueue<T extends Comparable<? super T>>
         int l = this.leftChild(j);
         int r = this.rightChild(j);
         int best;
-        if (this.less(l,r)) {
+        if (this.less(l, r)) {
             best = l;
         } else {
             best = r;
         }
 
-
-     //   int best = Math.min(l, r);
         while (this.greater(j, best)) {
             this.swap(j, best);
             j = best;
             l = this.leftChild(j);
             r = this.rightChild(j);
-//            best = Math.min(l, r);
 
-            if (this.less(l,r)) {
+            if (this.less(l, r)) {
                 best = l;
             } else {
                 best = r;
             }
-
-
-        }        
+        }
 
         return toRemove;
     }

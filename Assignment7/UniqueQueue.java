@@ -11,17 +11,17 @@ import java.util.Scanner;
  * inefficient, alas it's the simplest choice here.
  */
 public final class UniqueQueue {
-    private static Set<Integer> data;
+    private static PriorityQueue<Integer> data;
 
     // Make checkstyle happy.
-    private SetUnique() {}
+    private UniqueQueue() {}
 
     /**
      *  Main method.
      *  @param args Command line arguments (ignored).
      */
     public static void main(String[] args) {
-//        data = new ListSet<Integer>();
+        //data = new SortedArrayPriorityQueue<Integer>();
         data = new BinaryHeapPriorityQueue<Integer>();
         Scanner scanner = new Scanner(System.in);
 
@@ -35,11 +35,18 @@ public final class UniqueQueue {
             }
         }
 
-        // maybe instead do while not empty and remove best
-
-
-        for (Integer i: data) {
-            System.out.println(i);
+        if (!data.empty()) {
+            Integer temp = data.remove();
+            System.out.println(temp);
+            while (!data.empty()) {
+                Integer temp2 = data.remove();
+                // need to makesure its not in there before
+                if (temp2.equals(temp)) {
+                    continue;
+                }
+                System.out.println(temp2);
+                temp = new Integer(temp2);
+            }
         }
     }
 }

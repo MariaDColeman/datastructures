@@ -57,22 +57,17 @@ public class TransposeArraySet<T> implements Set<T> {
     private int find(T t) {
         for (int i = 0; i < this.used; i++) {
             if (this.data[i].equals(t)) {
-  //              return i;
-
-                // need to increase version
-//                this.version++;
-
                 // need to move the element in question one slot towards
                 // the front (index 0) by swapping
                 // but need to check if its the first one!!
                 if (i != 0) {
                     T temp = this.data[i];
-                    this.data[i] = this.data[i-1];
-                    this.data[i-1] = temp;
+                    this.data[i] = this.data[i - 1];
+                    this.data[i - 1] = temp;
 
                     // need to increase version if ordering actually changed
                     this.version++;
-                    return i-1;
+                    return i - 1;
                 }
                 return i;
 

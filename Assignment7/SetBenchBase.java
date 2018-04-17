@@ -54,6 +54,13 @@ public abstract class SetBenchBase {
         }
     }
 
+//    private static void hasRandom(Set<Integer> s) {
+//        for (int i = 0; i < SIZE/2; i++) {
+//            t = s.has(r.nextInt(SIZE/2*SIZE/2));
+//        }
+//    }
+
+
     private static void hasBiased(Set<Integer> s) {
         for (int i = 0; i < SIZE/8; i++) {
             t = s.has(0);
