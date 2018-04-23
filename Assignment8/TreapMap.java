@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
+
 /**
  * Ordered maps implemented as Treap map.
  *
@@ -26,26 +27,20 @@ public class TreapMap<K extends Comparable<? super K>, V>
         Node right;
         K key;
         V value;
-        int height;
         int priority;
 
         // Constructor to make node creation easier to read.
         Node(K k, V v) {
             // left and right default to null
-            // height should default to 1 for new node
             this.key = k;
             this.value = v;
-            this.height = 0; //FIX THIS. he makes us use -1 for some reason so 
-            // maybe make height of single node 0. in all class examples he
-            // made single node a height of 1 which stinks for this now.
-            this.priority = random.nextInt();
+            this.priority = TreapMap.this.random.nextInt();
         }
 
         // Just for debugging purposes.
         public String toString() {
             return "Node<key: " + this.key
                 + "; value: " + this.value
-                + "; height: " + this.height
                 + ">";
         }
     }
@@ -53,20 +48,11 @@ public class TreapMap<K extends Comparable<? super K>, V>
     private Node root;
     private int size;
     private StringBuilder stringBuilder;
-    Random random = new Random();
-
+    //private Random random = new Random(123456789L);
+    private Random random = new Random();
     @Override
     public int size() {
         return this.size;
-    }
-
-    // private helper method that returns -1 for a null pointer
-    // and the content of the height field otherwise.
-    private int height(Node n) {
-        if (n == null) {
-            return -1;
-        }
-        return n.height;
     }
 
 
@@ -144,10 +130,7 @@ public class TreapMap<K extends Comparable<? super K>, V>
             throw new IllegalArgumentException("duplicate key " + k);
         }
 
-            // step B.2 part 3 from appendix
-            n.height = Math.max(height(n.left), height(n.right)) + 1;
-    //    return n;
-        return balance(n);
+        return this.balance(n);
     }
 
     @Override
@@ -184,6 +167,7 @@ public class TreapMap<K extends Comparable<? super K>, V>
         Node max = this.max(n.left);
         n.key = max.key;
         n.value = max.value;
+        n.priority = max.priority;
         n.left = this.remove(n.left, max.key);
         return n;
     }
@@ -206,11 +190,7 @@ public class TreapMap<K extends Comparable<? super K>, V>
             // handle all the cases.
             n = this.remove(n);
         }
-            // step B.2 part 3 from appendix
-            //n.height = Math.max(height(n.left), height(n.right)) + 1;
-//maybe return balance(n) instead of just n.
-        //return n;
-        return balance(n);
+        return this.balance(n);
     }
 
     @Override
@@ -230,8 +210,6 @@ public class TreapMap<K extends Comparable<? super K>, V>
         Node b = a.right;
         a.right = b.left;
         b.left = a;
-        a.height = Math.max(height(a.left), height(a.right)) + 1;
-        b.height = Math.max(height(b.left), height(b.right)) + 1;
         return b;
     }
 
@@ -240,59 +218,61 @@ public class TreapMap<K extends Comparable<? super K>, V>
         Node b = a.left;
         a.left = b.right;
         b.right = a;
-        a.height = Math.max(height(a.left), height(a.right)) + 1;
-        b.height = Math.max(height(b.left), height(b.right)) + 1;
         return b;
     }
 
-
-    private Node rotateRightLeft(Node a) {
-        rotateRight(a.right);
-        return rotateLeft(a);
+    private boolean rightPriorityLess(Node n) {
+        return n.right.priority < n.priority;
     }
 
-    private Node rotateLeftRight(Node a) {
-        rotateLeft(a.left);
-        return rotateRight(a);
-    }
+    private int priorityDecide(Node n) {
+        if ((n.left == null) && (n.right.priority < n.priority)) {
+            return 1;
+        }
 
+        if ((n.right == null) && (n.left.priority < n.priority)) {
+            return -1;
+        }
+        return 0;
+
+    }
 
     // general balancing method
     private Node balance(Node n) {
 
-        if (n == null) {
+        if ((n == null) || (n.left == null && n.right == null)) {
             return n;
         }
 
-        if (n.left == null && n.right == null) {
-            return n;
+        if (this.priorityDecide(n) == 1) {
+            return this.rotateLeft(n);
         }
 
-        if (n.left == null) {
-            // we know n.right isnt null
-            // check if child is less than so needs to be rotated
-            if (n.right.priority < n.priority) {
-                return rotateLeft(n);
-            }
-            return n;
-        }
-        if (n.right == null) {
-            // we know n.left isnt null
-            // check if child is less than so needs to be rotated
-            if (n.left.priority < n.priority) {
-                return rotateRight(n);
-            }
-            return n;
+
+        if (this.priorityDecide(n) == -1) {
+            return this.rotateRight(n);
         }
 
-       // now we know n has 2 children
-       if ((n.right.priority < n.priority) && (n.right.priority < n.left.priority)) {
-           return rotateLeft(n);
-       } else if ((n.left.priority < n.priority) && (n.left.priority < n.right.priority)) {
-           return rotateRight(n);
-       } else {
-           return n;
-       }
+        // now we know n has 2 children
+        //if ((n.right.priority < n.priority)
+        //    && (n.right.priority < n.left.priority)) {
+        //    return this.rotateLeft(n);
+        //} else if ((n.left.priority < n.priority)
+        //    && (n.left.priority < n.right.priority)) {
+        //    return this.rotateRight(n);
+        //} else {
+        //    return n;
+        //}
+        if ((n.right.priority < n.priority)
+            && (n.right.priority < n.left.priority)) {
+            return this.rotateLeft(n);
+        }
+        if ((n.left.priority < n.priority)
+            && (n.left.priority < n.right.priority)) {
+            return this.rotateRight(n);
+        }
+        return n;
+
     }
 
 

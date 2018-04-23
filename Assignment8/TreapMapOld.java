@@ -6,16 +6,16 @@
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
-
+import java.util.Random;
 /**
- * Ordered maps implemented as Avl trees.
+ * Ordered maps implemented as Treap map.
  *
  * These are balanced.
  *
  * @param <K> Type for keys.
  * @param <V> Type for values.
  */
-public class AvlTreeMap<K extends Comparable<? super K>, V>
+public class TreapMap<K extends Comparable<? super K>, V>
     implements OrderedMap<K, V> {
 
     // Each node holds a key (which is what we sort the BST by) as well as a
@@ -27,6 +27,7 @@ public class AvlTreeMap<K extends Comparable<? super K>, V>
         K key;
         V value;
         int height;
+        int priority;
 
         // Constructor to make node creation easier to read.
         Node(K k, V v) {
@@ -34,10 +35,10 @@ public class AvlTreeMap<K extends Comparable<? super K>, V>
             // height should default to 1 for new node
             this.key = k;
             this.value = v;
-            this.height = 0;
-            //FIX THIS. he makes us use -1 for some reason so
+            this.height = 0; //FIX THIS. he makes us use -1 for some reason so 
             // maybe make height of single node 0. in all class examples he
             // made single node a height of 1 which stinks for this now.
+            this.priority = random.nextInt();
         }
 
         // Just for debugging purposes.
@@ -52,6 +53,7 @@ public class AvlTreeMap<K extends Comparable<? super K>, V>
     private Node root;
     private int size;
     private StringBuilder stringBuilder;
+    Random random = new Random();
 
     @Override
     public int size() {
@@ -143,8 +145,8 @@ public class AvlTreeMap<K extends Comparable<? super K>, V>
         }
 
         // step B.2 part 3 from appendix
-        n.height = Math.max(this.height(n.left), this.height(n.right)) + 1;
-        return this.balance(n);
+        n.height = Math.max(height(n.left), height(n.right)) + 1;
+        return balance(n);
     }
 
     @Override
@@ -203,9 +205,11 @@ public class AvlTreeMap<K extends Comparable<? super K>, V>
             // handle all the cases.
             n = this.remove(n);
         }
-        // step B.2 part 3 from appendix
-        //n.height = Math.max(height(n.left), height(n.right)) + 1;
-        return this.balance(n);
+            // step B.2 part 3 from appendix
+            //n.height = Math.max(height(n.left), height(n.right)) + 1;
+//maybe return balance(n) instead of just n.
+        //return n;
+        return balance(n);
     }
 
     @Override
@@ -225,8 +229,8 @@ public class AvlTreeMap<K extends Comparable<? super K>, V>
         Node b = a.right;
         a.right = b.left;
         b.left = a;
-        a.height = Math.max(this.height(a.left), this.height(a.right)) + 1;
-        b.height = Math.max(this.height(b.left), this.height(b.right)) + 1;
+        a.height = Math.max(height(a.left), height(a.right)) + 1;
+        b.height = Math.max(height(b.left), height(b.right)) + 1;
         return b;
     }
 
@@ -235,20 +239,20 @@ public class AvlTreeMap<K extends Comparable<? super K>, V>
         Node b = a.left;
         a.left = b.right;
         b.right = a;
-        a.height = Math.max(this.height(a.left), this.height(a.right)) + 1;
-        b.height = Math.max(this.height(b.left), this.height(b.right)) + 1;
+        a.height = Math.max(height(a.left), height(a.right)) + 1;
+        b.height = Math.max(height(b.left), height(b.right)) + 1;
         return b;
     }
 
 
     private Node rotateRightLeft(Node a) {
-        a.right = this.rotateRight(a.right);
-        return this.rotateLeft(a);
+        rotateRight(a.right);
+        return rotateLeft(a);
     }
 
     private Node rotateLeftRight(Node a) {
-        a.left = this.rotateLeft(a.left);
-        return this.rotateRight(a);
+        rotateLeft(a.left);
+        return rotateRight(a);
     }
 
 
@@ -259,29 +263,35 @@ public class AvlTreeMap<K extends Comparable<? super K>, V>
             return n;
         }
 
-        // if (Math.abs(n.left.height - n.right.height) <= 1) {
-        if (Math.abs(this.height(n.left) - this.height(n.right)) <= 1) {
-            n.height = Math.max(this.height(n.left), this.height(n.right)) + 1;
+        if (n.left == null && n.right == null) {
             return n;
         }
-        //if (n.left.height > n.right.height) {
-        if (this.height(n.left) > this.height(n.right)) {
-            // case 1
-            if (this.height(n.left.left) > this.height(n.left.right)) {
-                return this.rotateRight(n);
-            } else {
-                // case 2
-                return this.rotateLeftRight(n);
+
+        if (n.left == null) {
+            // we know n.right isnt null
+            // check if child is less than so needs to be rotated
+            if (n.right.priority < n.priority) {
+                return rotateLeft(n);
             }
-        } else {
-            if (this.height(n.right.left) > this.height(n.right.right)) {
-                // case 4
-                return this.rotateRightLeft(n);
-            } else {
-                // case 5
-                return this.rotateLeft(n);
-            }
+            return n;
         }
+        if (n.right == null) {
+            // we know n.left isnt null
+            // check if child is less than so needs to be rotated
+            if (n.left.priority < n.priority) {
+                return rotateRight(n);
+            }
+            return n;
+        }
+
+       // now we know n has 2 children
+       if ((n.right.priority < n.priority) && (n.right.priority < n.left.priority)) {
+           return rotateLeft(n);
+       } else if ((n.left.priority < n.priority) && (n.left.priority < n.right.priority)) {
+           return rotateRight(n);
+       } else {
+           return n;
+       }
     }
 
 
@@ -324,11 +334,6 @@ public class AvlTreeMap<K extends Comparable<? super K>, V>
         s.append(n.key);
         s.append(": ");
         s.append(n.value);
-
-        //comment this out!!
-        //     s.append(" h= ");
-        //     s.append(n.height);
-
         s.append(", ");
         this.toStringHelper(n.right, s);
     }

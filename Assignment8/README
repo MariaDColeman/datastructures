@@ -25,6 +25,55 @@ I benchmark the BinarySearchTreeMap in 2 different ways,
 1) With a jaybee benchmark driver called BinarySearchTreeMapBench.java
 (after writing OrderedMapBenchBase.java to modularize benchmark code
 and to be able to use it in the other problems).
+I ran BinarySearchTreeMapBench.java 3 times to avoid outliers and the
+following are the results:
+
+BinarySearchTreeMap Trial #1:
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ java -jar jaybee.jar BinarySearchTreeMapBench
+     hasLinearInsertedLinear	         1,000	     1,587,486 ns/op	        13,335 B/op
+     hasLinearInsertedRandom	         5,000	       207,869 ns/op	        -1,123 B/op
+     hasRandomInsertedLinear	         1,000	     1,570,041 ns/op	        -1,246 B/op
+     hasRandomInsertedRandom	         1,000	     1,555,880 ns/op	          -611 B/op
+insertAndRandomRandomlyMixed	         5,000	       235,010 ns/op	           739 B/op
+                insertLinear	           500	     2,367,950 ns/op	         5,321 B/op
+                insertRandom	        10,000	       232,537 ns/op	           180 B/op
+  removeLinearInsertedLinear	        10,000	       169,954 ns/op	         7,940 B/op
+  removeLinearInsertedRandom	        10,000	       203,281 ns/op	        -1,204 B/op
+  removeRandomInsertedLinear	         1,000	     1,938,624 ns/op	        -1,246 B/op
+  removeRandomInsertedRandom	         5,000	       297,715 ns/op	         1,499 B/op
+
+BinarySearchTreeMap Trial #2:
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ java -jar jaybee.jar BinarySearchTreeMapBench
+     hasLinearInsertedLinear	         1,000	     1,513,629 ns/op	        13,335 B/op
+     hasLinearInsertedRandom	         5,000	       209,370 ns/op	        -1,123 B/op
+     hasRandomInsertedLinear	         1,000	     1,520,892 ns/op	        -1,246 B/op
+     hasRandomInsertedRandom	         1,000	     1,513,598 ns/op	          -611 B/op
+insertAndRandomRandomlyMixed	         5,000	       233,347 ns/op	           739 B/op
+                insertLinear	           500	     2,282,518 ns/op	         5,321 B/op
+                insertRandom	         5,000	       235,497 ns/op	           638 B/op
+  removeLinearInsertedLinear	        10,000	       171,890 ns/op	         7,880 B/op
+  removeLinearInsertedRandom	        10,000	       203,728 ns/op	        -1,204 B/op
+  removeRandomInsertedLinear	         1,000	     1,901,416 ns/op	        -1,246 B/op
+  removeRandomInsertedRandom	         5,000	       295,554 ns/op	         1,499 B/op
+
+
+BinarySearchTreeMap Trial #3:
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ java -jar jaybee.jar BinarySearchTreeMapBench
+     hasLinearInsertedLinear	         1,000	     1,511,217 ns/op	         9,088 B/op
+     hasLinearInsertedRandom	         5,000	       216,883 ns/op	        -1,123 B/op
+     hasRandomInsertedLinear	         1,000	     1,471,180 ns/op	        -1,246 B/op
+     hasRandomInsertedRandom	         1,000	     1,489,785 ns/op	          -611 B/op
+insertAndRandomRandomlyMixed	         5,000	       237,583 ns/op	           739 B/op
+                insertLinear	         1,000	     2,292,951 ns/op	           599 B/op
+                insertRandom	         5,000	       235,388 ns/op	           638 B/op
+  removeLinearInsertedLinear	        10,000	       176,278 ns/op	         7,879 B/op
+  removeLinearInsertedRandom	        10,000	       207,280 ns/op	        -1,204 B/op
+  removeRandomInsertedLinear	         1,000	     1,901,223 ns/op	        -1,246 B/op
+  removeRandomInsertedRandom	         5,000         305,020 ns/op            1,499 B/op
+
 
 
 2) With the xtime script and Words.java.
@@ -48,9 +97,69 @@ The following are the results along with each command line I used:
 
 While Words uses BinarySearchTreeMap:
 
-./xtime java Words <5kRandom1.txt >/dev/null
 
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kRandom1.txt >/dev/null
+0.19 seconds 29104 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kRandom1.txt >/dev/null
+0.20 seconds 29540 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kRandom1.txt >/dev/null
+0.18 seconds 29484 kilobytes java Words
 
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kRandom2.txt >/dev/null
+0.19 seconds 29580 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kRandom2.txt >/dev/null
+0.19 seconds 29384 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kRandom2.txt >/dev/null
+0.18 seconds 29984 kilobytes java Words
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kSorted.txt >/dev/null
+0.53 seconds 29116 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kSorted.txt >/dev/null
+0.53 seconds 29272 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kSorted.txt >/dev/null
+0.50 seconds 29244 kilobytes java Words
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <20kRandom1.txt >/dev/null
+0.35 seconds 34748 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <20kRandom1.txt >/dev/null
+0.35 seconds 34932 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <20kRandom1.txt >/dev/null
+0.34 seconds 34608 kilobytes java Words
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <20kRandom2.txt >/dev/null
+0.36 seconds 34764 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <20kRandom2.txt >/dev/null
+0.35 seconds 35064 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <20kRandom2.txt >/dev/null
+0.33 seconds 34188 kilobytes java Words
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java -Xss4096M -d64 Words < 20kSorted.txt 
+5.79 seconds 34368 kilobytes java -Xss4096M -d64 Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java -Xss4096M -d64 Words < 20kSorted.txt 
+5.73 seconds 34876 kilobytes java -Xss4096M -d64 Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java -Xss4096M -d64 Words < 20kSorted.txt 
+5.68 seconds 34700 kilobytes java -Xss4096M -d64 Words
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <100kRandom1.txt >/dev/null
+0.86 seconds 42956 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <100kRandom1.txt >/dev/null
+0.83 seconds 42236 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <100kRandom1.txt >/dev/null
+0.84 seconds 42572 kilobytes java Words
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <100kRandom2.txt >/dev/null
+0.86 seconds 42192 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <100kRandom2.txt >/dev/null
+0.83 seconds 42956 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <100kRandom2.txt >/dev/null
+0.83 seconds 42768 kilobytes java Words
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java -Xss4096M -d64 Words < 100kSorted.txt
+197.25 seconds 48316 kilobytes java -Xss4096M -d64 Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java -Xss4096M -d64 Words < 100kSorted.txt
+193.04 seconds 48996 kilobytes java -Xss4096M -d64 Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java -Xss4096M -d64 Words < 100kSorted.txt
+220.32 seconds 48132 kilobytes java -Xss4096M -d64 Words
 
 
 When we use a plain BST, we have no control over the order that the
@@ -67,19 +176,384 @@ I created OrderedMapTestBase.java accompanied by BinarySearchTreeMapTest.java
 and AvlTreeMapTest.java and (for problem 3) TreapMap.java to test the
 OrderedMap implementations.
 
+I benchmark the AvlTreeMap in 2 different ways,
+
+1) With a jaybee benchmark driver called BalancedBSTBench.java
+(after writing OrderedMapBenchBase.java in Problem 1 to
+modularize benchmark code
+and to be able to use it in the other problems like this one).
+I will also BalancedBSTBench.java for TreapMap in Problem 3 by commenting
+out the line that says
+        return new AvlTreeMap<>();
+and instead writing
+        return new TreapMap<>();
+
+I ran BalancedBSTBench.java (with AvlTreeMap) 3 times to avoid
+outliers and the following are the results:
+
+BalancedBSTBench with AvlTreeMap Trial #1:
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ java -jar jaybee.jar BalancedBSTBench
+     hasLinearInsertedLinear	        10,000	       203,759 ns/op	         1,353 B/op
+     hasLinearInsertedRandom	         5,000	       204,621 ns/op	        -4,172 B/op
+     hasRandomInsertedLinear	         5,000	       226,181 ns/op	        -5,359 B/op
+     hasRandomInsertedRandom	        10,000	       226,007 ns/op	        -4,518 B/op
+insertAndRandomRandomlyMixed	         5,000	       272,087 ns/op	            29 B/op
+                insertLinear	         5,000	       263,003 ns/op	           176 B/op
+                insertRandom	         5,000	       287,378 ns/op	           545 B/op
+  removeLinearInsertedLinear	         5,000	       230,401 ns/op	          -477 B/op
+  removeLinearInsertedRandom	         5,000	       248,709 ns/op	        -4,335 B/op
+  removeRandomInsertedLinear	         5,000	       314,298 ns/op	        -5,346 B/op
+  removeRandomInsertedRandom	         5,000	       328,307 ns/op	         1,135 B/op
+
+
+BalancedBSTBench with AvlTreeMap Trial #1:
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ java -jar jaybee.jar BalancedBSTBench
+     hasLinearInsertedLinear	        10,000	       202,066 ns/op	            12 B/op
+     hasLinearInsertedRandom	        10,000	       205,925 ns/op	         1,940 B/op
+     hasRandomInsertedLinear	         5,000	       229,211 ns/op	        -5,209 B/op
+     hasRandomInsertedRandom	        10,000	       228,935 ns/op	        -4,774 B/op
+insertAndRandomRandomlyMixed	         5,000	       272,870 ns/op	            47 B/op
+                insertLinear	         5,000	       265,387 ns/op	           176 B/op
+                insertRandom	         5,000	       287,625 ns/op	           545 B/op
+  removeLinearInsertedLinear	         5,000	       231,263 ns/op	          -477 B/op
+  removeLinearInsertedRandom	         5,000	       251,163 ns/op	        -4,335 B/op
+  removeRandomInsertedLinear	         5,000	       315,561 ns/op	        -6,013 B/op
+  removeRandomInsertedRandom	         5,000	       332,215 ns/op	         1,135 B/op
+
+
+BalancedBSTBench with AvlTreeMap Trial #3:
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ java -jar jaybee.jar BalancedBSTBench
+     hasLinearInsertedLinear	        10,000	       204,160 ns/op	         1,353 B/op
+     hasLinearInsertedRandom	        10,000	       208,639 ns/op	        -4,150 B/op
+     hasRandomInsertedLinear	         5,000	       229,368 ns/op	        -5,168 B/op
+     hasRandomInsertedRandom	        10,000	       231,799 ns/op	        -4,933 B/op
+insertAndRandomRandomlyMixed	         5,000	       278,498 ns/op	            30 B/op
+                insertLinear	         5,000	       259,333 ns/op	           176 B/op
+                insertRandom	         5,000	       286,561 ns/op	           545 B/op
+  removeLinearInsertedLinear	         5,000	       235,809 ns/op	          -477 B/op
+  removeLinearInsertedRandom	         5,000	       253,987 ns/op	        -4,335 B/op
+  removeRandomInsertedLinear	         5,000	       317,279 ns/op	        -6,013 B/op
+  removeRandomInsertedRandom	         5,000	       333,354 ns/op	         1,135 B/op
+
+
+2) With the xtime script and Words.java.
+
+As in Problem 1,
+The data sets were generated using the provided makedata.py Python script.
+I created 9 data sets because we were asked to have 3 different sizes
+of files in terms of the number of words in each
+and 1 sorted and 2 different random inputs for each so there are 9
+possible combinations.
+I titled them <x>k<p>.txt where x is the number of thousands of the
+size of the file in terms of the number of words in each
+(either 5, 20, or 100) and p is either Sorted, Random1 or Random2.
+
+I redirect the output of the program to /dev/null whenever possible
+I run each benchmark three times to get confidence in the time and memory
+requirements.
+
+
+The provided program Words.java uses the BinarySearchTreeMap implementation.
+In order to benchmark the AvlTreeMap implementation of OrderedMap,
+I had to comment out the line:
+        Map<String, Integer> data = new BinarySearchTreeMap<>();
+and instead write:
+        Map<String, Integer> data = new AvlTreeMap<>();
+
+
+The following are the results along with each command line I used:
+
+While Words uses AvlTreeMap:
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kRandom1.txt >/dev/null
+0.21 seconds 30160 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kRandom1.txt >/dev/null
+0.18 seconds 30128 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kRandom1.txt >/dev/null
+0.19 seconds 29824 kilobytes java Words
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kRandom2.txt >/dev/null
+0.21 seconds 30720 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kRandom2.txt >/dev/null
+0.20 seconds 30088 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kRandom2.txt >/dev/null
+0.20 seconds 30148 kilobytes java Words
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kSorted.txt >/dev/null
+0.19 seconds 29696 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kSorted.txt >/dev/null
+0.19 seconds 29552 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kSorted.txt >/dev/null
+0.18 seconds 29636 kilobytes java Words
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <20kRandom1.txt >/dev/null
+0.34 seconds 35420 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <20kRandom1.txt >/dev/null
+0.35 seconds 35096 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <20kRandom1.txt >/dev/null
+0.34 seconds 35516 kilobytes java Words
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <20kRandom2.txt >/dev/null
+0.36 seconds 34656 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <20kRandom2.txt >/dev/null
+0.37 seconds 35828 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <20kRandom2.txt >/dev/null
+0.38 seconds 35340 kilobytes java Words
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <20kSorted.txt >/dev/null
+0.34 seconds 34944 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <20kSorted.txt >/dev/null
+0.33 seconds 35488 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <20kSorted.txt >/dev/null
+0.33 seconds 34796 kilobytes java Words
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <100kRandom1.txt >/dev/null
+0.80 seconds 42652 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <100kRandom1.txt >/dev/null
+0.81 seconds 43668 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <100kRandom1.txt >/dev/null
+0.80 seconds 43444 kilobytes java Words
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <100kRandom2.txt >/dev/null
+0.80 seconds 43732 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <100kRandom2.txt >/dev/null
+0.80 seconds 43824 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <100kRandom2.txt >/dev/null
+0.79 seconds 43652 kilobytes java Words
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <100kSorted.txt >/dev/null
+0.74 seconds 44908 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <100kSorted.txt >/dev/null
+0.72 seconds 45428 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <100kSorted.txt >/dev/null
+0.73 seconds 44968 kilobytes java Words
+
+
+Looking at the jaybee benchmarks for AvlTreeMap and BinarySearchTreeMap:
+the following are the average comparisons between the benchmarks:
+hasLinearInsertedLinear is 7.4 times slower for BinarySearchTreeMap than
+AvlTreeMap, hasLinearInsertedRanom is 1.04 times slower for
+BinarySearchTreeMap than AvlTreeMap,
+hasRandomInsertedLinear is 6.4 times slower for BinarySearchTreeMap than
+AvlTreeMap,
+hasRandomInsertedRandom is 6.4 times slower for BinarySearchTreeMap than
+AvlTreeMap,
+insertAndRandomRandomlyMixed is 1.2 times slower for AvlTreeMap than
+for BinarySearchTreeMap (which is the first surprising one!),
+insertLinear is 8.8 times slower for BinarySearchTreeMap than
+AvlTreeMap,
+insertRandom is 1.2 times slower for AvlTreeMap than
+BinarySearchTreeMap (surprising at first!),
+removeLinearInsertedLinear is 1.4 times slower for AvlTreeMap than
+BinarySearchTreeMap,
+removeLinearInsertedRandom is 1.2 times slower for AvlTreeMap than
+BinarySearchTreeMap,
+removeRandomInsertedLinear is 6 times slower for BinarySearchTreeMap than
+AvlTreeMap,
+removeRandomInsertedRandom is 1.1 times slower for AvlTreeMap than
+BinarySearchTreeMap.
+Furthermore, there are not as jurastic differences in time/op between
+each benchmark for AvlTreeMap compared to BinarySearchTreeMap.
+
+
+
+
 
 AVL trees guarentee worst case O(log n) operations. 
 
 **************************************************************************
 Problem 3: Creepy Treaps
 **************************************************************************
+I created OrderedMapTestBase.java accompanied by BinarySearchTreeMapTest.java
+and AvlTreeMapTest.java and (for this specific problem) TreapMap.java to
+test the OrderedMap implementations.
 
+I benchmark the TreapMap in 2 different ways,
 
+1) With a jaybee benchmark driver called BalancedBSTBench.java.
 I used BalancedBSTBench.java from Problem 2 for TreapMap by commenting
-out the line that says 
-	return new AvlTreeMap<>();
+out the line that says
+        return new AvlTreeMap<>();
 and instead writing
-	return new TreapMap<>();
+        return new TreapMap<>();
+
+I ran BalancedBSTBench.java (with TreapMap) 3 times to avoid
+outliers and the following are the results:
+
+BalancedBSTBench with TreapMap Trial #1:
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ java -jar jaybee.jar BalancedBSTBench
+     hasLinearInsertedLinear	        10,000	       212,306 ns/op	       -13,814 B/op
+     hasLinearInsertedRandom	        10,000	       209,945 ns/op	        21,545 B/op
+     hasRandomInsertedLinear	         5,000	       241,646 ns/op	        -7,757 B/op
+     hasRandomInsertedRandom	         5,000	       237,605 ns/op	          -961 B/op
+insertAndRandomRandomlyMixed	         5,000	       287,417 ns/op	           121 B/op
+                insertLinear	         5,000	       221,108 ns/op	           289 B/op
+                insertRandom	         5,000	       297,748 ns/op	           544 B/op
+  removeLinearInsertedLinear	         5,000	       208,675 ns/op	       -10,320 B/op
+  removeLinearInsertedRandom	        10,000	       213,606 ns/op	        21,905 B/op
+  removeRandomInsertedLinear	         5,000	       323,925 ns/op	       -35,959 B/op
+  removeRandomInsertedRandom	         5,000	       330,714 ns/op	        -7,831 B/op
+
+BalancedBSTBench with TreapMap Trial #2:
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ java -jar jaybee.jar BalancedBSTBench
+     hasLinearInsertedLinear	        10,000	       209,564 ns/op	       -14,242 B/op
+     hasLinearInsertedRandom	         5,000	       211,867 ns/op	        -6,982 B/op
+     hasRandomInsertedLinear	         5,000	       239,831 ns/op	       -30,488 B/op
+     hasRandomInsertedRandom	         5,000	       237,353 ns/op	        -7,757 B/op
+insertAndRandomRandomlyMixed	         5,000	       282,161 ns/op	           125 B/op
+                insertLinear	         5,000	       215,252 ns/op	           272 B/op
+                insertRandom	         5,000	       304,847 ns/op	           560 B/op
+  removeLinearInsertedLinear	         5,000	       213,757 ns/op	       -11,298 B/op
+  removeLinearInsertedRandom	         5,000	       214,604 ns/op	       -14,505 B/op
+  removeRandomInsertedLinear	         5,000	       325,166 ns/op	       -35,959 B/op
+  removeRandomInsertedRandom	         5,000	       324,983 ns/op	        -7,831 B/op
+
+
+BalancedBSTBench with TreapMap Trial #3:
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ java -jar jaybee.jar BalancedBSTBench
+     hasLinearInsertedLinear	        10,000	       208,663 ns/op	       -12,726 B/op
+     hasLinearInsertedRandom	        10,000	       212,831 ns/op	        -7,092 B/op
+     hasRandomInsertedLinear	         5,000	       241,430 ns/op	       -30,488 B/op
+     hasRandomInsertedRandom	         5,000	       237,154 ns/op	        -7,757 B/op
+insertAndRandomRandomlyMixed	         5,000	       284,740 ns/op	           125 B/op
+                insertLinear	        10,000	       215,749 ns/op	           275 B/op
+                insertRandom	         5,000	       300,146 ns/op	           520 B/op
+  removeLinearInsertedLinear	         5,000	       219,417 ns/op	       -12,216 B/op
+  removeLinearInsertedRandom	         5,000	       213,502 ns/op	       -14,505 B/op
+  removeRandomInsertedLinear	         5,000	       325,415 ns/op	       -35,959 B/op
+  removeRandomInsertedRandom	         5,000	       328,286 ns/op	        -7,831 B/op
+
+2) With the xtime script and Words.java.
+
+As in Problems 1 and 2,
+The data sets were generated using the provided makedata.py Python script.
+I created 9 data sets because we were asked to have 3 different sizes
+of files in terms of the number of words in each
+and 1 sorted and 2 different random inputs for each so there are 9
+possible combinations.
+I titled them <x>k<p>.txt where x is the number of thousands of the
+size of the file in terms of the number of words in each
+(either 5, 20, or 100) and p is either Sorted, Random1 or Random2.
+
+I redirect the output of the program to /dev/null whenever possible
+I run each benchmark three times to get confidence in the time and memory
+requirements.
+
+The provided program Words.java uses the BinarySearchTreeMap implementation.
+In order to benchmark the TreapMap implementation of OrderedMap,
+I had to comment out the line:
+        Map<String, Integer> data = new BinarySearchTreeMap<>();
+and instead write:
+        Map<String, Integer> data = new TreapMap<>();
+
+
+The following are the results along with each command line I used:
+
+While Words uses TreapMap:
+
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kRandom1.txt >/dev/null
+0.19 seconds 30452 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kRandom1.txt >/dev/null
+0.18 seconds 29692 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kRandom1.txt >/dev/null
+0.19 seconds 30036 kilobytes java Words
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kRandom2.txt >/dev/null
+0.20 seconds 29816 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kRandom2.txt >/dev/null
+0.20 seconds 30816 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kRandom2.txt >/dev/null
+0.20 seconds 29988 kilobytes java Words
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kSorted.txt >/dev/null
+0.21 seconds 29772 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kSorted.txt >/dev/null
+0.19 seconds 29740 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <5kSorted.txt >/dev/null
+0.18 seconds 29416 kilobytes java Words
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <20kRandom1.txt >/dev/null
+0.38 seconds 36148 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <20kRandom1.txt >/dev/null
+0.36 seconds 35432 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <20kRandom1.txt >/dev/null
+0.35 seconds 35800 kilobytes java Words
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <20kRandom2.txt >/dev/null
+0.36 seconds 34928 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <20kRandom2.txt >/dev/null
+0.37 seconds 34336 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <20kRandom2.txt >/dev/null
+0.37 seconds 35872 kilobytes java Words
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <20kSorted.txt >/dev/null
+0.35 seconds 35296 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <20kSorted.txt >/dev/null
+0.31 seconds 34816 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <20kSorted.txt >/dev/null
+0.34 seconds 35068 kilobytes java Words
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <100kRandom1.txt >/dev/null
+0.83 seconds 43396 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <100kRandom1.txt >/dev/null
+0.85 seconds 43960 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <100kRandom1.txt >/dev/null
+0.83 seconds 43992 kilobytes java Words
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <100kRandom2.txt >/dev/null
+0.84 seconds 43244 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <100kRandom2.txt >/dev/null
+0.84 seconds 43520 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <100kRandom2.txt >/dev/null
+0.84 seconds 43380 kilobytes java Words
+
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <100kSorted.txt >/dev/null
+0.68 seconds 44052 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <100kSorted.txt >/dev/null
+0.78 seconds 50308 kilobytes java Words
+student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime java Words <100kSorted.txt >/dev/null
+0.86 seconds 54792 kilobytes java Words
+
+
+Looking at the jaybee benchmarks for TreapMap and BinarySearchTreeMap:
+the following are the average comparisons between the benchmarks:
+hasLinearInsertedLinear is around 7.2 times slower for BinarySearchTreeMap
+than for TreapMap,
+hasLinearInsertedRandom is around 1.02 times slower for BinarySearchTreeMap
+than for TreapMap,
+hasRandomInsertedLinear is around 6 times slower for BinarySearchTreeMap
+than for TreapMap,
+hasRandomInsertedRandom is around 6 times slower for BinarySearchTreeMap
+than for TreapMap,
+insertAndRandomRandomlyMixed is around 1.2 times slower for TreapMap
+than for BinarySearchTreeMap,
+insertLinear is around 10 times slower for BinarySearchTreeMap
+than for TreapMap,
+insertRandom is around 1.3 times slower for TreapMap
+than for BinarySearchTreeMap,
+removeLinearInsertedLinear is around 1.2 times slower for TreapMap
+than for BinarySearchTreeMap,
+removeRandomInsertedLinear is around 1.2 times slower for TreapMap
+than for BinarySearchTreeMap,
+removeRandomInsertedLinear is around 5.8 times slower for BinarySearchTreeMap
+than for TreapMap,
+removeRandomInsertedRandom is around 1.1 times slower for TreapMap
+than for BinarySearchTreeMap.
+
+
+Looking at the jaybee benchmarks for TreapMap and AvlTreeMap,
+most of them produce similar results for time/op. Inserting linearly
+seems to be faster for treapmap whereas inserting randomly seems to be faster
+for AvlTreeMap.
+
+
 
 When we use a plain BST, we have no control over the order that the
 client inserts keys (assuming we dont know the order ahead of time which

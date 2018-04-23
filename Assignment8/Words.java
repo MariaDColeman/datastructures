@@ -24,9 +24,9 @@ public final class Words {
         // and non-letter characters (anything except 0-9, a-z, and A-Z).
         // Far from perfect, but close enough for this simple program.
         Pattern pattern = Pattern.compile("[\\s[^0-9a-zA-Z]]+");
-        Map<String, Integer> data = new BinarySearchTreeMap<>();
-//        Map<String, Integer> data = new AvlTreeMap<>();
-//        Map<String, Integer> data = new TreapMap<>();
+        //Map<String, Integer> data = new BinarySearchTreeMap<>();
+        //Map<String, Integer> data = new AvlTreeMap<>();
+        Map<String, Integer> data = new TreapMap<>();
 
         // If you're wondering why we're not using Scanner instead, you're
         // welcome to try out what happens... :-)

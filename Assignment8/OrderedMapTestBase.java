@@ -238,26 +238,26 @@ public abstract class OrderedMapTestBase {
         String ex1 = "{1: 1}";
         unit.insert(1, INIT);
         assertEquals(ex1, unit.toString());
-    System.out.println(unit.toString());
+  //  System.out.println(unit.toString());
         String ex2 = "{1: 1, 2: 1}";
         unit.insert(2, INIT);
         assertEquals(ex2, unit.toString());
-    System.out.println(unit.toString());
+  //  System.out.println(unit.toString());
 
         String ex3 = "{1: 1, 2: 1, 3: 1}";
         unit.insert(3, INIT);
         assertEquals(ex3, unit.toString());
-    System.out.println(unit.toString());
+  //  System.out.println(unit.toString());
 
         String ex4 = "{0: 1, 1: 1, 2: 1, 3: 1}";
         unit.insert(0, INIT);
         assertEquals(ex4, unit.toString());
-    System.out.println(unit.toString());
+  //  System.out.println(unit.toString());
 
         String ex5 = "{-1: 1, 0: 1, 1: 1, 2: 1, 3: 1}";
         unit.insert(-1, INIT);
         assertEquals(ex5, unit.toString());
-    System.out.println(unit.toString());
+  //  System.out.println(unit.toString());
 
     }
 
@@ -282,13 +282,50 @@ public abstract class OrderedMapTestBase {
         }
 
         for (int i = 0; i < SIZE; i++) {
-          //  System.out.println(ra[i]);
+  //          System.out.println(unit.toString());
+  //          System.out.println(ra[i]);
+//   try {
             unit.insert(ra[i], INIT);
             //System.out.println("wait");
+//            Thread.sleep(1000);
+    //        System.out.println(unit.toString());
+
             assertTrue(unit.has(ra[i]));
+//    } catch(InterruptedException e) {
+//        System.err.println("interrupted");
+//    }
         }
         //System.out.println(ex);
         //System.out.println(unit.toString());
+        assertEquals(ex, unit.toString());
+    }
+
+    @Test
+    public void testToStringKnownEx() {
+        StringBuilder s = new StringBuilder();
+        s.append("{");
+        for (int i = 1; i < 8; i++) {
+            s.append(i).append(": 1, ");
+        }
+        s.setLength(s.length()-2);
+        s.append("}");
+        String ex = s.toString();
+
+//            System.out.println(unit.toString());
+        unit.insert(4,INIT);
+//            System.out.println(unit.toString());
+        unit.insert(5,INIT);
+//            System.out.println(unit.toString());
+        unit.insert(7,INIT);
+//            System.out.println(unit.toString());
+        unit.insert(2,INIT);
+//            System.out.println(unit.toString());
+        unit.insert(1,INIT);
+//            System.out.println(unit.toString());
+        unit.insert(3,INIT);
+//            System.out.println(unit.toString());
+        unit.insert(6,INIT);
+//            System.out.println(unit.toString());
         assertEquals(ex, unit.toString());
     }
 
