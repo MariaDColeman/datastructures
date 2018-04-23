@@ -9,7 +9,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import java.util.Iterator;
-
+import java.util.ArrayList;
 /**
  * Testing multiple OrderedMap implementations.
  *
@@ -87,9 +87,15 @@ public abstract class OrderedMapTestBase {
     public void thereRemoveDecreasesSizeLots() {
         for (int i = 0; i < SIZE; i++) {
             unit.insert(i, INIT);
+//            assertTrue(unit.has(i));
+
         }
         assertEquals(SIZE, unit.size());
+            assertTrue(unit.has(90));
+
         for (int i = SIZE - 1; i >= 0; i--) {
+//            System.out.println(i);
+//            assertTrue(unit.has(i));
             unit.remove(i);
             assertEquals(i, unit.size());
         }
@@ -225,6 +231,65 @@ public abstract class OrderedMapTestBase {
         Integer myInt = i.next();
         assertEquals(new Integer(4), myInt);
         assertEquals(false, i.hasNext());
+    }
+
+    @Test
+    public void testSmallKnownToString() {
+        String ex1 = "{1: 1}";
+        unit.insert(1, INIT);
+        assertEquals(ex1, unit.toString());
+    System.out.println(unit.toString());
+        String ex2 = "{1: 1, 2: 1}";
+        unit.insert(2, INIT);
+        assertEquals(ex2, unit.toString());
+    System.out.println(unit.toString());
+
+        String ex3 = "{1: 1, 2: 1, 3: 1}";
+        unit.insert(3, INIT);
+        assertEquals(ex3, unit.toString());
+    System.out.println(unit.toString());
+
+        String ex4 = "{0: 1, 1: 1, 2: 1, 3: 1}";
+        unit.insert(0, INIT);
+        assertEquals(ex4, unit.toString());
+    System.out.println(unit.toString());
+
+        String ex5 = "{-1: 1, 0: 1, 1: 1, 2: 1, 3: 1}";
+        unit.insert(-1, INIT);
+        assertEquals(ex5, unit.toString());
+    System.out.println(unit.toString());
+
+    }
+
+    @Test
+    public void testToString() {
+        StringBuilder s = new StringBuilder();
+        s.append("{");
+        for (int i = -1; i < SIZE-1; i++) {
+            s.append(i).append(": 1, ");
+        }
+        s.setLength(s.length()-2);
+        s.append("}");
+        String ex = s.toString();
+        ArrayList<Integer> tempList = new ArrayList<>(SIZE);
+        for (int i = 0; i < SIZE-1; i++) {
+            tempList.add(i);
+        }
+        Integer[] ra = new Integer[SIZE];
+        ra[0]=-1;
+        for (int c = 1; c < SIZE; c++) {
+            ra[c] = tempList.remove((int)(Math.random() * tempList.size()));
+        }
+
+        for (int i = 0; i < SIZE; i++) {
+          //  System.out.println(ra[i]);
+            unit.insert(ra[i], INIT);
+            //System.out.println("wait");
+            assertTrue(unit.has(ra[i]));
+        }
+        //System.out.println(ex);
+        //System.out.println(unit.toString());
+        assertEquals(ex, unit.toString());
     }
 
 

@@ -1,0 +1,104 @@
+Maria Coleman
+JHED: mcolem31
+email: mcolem31@jhu.edu
+
+* I included jaybee.jar because that is necessary to build all the jaybee
+tests.
+* I did NOT include makedata.py because it is not "necessary to build
+everything" as it states under "Deliverables."
+
+I will copy and paste the results from each test.
+I waited until I was done all of the rest of the homework and then ran
+all of the benchmarking for each problem consecutively instead of when
+I completed each problem so that the difference in parameters that could
+affect the results was minimized.
+
+
+
+**************************************************************************
+Problem 1: Warming Up
+**************************************************************************
+
+
+I benchmark the BinarySearchTreeMap in 2 different ways,
+
+1) With a jaybee benchmark driver called BinarySearchTreeMapBench.java
+(after writing OrderedMapBenchBase.java to modularize benchmark code
+and to be able to use it in the other problems).
+
+
+2) With the xtime script and Words.java.
+
+The data sets were generated using the provided makedata.py Python script.
+I created 9 data sets because we were asked to have 3 different sizes
+of files in terms of the number of words in each
+and 1 sorted and 2 different random inputs for each so there are 9
+possible combinations.
+I titled them <x>k<p>.txt where x is the number of thousands of the
+size of the file in terms of the number of words in each
+(either 5, 20, or 100) and p is either Sorted, Random1 or Random2.
+
+I redirect the output of the program to /dev/null whenever possible
+I run each benchmark three times to get confidence in the time and memory
+requirements.
+
+
+The provided program Words.java uses the BinarySearchTreeMap implementation.
+The following are the results along with each command line I used:
+
+While Words uses BinarySearchTreeMap:
+
+./xtime java Words <5kRandom1.txt >/dev/null
+
+
+
+
+When we use a plain BST, we have no control over the order that the
+client inserts keys (assuming we dont know the order ahead of time which
+is true most of the time). Therefore, the client can pick a bad order
+which will make the height of the tree too high and performance will
+be poor. I have shown that insertions in random order generally lead
+to good performance.
+
+**************************************************************************
+Problem 2: Spinning Trees
+**************************************************************************
+I created OrderedMapTestBase.java accompanied by BinarySearchTreeMapTest.java
+and AvlTreeMapTest.java and (for problem 3) TreapMap.java to test the
+OrderedMap implementations.
+
+
+AVL trees guarentee worst case O(log n) operations. 
+
+**************************************************************************
+Problem 3: Creepy Treaps
+**************************************************************************
+
+
+I used BalancedBSTBench.java from Problem 2 for TreapMap by commenting
+out the line that says 
+	return new AvlTreeMap<>();
+and instead writing
+	return new TreapMap<>();
+
+When we use a plain BST, we have no control over the order that the
+client inserts keys (assuming we dont know the order ahead of time which
+is true most of the time). Therefore, the client can pick a bad order
+which will make the height of the tree too high and performance will
+be poor. I have shown that insertions in random order generally lead
+to good performance. 
+
+The treap is a BST, so the order in which clients present keys for
+insertion still cannot be controlled. However, we can choose the
+priorities to "reorder" the insertion sequence in the background and
+we pick these priorities randomly so that we are essentially inserting
+with random order so it is most likely that the treap will have a good
+height.
+
+AVL trees guarentee worse case O(log n) operations whereas
+treaps guarentee expected O(log n) operations. So if you want to be really
+safe and dont trust the random numbers, then AVL trees are what you should
+use. Whereas if you trust your random numbers, treaps are what you should
+use. All of the benchmarks between AVL trees and treaps have treaps
+being superior. You could get extreeeemly unlucky and randomly generate
+a permutation that leads to a tree being too high.
