@@ -91,12 +91,17 @@ public abstract class OrderedMapTestBase {
 
         }
         assertEquals(SIZE, unit.size());
-            assertTrue(unit.has(90));
+          //  assertTrue(unit.has(90));
 
         for (int i = SIZE - 1; i >= 0; i--) {
 //            System.out.println(i);
+//           System.out.println(unit.size());
+//           System.out.println(unit.toString());
+           //System.out.println(unit.size());
 //            assertTrue(unit.has(i));
             unit.remove(i);
+  //         System.out.println(unit.size());
+
             assertEquals(i, unit.size());
         }
     }
@@ -153,8 +158,12 @@ public abstract class OrderedMapTestBase {
 
     @Test(expected=IllegalArgumentException.class)
     public void insertThenRemoveOnEmpty() {
+        //System.out.println("insertThenRemoveOnEmpty:");
+        //System.out.println(unit.toString());
         unit.insert(1, INIT);
+        //System.out.println(unit.toString());
         Integer t = unit.remove(1);
+        //System.out.println(unit.toString());
         assertEquals(0, unit.size());
         Integer t2 = unit.remove(1);
     }
@@ -260,6 +269,18 @@ public abstract class OrderedMapTestBase {
   //  System.out.println(unit.toString());
 
     }
+
+//    @Test
+//    public void testtreapDeleteThis() {
+//        unit.insert(7, INIT);
+//        unit.insert(2, INIT);
+//        unit.insert(1, INIT);
+//        unit.insert(8, INIT);
+//        unit.insert(3, INIT);
+//        unit.insert(5, INIT);
+//        unit.insert(4, INIT);
+//        System.out.println(unit.toString());
+//   }
 
     @Test
     public void testToString() {

@@ -1,3 +1,8 @@
+/*
+ * Maria Coleman
+ * mcolem31
+ */
+
 import com.github.phf.jb.Bench;
 import com.github.phf.jb.Bee;
 
@@ -20,20 +25,15 @@ public abstract class OrderedMapBenchBase {
     private static Integer[] ra = new Integer[SIZE];
 
 
-        private static ArrayList<Integer> tempList2 = new ArrayList<>(SIZE);
-        private static Integer[] ra2 = new Integer[SIZE];
+    private static ArrayList<Integer> tempList2 = new ArrayList<>(SIZE);
+    private static Integer[] ra2 = new Integer[SIZE];
 
 
         
-        private static Integer[] ra3 = new Integer[SIZE];
-
-
-//FIGURE OUT HOW to do it just once
-// maybe make something similar to createUnit
+    private static Integer[] ra3 = new Integer[SIZE];
 
 
     private static void init() {
-//    public static void main(String[] args) {
 
         Random r = new Random(123456789L);
 
@@ -43,7 +43,7 @@ public abstract class OrderedMapBenchBase {
         for (int i = 0; i < SIZE; i++) {
             tempList.add(i);
         }
-    //    private Integer[] ra = new Integer[SIZE];
+
         ra = new Integer[SIZE];  
         for (int c = 0; c < SIZE; c++) {
             ra[c] = tempList.remove((int)(r.nextDouble() * tempList.size()));

@@ -162,12 +162,35 @@ student@lubuntu:~/Documents/DataStructures/datastructures/Assignment8$ ./xtime j
 220.32 seconds 48132 kilobytes java -Xss4096M -d64 Words
 
 
+Looking at the jaybee benchmarks,
+hasLinearInsertedLinear takes approximatly 7 times longer than
+hasLinearInsertedRandom. This binary search tree map is unbalanced and
+therefore inserting in a linear ascending or descending order is the worst
+possible case, where the height of the tree (which is proportional to 
+all the operations we care about) can be up to the number of elements
+inserted in this worst case. Therefore, this result makes sense and so
+does the benchmark insertLinear taking around 9.7 times longer than
+the insertRandom benchmark. This can also be seen because the benchmark
+removeRandomInsertedLinear takes around 6 times longer (in time/op) than
+removeRandomInsertedRandom. 
+
+Looking at the benchmarks using Words.java and the datasets I created,
+the data is very consistent and shows that for the 5k elements,
+using the sorted data is approximately 2.5 times slower than using the
+random data. 
+For 20k elements, using the sorted data is approximately 16 times slower
+than using the random data.
+For 100k elements, using the sorted data is approximatley 235 times
+slower than using the random data!! (yes it took a long time).
+
 When we use a plain BST, we have no control over the order that the
 client inserts keys (assuming we dont know the order ahead of time which
 is true most of the time). Therefore, the client can pick a bad order
 which will make the height of the tree too high and performance will
 be poor. I have shown that insertions in random order generally lead
 to good performance.
+Unbalanced trees created by sorted insertions will perform a lot worse
+than unbalanced trees created by random insertions.
 
 **************************************************************************
 Problem 2: Spinning Trees
@@ -355,18 +378,51 @@ removeRandomInsertedLinear is 6 times slower for BinarySearchTreeMap than
 AvlTreeMap,
 removeRandomInsertedRandom is 1.1 times slower for AvlTreeMap than
 BinarySearchTreeMap.
+
 Furthermore, there are not as jurastic differences in time/op between
 each benchmark for AvlTreeMap compared to BinarySearchTreeMap.
 
 
+Looking at the benchmarks from using xtime and Words.java and the datasets
+I created, the differences between this AvlTreeMap and BinarySearchTreeMap
+implementations can be clearly seen when it comes to performance
+when the input data is sorted.
 
+For the 5k elements data, for the random datasets, both BinarySearchTreeMap
+and AvlTreeMap take a similar amount of time. However, for 5kSorted.txt,
+not only is the performance better for AvlTreeMap than BinarySearchTreeMap
+comparatively, but it is actually equivalent (or ever so slightly faster)
+than using the 5k random data sets. This means that for 5kSorted.txt,
+BinarySearchTreeMap is approximately 2.5 times slower than AvlTreeMap.
 
+The difference between AvlTreeMap and BinarySearchTreeMap for sorted
+data only continues to grow as there are more elements. And, for 100k elements
+the time it takes to run Words.java actually decreased for Sorted over the
+random datasets.
 
-AVL trees guarentee worst case O(log n) operations. 
+AVL trees guarentee worst case O(log n) operations.
+When we use a plain BST, we have no control over the order that the
+client inserts keys (assuming we dont know the order ahead of time which
+is true most of the time). Therefore, the client can pick a bad order
+which will make the height of the tree too high and performance will
+be poor.
+Unbalanced trees created by sorted insertions will clearly 
+perform a lot worse than unbalanced trees created by random insertions,
+and by AvlTrees which are balanced (differing by at most to 1 on one side)
+which limits the height of the tree which is what all the operations
+we care about have time proportional to.
 
 **************************************************************************
 Problem 3: Creepy Treaps
 **************************************************************************
+
+* This is potentially really important. Today, Monday the day this is due,
+Peter explained deletions for Treaps. However, I worked on this over the
+weekend and did not have time to change much today. According to what
+he said on Friday and what I've read online, you are allowed to implement
+deletion how I did, which is removing the node according only to the
+BST property an then restoring the minimum-heap ordering property.
+
 I created OrderedMapTestBase.java accompanied by BinarySearchTreeMapTest.java
 and AvlTreeMapTest.java and (for this specific problem) TreapMap.java to
 test the OrderedMap implementations.
@@ -547,13 +603,36 @@ than for TreapMap,
 removeRandomInsertedRandom is around 1.1 times slower for TreapMap
 than for BinarySearchTreeMap.
 
+Furthermore, there are not as jurastic differences in time/op between
+each benchmark for TreapMap compared to BinarySearchTreeMap.
+
 
 Looking at the jaybee benchmarks for TreapMap and AvlTreeMap,
 most of them produce similar results for time/op. Inserting linearly
 seems to be faster for treapmap whereas inserting randomly seems to be faster
 for AvlTreeMap.
 
+Looking at the benchmarks created with xtime and Words.java,
+and the datasets
+I created, the differences between this TreapMap and BinarySearchTreeMap
+implementations can be clearly seen when it comes to performance
+when the input data is sorted.
 
+For the 5k elements data, for the random datasets, both BinarySearchTreeMap
+and TreapMap take a similar amount of time. However, for 5kSorted.txt,
+not only is the performance better for TreapMap than BinarySearchTreeMap
+comparatively, but it is actually equivalent (or ever so slightly faster)
+than using the 5k random data sets. This means that for 5kSorted.txt,
+BinarySearchTreeMap is approximately 2.5 times slower than TreapMap,
+and this difference grows to 240 times slower for the 100kSorted dataset.
+
+The difference between TreapMap and BinarySearchTreeMap for sorted
+data only continues to grow as there are more elements. And, for 100k elements
+the time it takes to run Words.java actually decreased for Sorted over the
+random datasets.
+
+The results for TreapMap and AvlTreeMap are similar using the xtime and
+Words.java benchmark.
 
 When we use a plain BST, we have no control over the order that the
 client inserts keys (assuming we dont know the order ahead of time which

@@ -1,3 +1,8 @@
+/*
+ * Maria Coleman
+ * mcolem31
+ */
+
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -78,8 +83,6 @@ public class BinarySearchTreeMapTest extends OrderedMapTestBase {
             unit.insert(ra[i], INIT);
         }
         assertEquals(ex, unit.toString());
-
-
     }
 
 }

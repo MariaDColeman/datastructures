@@ -50,7 +50,6 @@ public class TreapMap<K extends Comparable<? super K>, V>
     private StringBuilder stringBuilder;
     //private Random random = new Random(123456789L);
     private Random random = new Random();
-
     @Override
     public int size() {
         return this.size;
@@ -79,60 +78,64 @@ public class TreapMap<K extends Comparable<? super K>, V>
         }
     }
 
+    
 
 
     // Return parent node for given key, null if key not present.
-    //private Node findParent(K k) {
-    //    if (k == null) {
-    //        throw new IllegalArgumentException("cannot handle null key");
-    //    }
-    //    int cmp = (this.root.key).compareTo(k);
-    //    if (cmp == 0) {
-    //        return null;
-    //    } else if (cmp > 0 && this.root.right != null) {
-    //    int cmpR = (this.root.right.key).compareTo(k);
-    //         if (cmpR == 0) {
-    //             return this.root;
-    //         } else {
-    //             return this.findParent(this.root.right, k);
-    //         }
-    //    } else if (cmp < 0 && this.root.left != null) {
-    //    int cmpL = (this.root.left.key).compareTo(k);
-    //         if (cmpL == 0) {
-    //             return this.root;
-    //         } else {
-    //             return this.findParent(this.root.left, k);
-    //         }
-    //    }
-    //      return null;
-    //}
+    private Node findParent(K k) {
+        if (k == null) {
+            throw new IllegalArgumentException("cannot handle null key");
+        }
+        int cmp = (this.root.key).compareTo(k);
+        if (cmp == 0) {
+            return null;
+        } else if (cmp > 0 && this.root.right != null) {
+        int cmpR = (this.root.right.key).compareTo(k);
+             if (cmpR == 0) {
+                 return this.root;
+             } else {
+                 return this.findParent(this.root.right, k);
+             }
+        } else if (cmp < 0 && this.root.left != null) {
+        int cmpL = (this.root.left.key).compareTo(k);
+             if (cmpL == 0) {
+                 return this.root;
+             } else {
+                 return this.findParent(this.root.left, k);
+             }
+        }
+          return null;
+    }
 
     // call fin parent on a node
-    //private Node findParent(Node n, K k) {
-    //    if (n == null) {
-    //        return null;
-    //    }
-    //    int cmp = (n.key).compareTo(k);
-    //    if (cmp == 0) {
-    //        return null;
+    private Node findParent(Node n, K k) {
+        if (n == null) {
+            return null;
+        }
+        int cmp = (n.key).compareTo(k);
+        if (cmp == 0) {
+            return null;
 
-    //    } else if (cmp > 0 && n.right != null) {
-    //    int cmpR = (n.right.key).compareTo(k);
-    //         if (cmpR == 0) {
-    //             return n;
-    //         } else {
-    //             return this.findParent(n.right, k);
-    //         }
-    //    } else if (cmp < 0 && n.left != null) {
-    //    int cmpL = (n.left.key).compareTo(k);
-    //         if (cmpL == 0) {
-    //             return n;
-    //         } else {
-    //             return this.findParent(n.left, k);
-    //         }
-    //    }
-    //    return n;
-    //}
+        } else if (cmp > 0 && n.right != null) {
+        int cmpR = (n.right.key).compareTo(k);
+             if (cmpR == 0) {
+                 return n;
+             } else {
+                 return this.findParent(n.right, k);
+             }
+        } else if (cmp < 0 && n.left != null) {
+        int cmpL = (n.left.key).compareTo(k);
+             if (cmpL == 0) {
+                 return n;
+             } else {
+                 return this.findParent(n.left, k);
+             }
+        }
+
+
+        return n;
+
+    }
 
 
 
@@ -234,39 +237,39 @@ public class TreapMap<K extends Comparable<? super K>, V>
     // or 1 child; if it has two children, find the predecessor, copy its data
     // to the given node (thus removing the key we need to get rid off), then
     // remove the predecessor node.
-    //private Node removeOldTry(Node n) {
-    //    Node top = n;
-    //    //Node p = null;
-    //    Node p = this.findParent(n.key);
-    //    // need it to be a leaf to remove it
-    //    while (n.left != null || n.right != null) {
-    //        if (n.left == null) {
-    //            p = this.rotateLeft(n);
-    //            n = p.left;
-    //            // n = p.right;
-    //            //n = this.rotateLeft(n).left;
-    //        } else if (n.right == null) {
-    //            p = this.rotateRight(n);
-    //            n = p.right;
-    //            //n = p.left;
-    //            //n = this.rotateRight(n).right;
-    //        } else if (n.left.priority < n.right.priority) {
-    //            p = this.rotateRight(n);
-    //            n = p.right;
-    //            //n = this.rotateRight(n).right;
-    //        } else {
-    //            p = this.rotateLeft(n);
-    //            n = p.left;
-    //            //n = this.rotateLeft(n).left;
-    //        }
-    //    }
-    //    if (p.left.key.compareTo(n.key) == 0) {
-    //        p.left = null;
-    //    } else {
-    //        p.right = null;
-    //    }
-    //    return p;
-    //}
+    private Node removeOldTry(Node n) {
+        Node top = n;
+        //Node p = null;
+        Node p = this.findParent(n.key);
+        // need it to be a leaf to remove it
+        while (n.left != null || n.right != null) {
+            if (n.left == null) {
+                p = this.rotateLeft(n);
+                n = p.left;
+                // n = p.right;
+                //n = this.rotateLeft(n).left;
+            } else if (n.right == null) {
+                p = this.rotateRight(n);
+                n = p.right;
+                //n = p.left;
+                //n = this.rotateRight(n).right;
+            } else if (n.left.priority < n.right.priority) {
+                p = this.rotateRight(n);
+                n = p.right;
+                //n = this.rotateRight(n).right;
+            } else {
+                p = this.rotateLeft(n);
+                n = p.left;
+                //n = this.rotateLeft(n).left;
+            }
+        }
+        if (p.left.key.compareTo(n.key) == 0) {
+            p.left = null;
+        } else {
+            p.right = null;
+        }
+        return p;
+    }
 
 
     // Remove node with given key from subtree rooted at given node; return
@@ -291,59 +294,60 @@ public class TreapMap<K extends Comparable<? super K>, V>
         return this.balance(n);
     }
 
-    // change remove to find it and then keep swapping down until it has
+    // change remove to find it and then keep swapping down until it has 
     // no children and then snip off.
     // like first do V v thing. then do find. min heap so see which cjild
     // is min and rotate down until it has no children.
     // @Override
-    //public V removeTry(K k) {
-    //    V v = this.findForSure(k).value;
-    //    Node n = this.find(k);
-    //    if (n == null) {
-    //        throw new IllegalArgumentException("cannot find key " + k);
-    //    }
+    public V removeTry(K k) {
+        V v = this.findForSure(k).value;
+        Node n = this.find(k);
+        if (n == null) {
+            throw new IllegalArgumentException("cannot find key " + k);
+        }
+        
 
-    //    //Node p = this.root;
-    //    Node p = this.findParent(k);
-    //    //p = this.rotateLeft(this.rotateRight(n));
-    //    //p = this.rotateRight(n);
+        //Node p = this.root;
+        Node p = this.findParent(k);
+        //p = this.rotateLeft(this.rotateRight(n));
+        //p = this.rotateRight(n);
 
-    //    // the issue is if its a leaf to begin with! you need to parent.
+        // the issue is if its a leaf to begin with! you need to parent.
 
-    //    // need it to be a leaf to remove it
-    //    while (n.left != null || n.right != null) {
-    //    if (n == null) {
-    //        throw new IllegalArgumentException("cannot find key " + k);
-    //    }
+        // need it to be a leaf to remove it
+        while (n.left != null || n.right != null) {
+        if (n == null) {
+            throw new IllegalArgumentException("cannot find key " + k);
+        }
 
-    //        if (n.left == null) {
-    //            p = this.rotateLeft(n);
-    //            n = p.left;
-    //            //n = this.rotateLeft(n).left;
-    //        } else if (n.right == null) {
-    //            p = this.rotateRight(n);
-    //            n = p.right;
-    //            //n = this.rotateRight(n).right;
-    //        } else if (n.left.priority < n.right.priority) {
-    //            p = this.rotateRight(n);
-    //            n = p.right;
-    //            //n = this.rotateRight(n).right;
-    //        } else {
-    //            p = this.rotateLeft(n);
-    //            n = p.left;
-    //            //n = this.rotateLeft(n).left;
-    //        }
-    //    }
-    //    //System.out.println(this.toString());
-    //    if (p != null && p.left == n) {
-    //        p.left = null;
-    //    } else if (p != null && p.right == n) {
-    //        p.right = null;
-    //   }
-    //    this.size--;
-    //    //System.out.println(this.toString());
-    //    return v;
-    //}
+            if (n.left == null) {
+                p = this.rotateLeft(n);
+                n = p.left;
+                //n = this.rotateLeft(n).left;
+            } else if (n.right == null) {
+                p = this.rotateRight(n);
+                n = p.right;
+                //n = this.rotateRight(n).right;
+            } else if (n.left.priority < n.right.priority) {
+                p = this.rotateRight(n);
+                n = p.right;
+                //n = this.rotateRight(n).right;
+            } else {
+                p = this.rotateLeft(n);
+                n = p.left;
+                //n = this.rotateLeft(n).left;
+            }
+        }
+        System.out.println(this.toString());
+        if (p != null && p.left == n) {
+            p.left = null;
+        } else if (p != null && p.right == n) {
+            p.right = null;
+        }
+        this.size--;
+        System.out.println(this.toString());
+        return v;
+    }
 
 
     @Override
@@ -393,26 +397,10 @@ public class TreapMap<K extends Comparable<? super K>, V>
 
     }
 
-    private int priorityDecide2(Node n) {
-        if ((n.right.priority < n.priority)
-            && (n.right.priority < n.left.priority)) {
-            return 1;
-        }
-        if ((n.left.priority < n.priority)
-            && (n.left.priority < n.right.priority)) {
-            return -1;
-        }
-        return 0;
-
-    }
-
-
-
     // general balancing method
     private Node balance(Node n) {
 
         if ((n == null) || (n.left == null && n.right == null)) {
-
             return n;
         }
 
@@ -439,18 +427,14 @@ public class TreapMap<K extends Comparable<? super K>, V>
         //} else {
         //    return n;
         //}
-        //if (this.priorityDecide(n) == 0) {
-        //        if ((n.right.priority < n.priority)
-        //            && (n.right.priority < n.left.priority)) {
-        if (this.priorityDecide2(n) == 1) {
+        if ((n.right.priority < n.priority)
+            && (n.right.priority < n.left.priority)) {
             return this.rotateLeft(n);
         }
-        //        if ((n.left.priority < n.priority)
-        //            && (n.left.priority < n.right.priority)) {
-        if (this.priorityDecide2(n) == -1) {
+        if ((n.left.priority < n.priority)
+            && (n.left.priority < n.right.priority)) {
             return this.rotateRight(n);
         }
-        //}
         return n;
 
     }
