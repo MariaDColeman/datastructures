@@ -14,6 +14,7 @@ public class QuadProbingHashMap<K, V> implements Map<K, V> {
 
         K key;
         V value;
+        boolean deleted = false;
         Entry(K k, V v) {
             this.key = k;
             this.value = v;
@@ -87,8 +88,8 @@ public class QuadProbingHashMap<K, V> implements Map<K, V> {
         }
     }
 
-    private int primeNum = 10;
-    public static final int INITIAL_SIZE = Primes.INTS[10];
+    private int primeNum = 15;
+    public static final int INITIAL_SIZE = Primes.INTS[15];
 //    public static final double loadFactorMax = 0.9;
     private double loadFactorMax = 0.5;
 
@@ -133,9 +134,10 @@ public class QuadProbingHashMap<K, V> implements Map<K, V> {
         int index = slot;
         int r = 1;
 //        while (this.data.get(index) != null) {
-        while (this.data.get(index).key != null) {
+        //while (this.data.get(index).key != null) {
+        while ((this.data.get(index).key != null) || (this.data.get(index).deleted)) {
 
-            if (this.data.get(index).key.equals(k)) {
+            if ((this.data.get(index).key != null) && this.data.get(index).key.equals(k)) {
                 return this.data.get(index);
             }
             index = (slot + r * r) % this.numSlots;
@@ -154,11 +156,29 @@ public class QuadProbingHashMap<K, V> implements Map<K, V> {
         return i & ~(1 << 31);
     }
 
-    private int hash(Object o) {
+    private int hash2(Object o) {
 //        return this.pos(o.hashCode()) % this.data.size();
         return this.pos(o.hashCode()) % this.numSlots;
 
     }
+
+    private int hash(Object o) {
+//        return this.pos(o.hashCode()) % this.data.size();
+        return this.abs(o.hashCode()) % this.numSlots;
+
+    }
+
+
+    private int abs(int i) {
+
+        if (i < 0) {
+            return -i;
+        } else {
+            return i;
+        }
+
+    }
+
 
     @Override
     public void put(K k, V v) throws IllegalArgumentException {
@@ -191,6 +211,7 @@ public class QuadProbingHashMap<K, V> implements Map<K, V> {
             throw new IllegalArgumentException();
         }
         Entry<K, V> e = new Entry<K, V>(k, v);
+        e.deleted = true;
         int slot = this.hash(k);
 
         int index = slot;
@@ -233,7 +254,7 @@ public class QuadProbingHashMap<K, V> implements Map<K, V> {
         }
 
 
-
+System.out.println("changing array size");
 
             for (Entry<K, V> e2 : temp) {
                 //for (Entry<K, V> e2 : ea) {
@@ -254,19 +275,26 @@ public class QuadProbingHashMap<K, V> implements Map<K, V> {
         int index = slot;
         int r = 1;
 //        while (this.data.get(index) != null) {
-        while (this.data.get(index).key != null) {
+        while ((this.data.get(index).key != null) || (this.data.get(index).deleted)) {
 
             if (this.data.get(index).key.equals(k)) {
+                V tempVal = e.value;
+
+                this.data.get(index).key = null;
+                this.data.get(index).value = null;
+                this.data.get(index).deleted = true;
+
          
-                Entry<K, V> newE = new Entry<K, V>(null, null);
-                this.data.set(index, newE);
+          //      Entry<K, V> newE = new Entry<K, V>(null, null);
+           //     this.data.set(index, newE);
                 //this.data.set(index, null);
              
 
          
 
                 this.size -= 1;
-                return e.value;
+                //return e.value;
+                return tempVal;
             }
             index = (slot + r * r) % this.numSlots;
             r++;
