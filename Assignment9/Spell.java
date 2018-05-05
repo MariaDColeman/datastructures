@@ -26,9 +26,9 @@ public final class Spell {
         BufferedReader reader = new BufferedReader(file);
 
 //        dictionary = new SimpleMap<String, Integer>();
-        dictionary = new HashMap<String, Integer>();
+//        dictionary = new HashMap<String, Integer>();
 //        dictionary = new AvlTreeMap<String, Integer>();
-
+        dictionary = new QuadProbingHashMap<String, Integer>();
 
         String line;
         while ((line = reader.readLine()) != null) {

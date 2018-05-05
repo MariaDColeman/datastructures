@@ -236,7 +236,11 @@ public abstract class MapTestBase {
     public void testIteratorSingleton() {
         unit.insert(4, INIT);
         Iterator<Integer> i = unit.iterator();
+
+//  System.out.println(i.toString());
+//System.out.println(i.next());
         assertEquals(true, i.hasNext());
+//System.out.println(i.next());
         Integer myInt = i.next();
         assertEquals(new Integer(4), myInt);
         assertEquals(false, i.hasNext());

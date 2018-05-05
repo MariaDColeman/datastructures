@@ -25,10 +25,11 @@ public final class Words {
         // Far from perfect, but close enough for this simple program.
         Pattern pattern = Pattern.compile("[\\s[^0-9a-zA-Z]]+");
         //Map<String, Integer> data = new BinarySearchTreeMap<>();
-        //Map<String, Integer> data = new AvlTreeMap<>();
+//        Map<String, Integer> data = new AvlTreeMap<>();
         //Map<String, Integer> data = new TreapMap<>();
-        Map<String, Integer> data = new HashMap<>();
-
+//        Map<String, Integer> data = new HashMap<>();
+//        Map<String, Integer> data = new SimpleMap<>();
+        Map<String, Integer> data = new QuadProbingHashMap<>();
         // If you're wondering why we're not using Scanner instead, you're
         // welcome to try out what happens... :-)
         InputStreamReader input = new InputStreamReader(System.in);

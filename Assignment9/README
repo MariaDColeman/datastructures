@@ -44,3 +44,20 @@ email: mcolem31@jhu.edu
 I first made JUnit4 tests (MapTestBase and the accompanying SimpleMapTest)
 and jaybee benchmark tests (MapBenchBase and the accompanying
 SimpleMapBench).
+
+I then created a hashmap implementation mainly based on the provided
+code from the lecture notes but adding a resizing/rehashing function
+and using the pos function from the provided UniversalHashing rather
+than taking the absolute value. I also copied over my AvlTreeMap from
+Assignment 8 to compare and I ran the following:
+
+When Spell uses the provided SimpleMap:
+
+
+When Spell uses my AvlTreeMap from Assignment 8:
+
+
+When Spell uses the newest (simple chaining) HashMap:
+
+
+

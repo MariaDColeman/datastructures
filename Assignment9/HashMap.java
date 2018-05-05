@@ -63,7 +63,7 @@ public class HashMap<K, V> implements Map<K, V> {
 
     public static final int INITIAL_SIZE = 4096;
 //    public static final double loadFactorMax = 0.9;
-    private double loadFactorMax = 0.75;
+    private double loadFactorMax = 0.9;
 
     private ArrayList<ArrayList<Entry<K, V>>> data;
     private Entry<K, V> fake;
@@ -153,6 +153,8 @@ public class HashMap<K, V> implements Map<K, V> {
         // if the current load factor is greater than loadFactorMax
         // then allocate a bigger "outer" array and rehash old
         if (this.size*1.0/this.numSlots >= this.loadFactorMax) {
+//        if (this.size*1.0/this.data.size() >= this.loadFactorMax) {
+
             ArrayList<ArrayList<Entry<K, V>>> temp = this.data;
             this.data = new ArrayList<>();
             this.numSlots = 2 * this.numSlots;
