@@ -8,7 +8,7 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class HashMap<K, V> implements Map<K, V> {
+public class QuadProbingHashMap<K, V> implements Map<K, V> {
 
     private static class Entry<K, V> {
 
@@ -70,7 +70,7 @@ public class HashMap<K, V> implements Map<K, V> {
     private int size;
     private int numSlots;
 
-    public HashMap() {
+    public QuadProbingHashMap() {
         this.data = new ArrayList<>();
         for (int i = 0; i < INITIAL_SIZE; i++) {
             this.data.add(new ArrayList<Entry<K, V>>());

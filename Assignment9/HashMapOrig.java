@@ -61,20 +61,15 @@ public class HashMap<K, V> implements Map<K, V> {
     }
 
 
-    public static final int INITIAL_SIZE = 4096;
-//    public static final double loadFactorMax = 0.9;
-    private double loadFactorMax = 0.75;
-
+    public static final int INITIAL_SIZE = 8;
     private ArrayList<ArrayList<Entry<K, V>>> data;
     private Entry<K, V> fake;
     private int size;
-    private int numSlots;
 
     public HashMap() {
         this.data = new ArrayList<>();
         for (int i = 0; i < INITIAL_SIZE; i++) {
             this.data.add(new ArrayList<Entry<K, V>>());
-            this.numSlots++;
         }
         this.fake = new Entry<K, V>(null, null);
     }
@@ -148,28 +143,6 @@ public class HashMap<K, V> implements Map<K, V> {
         int slot = this.hash(k);
         this.data.get(slot).add(e);
         this.size += 1;
-
-
-        // if the current load factor is greater than loadFactorMax
-        // then allocate a bigger "outer" array and rehash old
-        if (this.size*1.0/this.numSlots >= this.loadFactorMax) {
-            ArrayList<ArrayList<Entry<K, V>>> temp = this.data;
-            this.data = new ArrayList<>();
-            this.numSlots = 2 * this.numSlots;
-            this.size = 0;
-            for (int i = 0; i < numSlots; i++) {
-                this.data.add(new ArrayList<Entry<K, V>>());
-            }
-            for (ArrayList<Entry<K, V>> ea : temp) {
-                for (Entry<K, V> e2 : ea) {
-                    if (e2 != null) {
-                        this.insert(e2.key, e2.value);
-                    }
-                }
-            }
-
-        }
-
     }
 
     @Override
