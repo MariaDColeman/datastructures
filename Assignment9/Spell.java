@@ -25,11 +25,11 @@ public final class Spell {
         FileReader file = new FileReader(name);
         BufferedReader reader = new BufferedReader(file);
 
-//        dictionary = new SimpleMap<String, Integer>();
-//        dictionary = new HashMap<String, Integer>();
-//        dictionary = new AvlTreeMap<String, Integer>();
-        dictionary = new QuadProbingHashMap<String, Integer>();
-
+        //dictionary = new SimpleMap<String, Integer>();
+        dictionary = new HashMap<String, Integer>();
+        //dictionary = new AvlTreeMap<String, Integer>();
+        //dictionary = new QuadProbingHashMap<String, Integer>();
+        //dictionary = new ArrayQuadProbingHashMap<String, Integer>();
         String line;
         while ((line = reader.readLine()) != null) {
             String word = line.trim();

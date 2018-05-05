@@ -29,7 +29,9 @@ public final class Words {
         //Map<String, Integer> data = new TreapMap<>();
 //        Map<String, Integer> data = new HashMap<>();
 //        Map<String, Integer> data = new SimpleMap<>();
-        Map<String, Integer> data = new QuadProbingHashMap<>();
+//        Map<String, Integer> data = new QuadProbingHashMap<>();
+        Map<String, Integer> data = new ArrayQuadProbingHashMap<>();
+
         // If you're wondering why we're not using Scanner instead, you're
         // welcome to try out what happens... :-)
         InputStreamReader input = new InputStreamReader(System.in);

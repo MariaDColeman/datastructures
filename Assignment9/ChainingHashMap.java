@@ -5,20 +5,20 @@
  * on the lecture notes
  */
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * Map implemented with open addressing quadratic probing.
+ * Map implemented with separate chaining.
  * @param <K> key.
  * @param <V> value.
  */
-public class HashMap<K, V> implements Map<K, V> {
+public class ChainingHashMap<K, V> implements Map<K, V> {
 
     private static class Entry<K, V> {
 
         K key;
         V value;
-        boolean deleted;
 
         Entry(K k, V v) {
             this.key = k;
@@ -37,30 +37,33 @@ public class HashMap<K, V> implements Map<K, V> {
 
     private class HashMapIterator implements Iterator<K> {
         private int returned;
-        private Iterator<Entry<K, V>> slots;
+        private Iterator<ArrayList<Entry<K, V>>> outer;
+        private Iterator<Entry<K, V>> inner;
 
-        /** Constructor for this iterator. */
         HashMapIterator() {
-            this.slots = HashMap.this.data.iterator();
+            this.outer = ChainingHashMap.this.data.iterator();
+            this.inner = this.outer.next().iterator();
         }
 
         public boolean hasNext() {
-            return this.returned < HashMap.this.size;
+            return this.returned < ChainingHashMap.this.size;
         }
 
         public K next() {
-            // System.out.println(this.slots.next().key);
-            if (this.slots.hasNext()) {
+            if (this.inner.hasNext()) {
                 this.returned += 1;
-                K temp = this.slots.next().key;
-                while (temp == null) {
-                    temp = this.slots.next().key;
-                }
-                return temp;
+                return this.inner.next().key;
             } else {
-                return null;
+                while (!this.inner.hasNext() && this.outer.hasNext()) {
+                    this.inner = this.outer.next().iterator();
+                }
+                if (this.inner.hasNext()) {
+                    this.returned += 1;
+                    return this.inner.next().key;
+                } else {
+                    return null;
+                }
             }
-
 
         }
 
@@ -69,24 +72,24 @@ public class HashMap<K, V> implements Map<K, V> {
         }
     }
 
-    private int primeNum = 15;
-    private final int INITIAL_SIZE = Primes.INTS[15];
 
-    private double loadFactorMax = 0.5;
+    private static final int INITIAL_SIZE = 4096;
 
-    private SimpleArray<Entry<K, V>> data;
+    private double loadFactorMax = 0.9;
+
+    private ArrayList<ArrayList<Entry<K, V>>> data;
     private Entry<K, V> fake;
     private int size;
     private int numSlots;
 
     /** Constructor for this class. */
-    public HashMap() {
-
-        Entry<K, V> fake = new Entry<K, V>(null, null);
-
-        this.data = new SimpleArray<Entry<K, V>>(INITIAL_SIZE, fake);
-
-        this.numSlots = INITIAL_SIZE;
+    public ChainingHashMap() {
+        this.data = new ArrayList<>();
+        for (int i = 0; i < INITIAL_SIZE; i++) {
+            this.data.add(new ArrayList<Entry<K, V>>());
+            this.numSlots++;
+        }
+        this.fake = new Entry<K, V>(null, null);
     }
 
     @Override
@@ -102,21 +105,13 @@ public class HashMap<K, V> implements Map<K, V> {
             throw new IllegalArgumentException();
         }
         int slot = this.hash(k);
-        int index = slot;
-        int r = 1;
-        //while (this.data.get(index).key != null) {
-        while ((this.data.get(index).key != null)
-            || (this.data.get(index).deleted)) {
-
-            if ((this.data.get(index).key != null)
-                && this.data.get(index).key.equals(k)) {
-                return this.data.get(index);
-            }
-            index = (slot + r * r) % this.numSlots;
-            r++;
+        this.fake.key = k;
+        int index = this.data.get(slot).indexOf(this.fake);
+        if (index == -1) {
+            return null;
+        } else {
+            return this.data.get(slot).get(index);
         }
-        return null;
-
     }
 
     /**
@@ -129,7 +124,7 @@ public class HashMap<K, V> implements Map<K, V> {
     }
 
     private int hash2(Object o) {
-        return this.pos(o.hashCode()) % this.numSlots;
+        return this.pos(o.hashCode()) % this.data.size();
     }
 
     private int hash(Object o) {
@@ -138,13 +133,11 @@ public class HashMap<K, V> implements Map<K, V> {
 
 
     private int abs(int i) {
-
         if (i < 0) {
             return -i;
         } else {
             return i;
         }
-
     }
 
 
@@ -179,47 +172,28 @@ public class HashMap<K, V> implements Map<K, V> {
             throw new IllegalArgumentException();
         }
         Entry<K, V> e = new Entry<K, V>(k, v);
-        e.deleted = true;
         int slot = this.hash(k);
-
-        int index = slot;
-        int r = 1;
-
-        while (this.data.get(index).key != null) {
-
-            index = (slot + r * r) % this.numSlots;
-            r++;
-        }
-
-        // index is the first open slot that we want to insert at
-        this.data.put(index, e);
-
+        this.data.get(slot).add(e);
         this.size += 1;
 
 
         // if the current load factor is greater than loadFactorMax
         // then allocate a bigger "outer" array and rehash old
         if (this.size * 1.0 / this.numSlots >= this.loadFactorMax) {
-            //ArrayList<Entry<K, V>> temp = this.data;
-            SimpleArray<Entry<K, V>> temp = this.data;
-            if (this.primeNum >= 31) {
-                this.numSlots = Primes.INTS[30];
-            } else {
-                this.numSlots = Primes.INTS[++this.primeNum];
-            }
-
+            ArrayList<ArrayList<Entry<K, V>>> temp = this.data;
+            this.data = new ArrayList<>();
+            this.numSlots = 2 * this.numSlots;
             this.size = 0;
-
-            Entry<K, V> fake = new Entry<K, V>(null, null);
-
-            this.data = new SimpleArray<Entry<K, V>>(this.numSlots, fake);
-
-            for (Entry<K, V> e2 : temp) {
-                if (e2.key != null) {
-                    this.insert(e2.key, e2.value);
+            for (int i = 0; i < this.numSlots; i++) {
+                this.data.add(new ArrayList<Entry<K, V>>());
+            }
+            for (ArrayList<Entry<K, V>> ea : temp) {
+                for (Entry<K, V> e2 : ea) {
+                    if (e2 != null) {
+                        this.insert(e2.key, e2.value);
+                    }
                 }
             }
-
         }
 
     }
@@ -228,30 +202,9 @@ public class HashMap<K, V> implements Map<K, V> {
     public V remove(K k) throws IllegalArgumentException {
         Entry<K, V> e = this.findForSure(k);
         int slot = this.hash(k);
-        int index = slot;
-        int r = 1;
-        //        while (this.data.get(index) != null) {
-        while ((this.data.get(index).key != null)
-            || (this.data.get(index).deleted)) {
-
-            if (this.data.get(index).key.equals(k)) {
-                V tempVal = e.value;
-
-                this.data.get(index).key = null;
-                this.data.get(index).value = null;
-                this.data.get(index).deleted = true;
-
-
-                this.size -= 1;
-                //return e.value;
-                return tempVal;
-            }
-            index = (slot + r * r) % this.numSlots;
-            r++;
-        }
-
-        //never gets here
-        return null;
+        this.data.get(slot).remove(e);
+        this.size -= 1;
+        return e.value;
     }
 
     @Override

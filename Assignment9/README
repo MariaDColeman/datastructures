@@ -43,21 +43,80 @@ email: mcolem31@jhu.edu
 
 I first made JUnit4 tests (MapTestBase and the accompanying SimpleMapTest)
 and jaybee benchmark tests (MapBenchBase and the accompanying
-SimpleMapBench).
+SimpleMapBench). However, as explained at the end, SimpleMap isnt
+required for any of my HashMap implementations so therefore I didnt
+include it so therefore I didnt include the SimpleMapTest and
+SimpleMapBench even though I used SimpleMapTest to make sure my
+bench test program was correct and SimpleMapBench for benchmarking
+against my implementations.
 
 I then created a hashmap implementation mainly based on the provided
 code from the lecture notes but adding a resizing/rehashing function
 and using the pos function from the provided UniversalHashing rather
-than taking the absolute value. I also copied over my AvlTreeMap from
-Assignment 8 to compare and I ran the following:
+than taking the absolute value. (but i later realized I should
+just use the abs function from the lecture notes)
+I also copied over my AvlTreeMap from
+Assignment 8 to compare and I ran the Spell code with the combinations
+of the 3 dictionaries and 3 text files.
 
-When Spell uses the provided SimpleMap:
+I created tests for all of the implementations I did.
+
+I had the separate chaining hash map implementation working so I decided
+to move on to the quadratic probing for open addressing because
+in class, the Prof said that linear is worse, and double hashing may
+or may not be better but its much more complicated. With these
+homeworks, theres that horrible rule of -10% for any exception, even
+on an edge case, so I learned my lesson and decided it would be better
+to have code that wont make me lose -10% even if it means slightly
+sacrificing performace (but the way he said it it was like having
+double hashing may not even help much, unless he was just trying to
+be misleading :/). So anyways I went to implement the quadratic
+probing and I first copied my separate chaining implementation over
+and made my changed and the resulting file is called
+QuadProbingHashMap.java. However, this wasn't performing spectacularly,
+so I though about what I could make better and I decided to try using
+SimpleArray over ArrayList's because it is surprisingly simpler and
+makes it easier because I am dealing with a fixed size array (thats
+what I want) and its normally what makes normal Arrays such a pain
+and why I would normally go for ArrayList but in this case I wanted
+that defined length. (I was still able to keep the same length 
+using ArrayLists but it seemed more unnatural).
+
+So the implementation using quadratic probing open addressing and
+SimpleArray is what I decided to submit.
+
+It produced all the expected results which are suggested in the 
+beginning of the README like what is outputted as errors. So this
+is what i call HashMap.java. I still included the separate chaining
+one (which i call ChainingHashMap.java) as well as my quadratic
+probing using ArrayList (which i call QuadProbingHashMap.java).
+
+I literally was not able to submit before this point- I seriously
+havent even slept for so many days because of my other classes, and
+I really hope that the one i chose to call HashMap doesnt cause any
+errors and that you will please consider looking at the other ones
+I made too in case it does fail. I was not aware that he was going to
+stop posting the rankings last night. My plan was to submit it now
+(in the afternoon) to see where I stand and if it compiled and worked
 
 
-When Spell uses my AvlTreeMap from Assignment 8:
+Also in addition to using the Spell program, I decided to use the Words
+program from Assignment8 with the AvlTreeMap i made to see how
+mine compared for that program. I know that mine is at leasttt on par
+with my AvlTreeMap implementation which was very good I believe.
 
+** A thing im still a little confused on is which prime number i
+should start with because it depends on what is inputted what is best.
+I decided to go with the 15th prime num in Primes.java ints but
+if that is hurting my program please change that for me thank you.
 
-When Spell uses the newest (simple chaining) HashMap:
-
-
-
+ 
+I am deciding to not include SimpleMap because it is not required
+for my HashMap implementation, and the piazza post was left unanswered.
+Again as that piazza post was unanswered, I am not including any
+of the dictionaries or test text files because he normally says
+to not include provided data (we've only ever included it if we
+made it ourselves).
+I didnt include UniversalHashes.java because I didnt use it
+I included jaybee.jar because that is necessary to build all the jaybee
+tests.
